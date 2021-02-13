@@ -1,0 +1,14 @@
+[
+{"id": "18.01",
+"name": "RESEARCH",
+"date": "today",
+"description": "Complete the neural network, debug the software and initialize training",
+"finish": 3.5,
+"expired": "2021-02-15 22:59:59Z"},
+{"id": "18.02",
+"name": "COMP. STATISTICS",
+"date": "today",
+"description": "Complete reading chapter 2",
+"finish": 3.5,
+"expired": "2021-02-14 22:59:59Z"}
+]

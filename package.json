@@ -1,0 +1,19 @@
+{
+  "name": "payme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "escpos": "^3.0.0-alpha.6",
+    "escpos-usb": "^3.0.0-alpha.4",
+    "line-by-line": "^0.1.6",
+    "moment": "^2.29.1",
+    "moment-duration-format": "^2.3.2"
+  }
+}
