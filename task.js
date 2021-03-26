@@ -30,6 +30,9 @@ const print_task = (task_id, tasks) => {
         date = moment(task.date).format('ddd DD/MM/YYYY')
     }
 
+    let task_compact = Object.assign({}, task)
+    delete task_compact.description
+
     device.open(async (error) => {
         printer
         .font('a')
@@ -49,7 +52,7 @@ const print_task = (task_id, tasks) => {
         .text('Completement pay: ' + parseFloat(task.finish).toFixed(2))
         .newLine()
         .text('Task expires on: ' + moment(task.expired).format('ddd DD/MM/YYYY HH:mm'))
-        .qrimage(JSON.stringify(task), async function(err){
+        .qrimage(JSON.stringify(task_compact), async function(err){
                 await this.control('LF');  
                 await this.cut();
                 await this.close();

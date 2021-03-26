@@ -1,0 +1,1 @@
+node merge.js & node stamp.js & del /f session*.txt

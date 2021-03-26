@@ -13,20 +13,31 @@ let price_per_hour = 2.1
 
 let read_csv = new Promise((resolve) => {
     let data = []
+    let tasks = []
+    let task_min = []
     fs.createReadStream('session.txt')
-        .pipe(csv(['Time', 'Duration']))
+        .pipe(csv(['Time', 'Task', 'Duration']))
         .on('data', (row) => {
         let when = moment.unix(row.Time).format('DD/MM HH:mm:ss')
         let duration = moment.duration(-row.Duration, "seconds").format("mm:ss");
         let money = - row.Duration * price_per_hour / 3600
-        data.push({'when': when, 'duration': duration, 'minute': row.Duration/60, 'money': money})
+        let task = row.Task
+        if (!tasks.includes(task))
+        {
+            tasks.push(task)
+            task_min.push(-row.Duration)
+        } else {
+            let task_index = tasks.indexOf(task)
+            task_min[task_index] += -row.Duration
+        }
+        data.push({'when': when, 'duration': duration, 'minute': -row.Duration/60, 'money': money})
         })
         .on('end', () => {
-            resolve(data);
+            resolve({'data': data, 'tasks': tasks, 'task_min': task_min});
         });
 })
 
-read_csv.then((data) => {
+read_csv.then(({data, tasks, task_min}) => {
     let sum = 0 
     let minute = 0
     data.forEach((d) => {
@@ -34,11 +45,22 @@ read_csv.then((data) => {
         sum = sum + d.money
         minute = minute + d.minute
     })
-    return([data, sum, minute])
+    return([data, sum, minute, tasks, task_min])
 }).then((package) => {
     data = package[0]
     sum = package[1]
     minute = package[2]
+    tasks = package[3]
+    task_min = package[4]
+
+    let content = ''
+    let counted = 0
+    tasks.forEach((t) => {
+        content += 'ID: ' + t + '   Time: ' + Number(task_min[counted]/60).toFixed(2) + ' min \n'
+        counted += 1
+    })
+    console.log(content)
+
     const escpos = require('escpos');
     // install escpos-usb adapter module manually
     escpos.USB = require('escpos-usb');
@@ -53,14 +75,6 @@ read_csv.then((data) => {
     const printer = new escpos.Printer(device, options);
     // console.log(tasks)
     // console.log(tasks[1])
-
-    let content = ''
-    let counted = 0
-    data.forEach((d) => {
-        counted += 1
-        if (counted < 5)
-            content += d.when + ' >> ' + d.duration + ' = ' + Number(d.money).toFixed(4) + '\n'
-    })
 
     device.open(async (error) => {
         printer
