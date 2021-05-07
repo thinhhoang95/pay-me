@@ -1,3 +1,14 @@
+const readXls = require('read-excel-file/node')
+
+const xlsMap = {
+    'ID': 'id',
+    'NAME': 'name',
+    'DESCRIPTION': 'desc',
+    'SELECTED': 'selected',
+    'REWARD': 'reward',
+    'EXPIRED': 'expired'
+}
+
 const escpos = require('escpos');
 // install escpos-usb adapter module manually
 escpos.USB = require('escpos-usb');
@@ -6,18 +17,15 @@ const device  = new escpos.USB();
 // const device  = new escpos.Network('localhost');
 // const device  = new escpos.Serial('/dev/usb/lp0');
 
-const options = { encoding: "GB18030" /* default */ }
+const options = { encoding: "GB18030" }
 // encoding is optional
 
 const printer = new escpos.Printer(device, options);
 
 var fs = require('fs');
-var tasks = JSON.parse(fs.readFileSync('task.txt', 'utf8'));
+
 
 const moment = require('moment')
-
-// console.log(tasks)
-// console.log(tasks[1])
 
 const make_serial = (length, terms) => {
     var result           = [];
@@ -35,9 +43,9 @@ const make_serial = (length, terms) => {
 
 const print_task = (task_id, tasks) => {
     let task = tasks[task_id]
-    console.log(tasks)
-    console.log(task)
-    console.log(task_id)
+    //console.log(tasks)
+    //console.log(task)
+    console.log('Printing task ID ' + task_id)
     let date = moment().format('ddd DD/MM/YYYY')
     if (task.date != 'today')
     {
@@ -56,6 +64,8 @@ const print_task = (task_id, tasks) => {
         'expired': task.expired
     }
 
+    console.log(task_compact)
+
     device.open(async (error) => {
         printer
         .font('a')
@@ -65,11 +75,11 @@ const print_task = (task_id, tasks) => {
         .align('LT')
         .text('Name: Thinh Hoang Dinh')
         .text('ID: 1240000014760')
-        .text('=========================================')
+        .text('============================================')
         .text('Task: ' + task.id)
         .text('Name: ' + task.name)
         .text('Descr: ' + task.description)
-        .text('=========================================')
+        .text('============================================')
         .text('Completement pay: ' + parseFloat(task.finish).toFixed(2))
         .text('SN: ' + serial_number)
         .newLine()
@@ -90,4 +100,31 @@ const print_task = (task_id, tasks) => {
         
 }
 
-print_task(0, tasks)
+readXls('task.xlsx', xlsMap).then((rows) => { 
+    // console.log(rows)
+    tasks = []
+    for (let i=1; i<rows.length; i++)
+    {
+        let taskSelected = rows[i][3]
+        let taskExpired = moment()
+        taskExpired.add(rows[i][5], 'day')
+        taskExpired.set('hour', 23)
+        taskExpired.set('minute', 59)
+        taskExpired.set('second', 59)
+        let taskExpiryDate = taskExpired.toDate()
+        
+        if (taskSelected == 1)
+        {
+            tasks.push({
+                'id': rows[i][0],
+                'name': rows[i][1],
+                'date': 'today',
+                'description': rows[i][2],
+                'finish': rows[i][4],
+                'expired': taskExpiryDate,
+            })
+        }
+    }
+    console.log('Prepare to print ' + tasks.length + ' tasks...')
+    print_task(0, tasks)
+})

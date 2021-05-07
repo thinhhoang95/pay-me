@@ -2,7 +2,19 @@
 {"id": "PROBA",
 "name": "PROBABILITY THEORY [2H]",
 "date": "today",
-"description": "Study Chapter 2: first 10 pages",
+"description": "Study Chapter 2: next 7 pages",
 "finish": 2.00,
-"expired": "2021-05-06 23:59:59"}
+"expired": "2021-05-07 23:59:59"},
+{"id": "RSCPP",
+"name": "WRITE - LR [1H30M]",
+"date": "today",
+"description": "Write the introduction for the paper",
+"finish": 2.00,
+"expired": "2021-05-07 23:59:59"},
+{"id": "CNVX",
+"name": "CONVEX OPTIMIZATION [2H]",
+"date": "today",
+"description": "The remaining of chapter 2",
+"finish": 2.00,
+"expired": "2021-05-07 23:59:59"}
 ]
