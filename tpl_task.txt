@@ -5,7 +5,7 @@
     "date": "today",
     "description": "Rest of 2.1 (2h)",
     "finish": 1.0,
-    "expired": "2021-05-08 23:59:59",
+    "expired": "2021-05-09 23:59:59",
     "subs": [
       {
         "sname": "Dynkin and Pi",
@@ -27,15 +27,11 @@
     "subs": [
       {
         "sname": "Example 2.26",
-        "finish": 0.75
+        "finish": 1.5
       },
       {
-        "sname": "Section 2.6.3",
-        "finish": 0.5
-      },
-      {
-        "sname": "Example 2.27",
-        "finish": 0.75
+        "sname": "Caratheodory Continuation Theorem",
+        "finish": 1.5
       }
     ]
   }
