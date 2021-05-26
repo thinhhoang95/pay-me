@@ -1,55 +1,36 @@
 [
   {
-    "id": "PROBA",
-    "tname": "PROBABILITY THEORY",
-    "date": "today",
-    "description": "Complete Section 2.2 (10 PD)", 
-    "note": "DONT FORGET TO ALLOCATE TIME, FINISH AND EXPIRY DATE: PD X 1.8",
-    "finish": 18.0,
-    "expired": "2021-05-30 23:59:59",
-    "subs": [
-      {
-        "sname": "Write the lecture notes",
-        "finish": 3.0
-      },
-      {
-        "sname": "Kolmogorov 0-1",
-        "finish": 2.0
-      },
-      {
-        "sname": "Example pg. 38",
-        "finish": 2.0
-      },
-      {
-        "sname": "2 Borel-Cantelli Lemmas",
-        "finish": 3.0
-      },
-      {
-        "sname": "Examples pg.40-41",
-        "finish": 2.5
-      }    
-    ]
-  },
-  {
     "id": "QUICK",
     "tname": "QUICKEST DETECTION",
     "date": "today",
-    "description": "Markov Optimal Stopping Theory (5 PD)", 
-    "note": "DONT FORGET TO ALLOCATE TIME, FINISH AND EXPIRY DATE: PD X 1.8",
-    "finish": 9.0,
-    "expired": "2021-05-30 23:59:59",
+    "description": "Chapter 2 of Basseville's book (10 SD)", 
+    "note": "DONT FORGET TO ALLOCATE TIME, FINISH AND EXPIRY DATE: SD X 1.8",
+    "finish": 18.0,
+    "expired": "2021-06-01 23:59:59",
     "subs": [
       {
-        "sname": "Read 3.1",
+        "sname": "Introduction",
         "finish": 1.0
       },
       {
-        "sname": "Read 3.2",
+        "sname": "Section 2.1.1",
+        "finish": 1.0
+      },
+      {
+        "sname": "Section 2.1.2",
+        "finish": 1.0
+      },
+      {
+        "sname": "Section 2.1.3 - 2.1.4",
+        "finish": 1.5
+      },
+      {
+        "sname": "Section 2.2.1-2.2.4",
         "finish": 2.0
       },
       {
-        "sname": "Read 3.3.1",
-        "finish": 5.0
+        "sname": "Section 2.2.5-2.2.6",
+        "finish": 1.5
       }
     ]
   }
