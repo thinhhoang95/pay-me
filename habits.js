@@ -16,11 +16,23 @@ const habits = [
         'descr': 'Take a shower every 2 mornings',
         'start': 1.00,
         'increment': 0.25,
-        'current': 1.00,
+        'current': 1.25,
         'max': 3.00,
         'created': new Date(),
         'lastDone': new Date(),
         'autoReset': 2
+    },
+    {
+        'id': 'DINNER',
+        'name': 'Cook dinner properly: vegetables and meat',
+        'descr': 'Dinners must be prepared properly for the best health',
+        'start': 2.00,
+        'increment': 0.25,
+        'current': 2.00,
+        'max': 4.00,
+        'created': new Date(),
+        'lastDone': new Date(),
+        'autoReset': 1
     },
     {
         'id': 'DISHES',
@@ -28,7 +40,7 @@ const habits = [
         'descr': 'Wash the dishes every evening',
         'start': 1.50,
         'increment': 0.30,
-        'current': 1.50,
+        'current': 1.80,
         'max': 4.00,
         'created': new Date(),
         'lastDone': new Date(),
@@ -45,7 +57,7 @@ const habits = [
         'created': new Date(),
         'lastDone': new Date(),
         'autoReset': 1,
-        'count': 0,
+        'count': 1,
         'maxCount': 2
     },
     {
@@ -71,8 +83,20 @@ const habits = [
         'created': new Date(),
         'lastDone': new Date(),
         'autoReset': 1,
-        'count': 0,
+        'count': 1,
         'maxCount': 3
+    },
+    {
+        'id': 'WASHC',
+        'name': 'Wash your clothes once a week',
+        'descr': 'Wash your clothes once a week',
+        'start': 2.50,
+        'increment': 0.35,
+        'current': 2.50,
+        'max': 5.50,
+        'created': new Date(),
+        'lastDone': new Date(),
+        'autoReset': 7
     }
 ]
 
