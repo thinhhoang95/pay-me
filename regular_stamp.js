@@ -42,8 +42,8 @@ serial_number = make_serial(5, 5);
 const taskRef = db.collection("regular").doc(serial_number);
 let task = {
     'sn': serial_number,
-    'content': 'This stamp is the a small financial support for your efforts in creating the Stamp Game.',
-    'finish': 10.0,
+    'content': 'Welcome to the Stamp Game. Here is some money to get you started.',
+    'finish': 50.0,
     'expiryDate': moment().add(14, 'd').toDate()
 }
 taskRef.set(task);
