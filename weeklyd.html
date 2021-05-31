@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Weekly report</title>
+        <style>
+            body {
+                font-family: 'Arial';
+                font-size: '12pt'
+            }
+        </style>
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script type="text/javascript" src="qrcode.js"></script>
+    </head>
+    <body>
+        <div style="flex: 1; flex-direction: column">
+            <div style="text-align: center"><h1>WEEKLY REPORT</h1></div>
+        </div>
+        <div style="flex: 1; flex-direction: row; display: flex">
+            <div style="flex: 1 0 0; flex-direction: column; ">
+                <p>Name: Hoang Dinh Thinh</p>
+                <p>Birthdate: 24 May 1995</p>
+                <p>Sex: Male</p>
+                <p>ID: 1240000014760</p>
+            </div>
+            <div style="flex: 1 0 0; flex-direction: column;">
+                <p>Generation date: <span id='gen_date'>Sat 29/05/2021 11:29:07</span></p>
+                <p>Total units accumulated: 41</p>
+                <p>Maximum streak: 8</p>
+                <p>Minimum streak: 3</p>
+            </div>
+        </div>
+        <div style="flex: 1; flex-direction: column">
+            <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+        </div>
+    <script>
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width : 100,
+            height : 100
+        });
+        var codeContent = {"regular":1,"sn":"FR51P-XWGFL-YLQ65-5J15I-0N4UT"}
+
+        qrcode.makeCode(JSON.stringify(codeContent))
+
+    </script>
+    </body>
+</html>
