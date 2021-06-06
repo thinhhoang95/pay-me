@@ -1,6 +1,6 @@
 const reader = require("readline-sync"); //npm install readline-sync
-let file_name = reader.question("Enter your file name: ");
-let file_description = reader.question("Description: ");
+let task_name = reader.question("Task name: ");
+let mission = reader.question("Mission: ");
 
 const escpos = require('escpos');
 // install escpos-usb adapter module manually
@@ -25,14 +25,9 @@ device.open(async (error) => {
     .font('a')
     .size(0,0)
     .align('LT')
-    .text('Name: HOANG Dinh Thinh')
-    .text('Email: hdinhthinh@gmail.com')
-    .text('Mobile: 07 75 23 46 66')
-    .text('File name: ' + file_name)
-    .text('Description: ' + file_description)
-    .newLine()
-    .newLine()
+    .text('Task name: ' + task_name)
+    .text('Mission: ' + mission)
     .newLine()
     .cut()
     .close()
-    })
+})

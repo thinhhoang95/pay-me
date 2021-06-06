@@ -1,0 +1,79 @@
+[
+  {
+    "id": "PROJE",
+    "tname": "RESEARCH PROJECT >> HIGH PRIORITY",
+    "date": "today",
+    "description": "Prepare up to training (5 SD)", 
+    "note": "DONT FORGET TO ALLOCATE TIME, FINISH AND EXPIRY DATE",
+    "finish": 5.0,
+    "expired": "2021-06-05 23:59:59",
+    "subs": [
+      {
+        "sname": "Config 2 scenarios",
+        "finish": 1.00
+      },
+      {
+        "sname": "Connect with TraCI",
+        "finish": 0.50
+      },
+      {
+        "sname": "List objects with RT",
+        "finish": 3.50
+      },
+      {
+        "sname": "Collect training data",
+        "finish": 5.80
+      }
+    ]
+  },
+  {
+    "id": "LITER",
+    "tname": "LITERATURE REVIEW >> HIGH PRIORITY",
+    "date": "today",
+    "description": "Read about FPCA", 
+    "note": "DONT FORGET TO ALLOCATE TIME, FINISH AND EXPIRY DATE",
+    "finish": 5.0,
+    "expired": "2021-06-05 23:59:59",
+    "subs": [
+      {
+        "sname": "Sawant Billor Functional Outlier",
+        "finish": 7.00
+      }
+    ]
+  },
+  {
+    "id": "PROBA",
+    "tname": "PROBABILITY THEORY",
+    "date": "today",
+    "description": "Chapter 2 Knill (10 SD)", 
+    "note": "DONT FORGET TO ALLOCATE TIME, FINISH AND EXPIRY DATE: SD X 1.8",
+    "finish": 18.0,
+    "expired": "2021-06-03 23:59:59",
+    "subs": [
+      {
+        "sname": "Write lecture notes (pg 27-31)",
+        "finish": 5.0
+      },
+      {
+        "sname": "Sec 2.3 (pg 43)",
+        "finish": 1.0
+      },
+      {
+        "sname": "Sec 2.3 (pg 44)",
+        "finish": 1.0
+      },
+      {
+        "sname": "Sec 2.3 (pg 45)",
+        "finish": 1.0
+      },
+      {
+        "sname": "Exercise pg 45",
+        "finish": 1.0
+      },
+      {
+        "sname": "Exercise pg 46",
+        "finish": 1.0
+      }
+    ]
+  }
+]
