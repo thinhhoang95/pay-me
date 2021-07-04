@@ -98,7 +98,7 @@
     "date": "today",
     "description": "Hard work will put you in place where luck can find you.",
     "finish": 1,
-    "expired": "2021-07-04 23:59:59",
+    "expired": "2021-07-05 23:59:59",
     "subs": [
       {
         "sname": "Probability",

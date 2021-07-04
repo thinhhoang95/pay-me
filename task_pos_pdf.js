@@ -59,6 +59,7 @@ const preprocess = async (tasks) => {
       let sn = make_serial(5, 5);
       const taskRef = db.collection("subtasks").doc(sn);
       task.sn = sn;
+      task.expiredDate = moment(task.expired).toDate()
       task.subs.forEach((stask) => {
         stask.sn = make_serial(5, 5);
       });
