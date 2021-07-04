@@ -1,50 +1,118 @@
 [
   {
-    "unselected": 0,
+    "unselected": 1,
     "id": "PROJE",
     "tname": "RESEARCH PROJECT",
     "date": "today",
-    "description": "Complete the detection methodology",
-    "finish": 3,
-    "expired": "2021-06-07 23:59:59",
+    "description": "Bayesian POV and multi-regime traffic",
+    "finish": 1,
+    "expired": "2021-07-07 23:59:59",
     "subs": [
       {
-        "sname": "Compare Offline Scheme",
-        "finish": 1
+        "sname": "SUMO multi-regime traffic",
+        "finish": 2
       },
       {
-        "sname": "Code: get the training data",
-        "finish": 0.5
+        "sname": "Bayesian POV",
+        "finish": 4
+      }
+    ]
+  },
+  {
+    "unselected": 1,
+    "id": "PROBA",
+    "tname": "PROBABILITY THEORY",
+    "date": "today",
+    "description": "Write lecture notes, read 2.3.1-.2 in Poor's",
+    "finish": 1,
+    "expired": "2021-07-10 23:59:59",
+    "subs": [
+      {
+        "sname": "Measure lec notes",
+        "finish": 4
       },
       {
-        "sname": "Code: Radar ray tracing",
+        "sname": "Read 2.3.1-.2 in Poor's",
+        "finish": 4
+      },
+      {
+        "sname": "Weak LLN lec notes",
+        "finish": 4
+      },
+      {
+        "sname": "Exercises",
+        "finish": 6
+      }
+    ]
+  },
+  {
+    "unselected": 1,
+    "id": "SEQHYP",
+    "tname": "QUICKEST DETECTION",
+    "date": "today",
+    "description": "Write lecture notes",
+    "finish": 1,
+    "expired": "2021-07-10 23:59:59",
+    "subs": [
+      {
+        "sname": "Measure lec notes",
+        "finish": 4
+      },
+      {
+        "sname": "Weak LLN lec notes",
+        "finish": 4
+      },
+      {
+        "sname": "Exercises",
+        "finish": 6
+      }
+    ]
+  },
+  {
+    "unselected": 1,
+    "id": "HILBER",
+    "tname": "HILBERT SPACES",
+    "date": "today",
+    "description": "Continue studying Chap 2",
+    "finish": 1,
+    "expired": "2021-07-10 23:59:59",
+    "subs": [
+      {
+        "sname": "Write lec notes for Chap 1",
         "finish": 3
+      },
+      {
+        "sname": "Sec 2.3",
+        "finish": 2
+      },
+      {
+        "sname": "Sec 2.4.1-.3",
+        "finish": 1.5
       }
     ]
   },
   {
     "unselected": 0,
-    "id": "PROBA",
-    "tname": "PROBABILITY THEORY",
+    "id": "DAILY",
+    "tname": "DAILY TIME ALLOCATION",
     "date": "today",
-    "description": "Write lecture notes and continue studying",
-    "finish": 5,
-    "expired": "2021-06-12 23:59:59",
+    "description": "Hard work will put you in place where luck can find you.",
+    "finish": 1,
+    "expired": "2021-07-04 23:59:59",
     "subs": [
       {
-        "sname": "Write 3 pg lecture notes",
-        "finish": 4
-      },
-      {
-        "sname": "Integration",
-        "finish": 2
-      },
-      {
-        "sname": "Expectation",
+        "sname": "Probability",
+        "time": 6,
         "finish": 1
       },
       {
-        "sname": "Variance",
+        "sname": "Hilbert spaces",
+        "time": 2,
+        "finish": 1
+      },
+      {
+        "sname": "Project",
+        "time": 2,
         "finish": 1
       }
     ]

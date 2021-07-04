@@ -1,0 +1,71 @@
+[
+  {
+    "unselected": 0,
+    "id": "PROJE",
+    "tname": "RESEARCH PROJECT",
+    "date": "today",
+    "description": "Add one more example into the paper, revise revise writing errors",
+    "finish": 1,
+    "expired": "2021-06-20 23:59:59",
+    "subs": [
+      {
+        "sname": "Add one more example",
+        "finish": 3
+      },
+      {
+        "sname": "Revise writing",
+        "finish": 2
+      }
+    ]
+  },
+  {
+    "unselected": 0,
+    "id": "PROBA",
+    "tname": "PROBABILITY THEORY",
+    "date": "today",
+    "description": "Continue studying Section 2.5",
+    "finish": 1,
+    "expired": "2021-06-22 23:59:59",
+    "subs": [
+      {
+        "sname": "Section 2.5",
+        "finish": 6
+      },
+      {
+        "sname": "Write lecture notes for Lemma 2.1.4-7",
+        "finish": 5
+      }
+    ]
+  },
+  {
+    "unselected": 1,
+    "id": "SEQHY",
+    "tname": "SEQUENTIAL HYPOTHESIS TESTING",
+    "date": "today",
+    "description": "Write lecture notes and continue studying",
+    "finish": 2,
+    "expired": "2021-06-19 23:59:59",
+    "subs": [
+      {
+        "sname": "Recitation",
+        "finish": 2
+      },
+      {
+        "sname": "7.1",
+        "finish": 2
+      },
+      {
+        "sname": "7.1.2.1",
+        "finish": 2
+      },
+      {
+        "sname": "7.1.2.2",
+        "finish": 6
+      },
+      {
+        "sname": "7.1.2.3",
+        "finish": 2
+      }
+    ]
+  }
+]

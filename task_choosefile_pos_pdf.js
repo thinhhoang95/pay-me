@@ -19,7 +19,8 @@ admin.initializeApp({
 const db = admin.firestore();
 
 var fs = require("fs");
-var tasks = JSON.parse(fs.readFileSync("task.txt", "utf8"));
+let taskFileName = process.argv[2] // file name for the day
+var tasks = JSON.parse(fs.readFileSync(taskFileName, "utf8"));
 
 tasks = tasks.filter((t) =>{
   if (t.hasOwnProperty('unselected'))
@@ -87,19 +88,7 @@ const print_task = (task_id, tasks) => {
 
   let sTaskStr = "";
   task.subs.forEach((s) => {
-    if (s.hasOwnProperty('time'))
-    {
-      sTaskStr += s.sname;
-      for (let i=0; i<s.time; i++)
-      {
-        sTaskStr += "[  ] ";
-      }
-      sTaskStr += "(" + Number(s.finish).toFixed(2) + "); ";
-    }
-    else {
-      sTaskStr += s.sname + " (" + Number(s.finish).toFixed(2) + "); ";
-    }
-    // sTaskStr += s.sname + " (" + Number(s.finish).toFixed(2) + "); ";
+    sTaskStr += s.sname + " (" + Number(s.finish).toFixed(2) + "); ";
   });
 
   let sTaskStrPDF = "";
