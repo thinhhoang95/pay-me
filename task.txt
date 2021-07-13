@@ -1,12 +1,12 @@
 [
   {
-    "unselected": 1,
+    "unselected": 0,
     "id": "PROJE",
     "tname": "RESEARCH PROJECT",
     "date": "today",
     "description": "Bayesian POV and multi-regime traffic",
     "finish": 1,
-    "expired": "2021-07-07 23:59:59",
+    "expired": "2021-07-19 23:59:59",
     "subs": [
       {
         "sname": "SUMO multi-regime traffic",
@@ -19,63 +19,62 @@
     ]
   },
   {
-    "unselected": 1,
+    "unselected": 0,
     "id": "PROBA",
     "tname": "PROBABILITY THEORY",
     "date": "today",
-    "description": "Write lecture notes, read 2.3.1-.2 in Poor's",
+    "description": "Write lecture notes, continue studying 2.7-2.8",
     "finish": 1,
-    "expired": "2021-07-10 23:59:59",
+    "expired": "2021-07-19 23:59:59",
     "subs": [
       {
-        "sname": "Measure lec notes",
+        "sname": "Kolmogorov Borel Cantelli lec notes",
         "finish": 4
       },
       {
-        "sname": "Read 2.3.1-.2 in Poor's",
-        "finish": 4
+        "sname": "Poor's lec notes",
+        "finish": 2
       },
       {
         "sname": "Weak LLN lec notes",
         "finish": 4
       },
       {
-        "sname": "Exercises",
-        "finish": 6
+        "sname": "Knill 2.7",
+        "finish": 2
+      },
+      {
+        "sname": "Knill ->2.8.1",
+        "finish": 1
+      },
+      {
+        "sname": "Knill ->2.8.3",
+        "finish": 2
+      },
+      {
+        "sname": "Knill ->2.8.4",
+        "finish": 3
       }
     ]
   },
   {
-    "unselected": 1,
+    "unselected": 0,
     "id": "SEQHYP",
     "tname": "QUICKEST DETECTION",
     "date": "today",
-    "description": "Write lecture notes",
-    "finish": 1,
-    "expired": "2021-07-10 23:59:59",
-    "subs": [
-      {
-        "sname": "Measure lec notes",
-        "finish": 4
-      },
-      {
-        "sname": "Weak LLN lec notes",
-        "finish": 4
-      },
-      {
-        "sname": "Exercises",
-        "finish": 6
-      }
-    ]
+    "description": "Find tutorials about Optimal Stopping to practice first",
+    "finish": 3,
+    "expired": "2021-07-19 23:59:59",
+    "subs": []
   },
   {
-    "unselected": 1,
+    "unselected": 0,
     "id": "HILBER",
     "tname": "HILBERT SPACES",
     "date": "today",
     "description": "Continue studying Chap 2",
     "finish": 1,
-    "expired": "2021-07-10 23:59:59",
+    "expired": "2021-07-19 23:59:59",
     "subs": [
       {
         "sname": "Write lec notes for Chap 1",
@@ -88,32 +87,6 @@
       {
         "sname": "Sec 2.4.1-.3",
         "finish": 1.5
-      }
-    ]
-  },
-  {
-    "unselected": 0,
-    "id": "DAILY",
-    "tname": "DAILY TIME ALLOCATION",
-    "date": "today",
-    "description": "Hard work will put you in place where luck can find you.",
-    "finish": 1,
-    "expired": "2021-07-05 23:59:59",
-    "subs": [
-      {
-        "sname": "Probability",
-        "time": 6,
-        "finish": 1
-      },
-      {
-        "sname": "Hilbert spaces",
-        "time": 2,
-        "finish": 1
-      },
-      {
-        "sname": "Project",
-        "time": 2,
-        "finish": 1
       }
     ]
   }

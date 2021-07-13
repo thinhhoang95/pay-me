@@ -20,6 +20,7 @@ const db = admin.firestore();
 
 var fs = require("fs");
 let taskFileName = process.argv[2] // file name for the day
+console.log('Reading file ', taskFileName)
 var tasks = JSON.parse(fs.readFileSync(taskFileName, "utf8"));
 
 tasks = tasks.filter((t) =>{
@@ -57,11 +58,12 @@ const preprocess = async (tasks) => {
   return new Promise(async (resolve, reject) => {
     // Add EACH task to online database
     tasks.forEach((task) => {
-      let sn = make_serial(5, 5);
+      let sn = make_serial(5, 6);
       const taskRef = db.collection("subtasks").doc(sn);
       task.sn = sn;
+      task.expiredDate = moment(task.expired).toDate()
       task.subs.forEach((stask) => {
-        stask.sn = make_serial(5, 5);
+        stask.sn = make_serial(5, 6);
       });
       taskRef.set(task);
     });
@@ -88,7 +90,19 @@ const print_task = (task_id, tasks) => {
 
   let sTaskStr = "";
   task.subs.forEach((s) => {
-    sTaskStr += s.sname + " (" + Number(s.finish).toFixed(2) + "); ";
+    if (s.hasOwnProperty('time'))
+    {
+      sTaskStr += s.sname;
+      for (let i=0; i<s.time; i++)
+      {
+        sTaskStr += "[  ] ";
+      }
+      sTaskStr += "(" + Number(s.finish).toFixed(2) + "); ";
+    }
+    else {
+      sTaskStr += s.sname + " (" + Number(s.finish).toFixed(2) + "); ";
+    }
+    // sTaskStr += s.sname + " (" + Number(s.finish).toFixed(2) + "); ";
   });
 
   let sTaskStrPDF = "";

@@ -43,7 +43,7 @@ const taskRef = db.collection("regular").doc(serial_number);
 let task = {
     'sn': serial_number,
     'content': 'Welcome to the Stamp Game. Here is some money to get you started.',
-    'finish': 50.0,
+    'finish': 20.0,
     'expiryDate': moment().add(14, 'd').toDate()
 }
 taskRef.set(task);

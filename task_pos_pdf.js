@@ -56,12 +56,12 @@ const preprocess = async (tasks) => {
   return new Promise(async (resolve, reject) => {
     // Add EACH task to online database
     tasks.forEach((task) => {
-      let sn = make_serial(5, 5);
+      let sn = make_serial(5, 6);
       const taskRef = db.collection("subtasks").doc(sn);
       task.sn = sn;
       task.expiredDate = moment(task.expired).toDate()
       task.subs.forEach((stask) => {
-        stask.sn = make_serial(5, 5);
+        stask.sn = make_serial(5, 6);
       });
       taskRef.set(task);
     });
