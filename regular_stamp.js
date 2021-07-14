@@ -15,6 +15,8 @@ const moment = require("moment");
 const admin = require("firebase-admin");
 const serviceAccount = require("./payme-node-key.json");
 
+const reader = require("readline-sync"); //npm install readline-sync
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -40,10 +42,13 @@ const make_serial = (length, terms) => {
 
 serial_number = make_serial(5, 5);
 const taskRef = db.collection("regular").doc(serial_number);
+
+let content = reader.question('Enter the content for the regular stamp: ')
+let amountOfMoney = reader.question('Enter amount of money: ')
 let task = {
     'sn': serial_number,
-    'content': 'Welcome to the Stamp Game. Here is some money to get you started.',
-    'finish': 20.0,
+    'content': content,
+    'finish': Number(amountOfMoney),
     'expiryDate': moment().add(14, 'd').toDate()
 }
 taskRef.set(task);
