@@ -20,6 +20,8 @@ const db = admin.firestore();
 
 var fs = require("fs");
 let taskFileName = process.argv[2] // file name for the day
+let autoDateUpdate = process.argv[3] // print stamp for today or tomorrow
+let autoTimePayUpdate = process.argv[4] // auto update the pay for each subtask in the daily paycheck
 console.log('Reading file ', taskFileName)
 var tasks = JSON.parse(fs.readFileSync(taskFileName, "utf8"));
 
@@ -58,10 +60,36 @@ const preprocess = async (tasks) => {
   return new Promise(async (resolve, reject) => {
     // Add EACH task to online database
     tasks.forEach((task) => {
+      if (autoDateUpdate == 'today')
+      {
+        let newExpiryDate = moment().add(1, 'd')
+        newExpiryDate.set('hour', 23)
+        newExpiryDate.set('minute', 59)
+        task.expired = newExpiryDate.toISOString()
+        task.description = 'Daily time stamp for ' + moment().format("ddd DD/MM/YYYY") + '. Have a nice day!'
+        console.log("Description changed to today and expiry date changed to " + task.expired)
+      }
+      else if (autoDateUpdate == 'tomorrow')
+      {
+        let newExpiryDate = moment().add(2, 'd')
+        newExpiryDate.set('hour', 23)
+        newExpiryDate.set('minute', 59)
+        task.expired = newExpiryDate.toISOString()
+        task.description = 'Daily time stamp for ' + moment().add(1, 'd').format("ddd DD/MM/YYYY") + '. Have a nice day!'
+        console.log("Description changed to today and expiry date changed to " + task.expired)
+      }
+      else if (autoDateUpdate == 'nextweek')
+      {
+        let newExpiryDate = moment().add(7, 'd')
+        newExpiryDate.set('hour', 23)
+        newExpiryDate.set('minute', 59)
+        task.expired = newExpiryDate.toISOString()
+        console.log("Description changed to today and expiry date changed to " + task.expired)
+      }
+      task.expiredDate = moment(task.expired).toDate()
       let sn = make_serial(5, 6);
       const taskRef = db.collection("subtasks").doc(sn);
       task.sn = sn;
-      task.expiredDate = moment(task.expired).toDate()
       task.subs.forEach((stask) => {
         stask.sn = make_serial(5, 6);
       });
@@ -73,12 +101,8 @@ const preprocess = async (tasks) => {
 
 const print_task = (task_id, tasks) => {
   let task = tasks[task_id];
-  console.log(task);
+  // console.log(task);
   console.log("Printing task " + task_id);
-  let date = moment().format("ddd DD/MM/YYYY");
-  if (task.date != "today") {
-    date = moment(task.date).format("ddd DD/MM/YYYY");
-  }
 
   let task_compact = {
     id: task.id,
@@ -89,10 +113,34 @@ const print_task = (task_id, tasks) => {
   };
 
   let sTaskStr = "";
+
+  // Filter out unselected subtasks
+  task.subs = task.subs.filter((t) =>{
+    if (t.hasOwnProperty('unselected'))
+    {
+      if (t.unselected == 1)
+      {
+        return false
+      }
+      else
+      {
+        return true
+      }
+    } else {
+      return true
+    }
+  })
+
+
+  // Modify subtask parameters according to the program's arguments
   task.subs.forEach((s) => {
+    if (autoTimePayUpdate == 'auto')
+    {
+      s.finish = s.time * 0.75
+    }
     if (s.hasOwnProperty('time'))
     {
-      sTaskStr += s.sname;
+      sTaskStr += s.sname + ' (' + s.time + ') ';
       for (let i=0; i<s.time; i++)
       {
         sTaskStr += "[  ] ";
@@ -137,7 +185,7 @@ const print_task = (task_id, tasks) => {
     result = result.replace("$$TNAME$$", task.tname);
     result = result.replace("$$TID$$", task.id);
     result = result.replace("$$STAMP$$", JSON.stringify(task_compact));
-    console.log(result);
+    // console.log(result);
     fs.writeFile("paycheckd.html", result, "utf8", function (err) {
       if (err) return console.log(err);
 
@@ -185,7 +233,7 @@ const print_task = (task_id, tasks) => {
               })
           }
 
-          console.log(mailOptions.attachments);
+          // console.log(mailOptions.attachments);
 
           mail.sendMail(mailOptions, function (error, info) {
             if (error) {

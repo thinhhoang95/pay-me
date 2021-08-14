@@ -1,0 +1,33 @@
+[
+  {
+    "unselected": 0,
+    "id": "COMSEN",
+    "tname": "COMPRESSED SENSING",
+    "date": "today",
+    "description": "Foucart 2.1",
+    "finish": 2,
+    "expired": "2021-07-31 23:59:59",
+    "subs": [
+      {
+        "sname": "->2.4",
+        "finish": 2
+      },
+      {
+        "sname": "2.5",
+        "finish": 3
+      },
+      {
+        "sname": "2.6",
+        "finish": 1
+      },
+      {
+        "sname": "->2.9",
+        "finish": 3
+      },
+      {
+        "sname": "->2.12",
+        "finish": 3
+      }
+    ]
+  }
+]

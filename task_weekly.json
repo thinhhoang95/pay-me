@@ -1,0 +1,125 @@
+[
+  {
+    "unselected": 0,
+    "id": "PROJE",
+    "tname": "RESEARCH PROJECT",
+    "date": "today",
+    "description": "Multi-regime traffic",
+    "finish": 1,
+    "expired": "2021-08-16 23:59:59",
+    "subs": [
+      {
+        "sname": "Building MLM",
+        "finish": 9.00
+      },
+      {
+        "sname": "Implement MLM",
+        "finish": 3.0
+      }
+    ]
+  },
+  {
+    "unselected": 0,
+    "id": "PROBA",
+    "tname": "PROBABILITY THEORY",
+    "date": "today",
+    "description": "Write lecture notes, continue studying -> 2.9",
+    "finish": 1,
+    "expired": "2021-08-16 23:59:59",
+    "subs": [
+      {
+        "sname": "Knill ->2.8.3",
+        "finish": 2
+      },
+      {
+        "sname": "Knill ->2.8.4",
+        "finish": 3
+      },
+      {
+        "sname": "Knill ->2.9.1",
+        "finish": 1
+      },
+      {
+        "sname": "Knill ->2.9.2",
+        "finish": 2
+      }
+    ]
+  },
+  {
+    "unselected": 0,
+    "id": "SEQHYP",
+    "tname": "QUICKEST DETECTION",
+    "date": "today",
+    "description": "Read Chapter 3",
+    "finish": 1,
+    "expired": "2021-08-16 23:59:59",
+    "subs": [
+      {
+        "sname": "Write lec notes for Chap 2",
+        "finish": 2.5
+      },
+      {
+        "sname": "Lec notes Thm 3.1",
+        "finish": 2.5
+      },
+      {
+        "sname": "-> Ex 3.1",
+        "finish": 2.5
+      },
+      {
+        "sname": "-> Co 3.2",
+        "finish": 2.5
+      },
+      {
+        "sname": "-> Ex 3.2",
+        "finish": 2.5
+      },
+      {
+        "sname": "-> Co 3.3",
+        "finish": 2.5
+      }
+    ]
+  },
+  {
+    "unselected": 0,
+    "id": "STAT",
+    "tname": "STATISTICAL INFERENCE",
+    "date": "today",
+    "description": "Casella 2.1",
+    "finish": 1,
+    "expired": "2021-08-16 23:59:59",
+    "subs": [
+      {
+        "sname": "Casella 2.1",
+        "finish": 3
+      },
+      {
+        "sname": "Casella 2.2",
+        "finish": 3
+      }
+    ]
+  },
+  {
+    "unselected": 0,
+    "id": "COMSEN",
+    "tname": "COMPRESSED SENSING",
+    "date": "today",
+    "description": "Read Elad ->1.6",
+    "finish": 1,
+    "expired": "2021-08-16 23:59:59",
+    "subs": [
+      {
+        "sname": "->1.8",
+        "finish": 2
+      },
+      {
+        "sname": "->2.1.1",
+        "finish": 2.5
+      },
+      {
+        "sname": "->2.1.3",
+        "finish": 2.15
+      }
+    ]
+  }
+]

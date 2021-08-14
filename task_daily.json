@@ -1,0 +1,34 @@
+[{
+    "unselected": 0,
+    "id": "DAILY",
+    "tname": "DAILY TIME ALLOCATION",
+    "date": "today",
+    "description": "Daily time allocation stamp for 11/08/2021. Have a nice Tuesday!",
+    "finish": 1,
+    "expired": "2021-08-12 23:59:59",
+    "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
+    "subs": [
+      {
+        "sname": "Research",
+        "time": 4,
+        "finish": 1.5
+      },
+      {
+        "sname": "Probability",
+        "time": 4,
+        "finish": 1.2,
+        "unselected": 1
+      },
+      {
+        "sname": "Quickest Detection",
+        "time": 3,
+        "finish": 0.9
+      },
+      {
+        "sname": "Sparse Approximations",
+        "time": 4,
+        "finish": 1.2,
+        "unselected": 1
+      }
+    ]
+}]
