@@ -19,27 +19,23 @@ admin.initializeApp({
 const db = admin.firestore();
 
 var fs = require("fs");
-let taskFileName = process.argv[2] // file name for the day
-let autoDateUpdate = process.argv[3] // print stamp for today or tomorrow
-let autoTimePayUpdate = process.argv[4] // auto update the pay for each subtask in the daily paycheck
-console.log('Reading file ', taskFileName)
+let taskFileName = process.argv[2]; // file name for the day
+let autoDateUpdate = process.argv[3]; // print stamp for today or tomorrow
+let autoTimePayUpdate = process.argv[4]; // auto update the pay for each subtask in the daily paycheck
+console.log("Reading file ", taskFileName);
 var tasks = JSON.parse(fs.readFileSync(taskFileName, "utf8"));
 
-tasks = tasks.filter((t) =>{
-  if (t.hasOwnProperty('unselected'))
-  {
-    if (t.unselected == 1)
-    {
-      return false
-    }
-    else
-    {
-      return true
+tasks = tasks.filter((t) => {
+  if (t.hasOwnProperty("unselected")) {
+    if (t.unselected == 1) {
+      return false;
+    } else {
+      return true;
     }
   } else {
-    return true
+    return true;
   }
-})
+});
 
 const make_serial = (length, terms) => {
   var result = [];
@@ -60,33 +56,63 @@ const preprocess = async (tasks) => {
   return new Promise(async (resolve, reject) => {
     // Add EACH task to online database
     tasks.forEach((task) => {
-      if (autoDateUpdate == 'today')
-      {
-        let newExpiryDate = moment().add(1, 'd')
-        newExpiryDate.set('hour', 23)
-        newExpiryDate.set('minute', 59)
-        task.expired = newExpiryDate.toISOString()
-        task.description = 'Daily time stamp for ' + moment().format("ddd DD/MM/YYYY") + '. Have a nice day!'
-        console.log("Description changed to today and expiry date changed to " + task.expired)
+      // Filter out unselected subtasks
+      task.subs = task.subs.filter((t) => {
+        if (t.hasOwnProperty("unselected")) {
+          if (t.unselected == 1) {
+            return false;
+          } else {
+            return true;
+          }
+        } else {
+          return true;
+        }
+      });
+
+      // Modify subtask parameters according to the program's arguments
+      task.subs.forEach((s) => {
+        if (autoTimePayUpdate == "auto") {
+          s.finish = s.time * 0.75;
+        }
+      });
+
+      if (autoDateUpdate == "today") {
+        let newExpiryDate = moment().add(1, "d");
+        newExpiryDate.set("hour", 23);
+        newExpiryDate.set("minute", 59);
+        task.expired = newExpiryDate.toISOString();
+        task.description =
+          "Daily time stamp for " +
+          moment().format("ddd DD/MM/YYYY") +
+          ". Have a nice day!";
+        console.log(
+          "Description changed to today and expiry date changed to " +
+            task.expired
+        );
+      } else if (autoDateUpdate == "tomorrow") {
+        let newExpiryDate = moment().add(2, "d");
+        newExpiryDate.set("hour", 23);
+        newExpiryDate.set("minute", 59);
+        task.expired = newExpiryDate.toISOString();
+        task.description =
+          "Daily time stamp for " +
+          moment().add(1, "d").format("ddd DD/MM/YYYY") +
+          ". Have a nice day!";
+        console.log(
+          "Description changed to today and expiry date changed to " +
+            task.expired
+        );
+      } else if (autoDateUpdate == "nextweek") {
+        let newExpiryDate = moment().add(7, "d");
+        newExpiryDate.set("hour", 23);
+        newExpiryDate.set("minute", 59);
+        task.expired = newExpiryDate.toISOString();
+        console.log(
+          "Description changed to today and expiry date changed to " +
+            task.expired
+        );
       }
-      else if (autoDateUpdate == 'tomorrow')
-      {
-        let newExpiryDate = moment().add(2, 'd')
-        newExpiryDate.set('hour', 23)
-        newExpiryDate.set('minute', 59)
-        task.expired = newExpiryDate.toISOString()
-        task.description = 'Daily time stamp for ' + moment().add(1, 'd').format("ddd DD/MM/YYYY") + '. Have a nice day!'
-        console.log("Description changed to today and expiry date changed to " + task.expired)
-      }
-      else if (autoDateUpdate == 'nextweek')
-      {
-        let newExpiryDate = moment().add(7, 'd')
-        newExpiryDate.set('hour', 23)
-        newExpiryDate.set('minute', 59)
-        task.expired = newExpiryDate.toISOString()
-        console.log("Description changed to today and expiry date changed to " + task.expired)
-      }
-      task.expiredDate = moment(task.expired).toDate()
+      task.expiredDate = moment(task.expired).toDate();
       let sn = make_serial(5, 6);
       const taskRef = db.collection("subtasks").doc(sn);
       task.sn = sn;
@@ -95,7 +121,7 @@ const preprocess = async (tasks) => {
       });
       taskRef.set(task);
     });
-    resolve(tasks)
+    resolve(tasks);
   });
 };
 
@@ -114,40 +140,14 @@ const print_task = (task_id, tasks) => {
 
   let sTaskStr = "";
 
-  // Filter out unselected subtasks
-  task.subs = task.subs.filter((t) =>{
-    if (t.hasOwnProperty('unselected'))
-    {
-      if (t.unselected == 1)
-      {
-        return false
-      }
-      else
-      {
-        return true
-      }
-    } else {
-      return true
-    }
-  })
-
-
-  // Modify subtask parameters according to the program's arguments
   task.subs.forEach((s) => {
-    if (autoTimePayUpdate == 'auto')
-    {
-      s.finish = s.time * 0.75
-    }
-    if (s.hasOwnProperty('time'))
-    {
-      sTaskStr += s.sname + ' (' + s.time + ') ';
-      for (let i=0; i<s.time; i++)
-      {
+    if (s.hasOwnProperty("time")) {
+      sTaskStr += s.sname + " (" + s.time + ") ";
+      for (let i = 0; i < s.time; i++) {
         sTaskStr += "[  ] ";
       }
       sTaskStr += "(" + Number(s.finish).toFixed(2) + "); ";
-    }
-    else {
+    } else {
       sTaskStr += s.sname + " (" + Number(s.finish).toFixed(2) + "); ";
     }
     // sTaskStr += s.sname + " (" + Number(s.finish).toFixed(2) + "); ";
@@ -216,7 +216,7 @@ const print_task = (task_id, tasks) => {
               pass: "Thinh24051995#",
             },
           });
-          
+
           var mailOptions = {
             from: "thinhhoang.vaccine@gmail.com",
             to: "hdinhthinh@gmail.com",
@@ -225,12 +225,14 @@ const print_task = (task_id, tasks) => {
             attachments: [],
           };
 
-          for (let i=0; i<tasks.length; i++)
-          {
-              mailOptions.attachments.push({
-                  filename: 'paycheck_' + tasks[i].id + '.pdf',
-                  path: "C:/Users/nxf67027/Documents/PayMe/paycheck_" + String(i) + ".pdf"
-              })
+          for (let i = 0; i < tasks.length; i++) {
+            mailOptions.attachments.push({
+              filename: "paycheck_" + tasks[i].id + ".pdf",
+              path:
+                "C:/Users/nxf67027/Documents/PayMe/paycheck_" +
+                String(i) +
+                ".pdf",
+            });
           }
 
           // console.log(mailOptions.attachments);
@@ -288,5 +290,5 @@ const print_task = (task_id, tasks) => {
 };
 
 preprocess(tasks).then((tasks) => {
-  print_task(0, tasks)
-})
+  print_task(0, tasks);
+});
