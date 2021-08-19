@@ -12,11 +12,11 @@
         "sname": "Research",
         "time": 4,
         "finish": 1.5,
-        "unselected": 0
+        "unselected": 1
       },
       {
         "sname": "Probability",
-        "time": 3,
+        "time": 4,
         "finish": 1.2,
         "unselected": 0
       },
@@ -24,7 +24,7 @@
         "sname": "Quickest Detection",
         "time": 3,
         "finish": 0.9,
-        "unselected": 1
+        "unselected": 0
       },
       {
         "sname": "Sparse Approximations",
@@ -34,7 +34,7 @@
       },
       {
         "sname": "Statistical Inference",
-        "time": 2,
+        "time": 3,
         "finish": 1.2,
         "unselected": 0
       }

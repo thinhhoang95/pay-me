@@ -82,6 +82,20 @@ const preprocess = async (tasks) => {
           "Description changed to today and expiry date changed to " +
             task.expired
         );
+      }
+      else if (autoDateUpdate == "todaytoday") {
+        let newExpiryDate = moment();
+        newExpiryDate.set("hour", 23);
+        newExpiryDate.set("minute", 59);
+        task.expired = newExpiryDate.toISOString();
+        task.description =
+          "Daily time stamp for " +
+          moment().format("ddd DD/MM/YYYY") +
+          ". Have a nice day!";
+        console.log(
+          "Description changed to today and expiry date changed to " +
+            task.expired
+        );
       } else if (autoDateUpdate == "tomorrow") {
         let newExpiryDate = moment().add(2, "d");
         newExpiryDate.set("hour", 23);
