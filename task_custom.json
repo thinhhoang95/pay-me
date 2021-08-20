@@ -1,18 +1,27 @@
-[
+[{
+  "unselected": 0,
+  "id": "PROJE",
+  "tname": "RESEARCH PROJECT",
+  "date": "today",
+  "description": "Applying detection onto NGSIM",
+  "finish": 1,
+  "expired": "2021-09-01 23:59:59",
+  "subs": [
     {
-      "unselected": 0,
-      "id": "COMSEN",
-      "tname": "COMPRESSED SENSING",
-      "date": "today",
-      "description": "Write lecture notes",
-      "finish": 1,
-      "expired": "2021-08-10 23:59:59",
-      "subs": [
-        {
-          "sname": "<=1.4",
-          "finish": 1.5
-        }
-      ]
+      "sname": "Preprocess NGSIM dataset",
+      "finish": 3.00
+    },
+    {
+      "sname": "Learning",
+      "finish": 3.00
+    },
+    {
+      "sname": "Detection",
+      "finish": 3.00
+    },
+    {
+      "sname": "Estimation of data save",
+      "finish": 8.0
     }
   ]
-  
+}]

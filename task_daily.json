@@ -10,7 +10,7 @@
     "subs": [
       {
         "sname": "Research",
-        "time": 4,
+        "time": 3,
         "finish": 1.5,
         "unselected": 0
       },
@@ -18,7 +18,7 @@
         "sname": "Probability",
         "time": 4,
         "finish": 1.2,
-        "unselected": 1
+        "unselected": 0
       },
       {
         "sname": "Quickest Detection",

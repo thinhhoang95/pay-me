@@ -72,7 +72,7 @@ const preprocess = async (tasks) => {
       // Modify subtask parameters according to the program's arguments
       task.subs.forEach((s) => {
         if (autoTimePayUpdate == "auto") {
-          s.finish = s.time * 0.75;
+          s.finish = s.time * 0.5;
         }
       });
 
