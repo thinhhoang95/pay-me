@@ -13,15 +13,14 @@
     </head>
     <body>
         <div style="flex: 1; flex-direction: column">
-            <div style="text-align: center"><h1>Digital Paycheck for Research Activities</h1></div>
+            <div style="text-align: center"><h1>PayMeMobile Regular Check</h1></div>
         </div>
         <div style="padding-top: 12px; padding-bottom: 12px">
             <h3>1. General information</h3>
         </div>
         <div>
-            <p style="font-weight: bold;">DAILY</p>
-            <p>DAILY TIME ALLOCATION</p>
-            <p>Description: Daily time stamp for Sat 21/08/2021. Have a nice day!</p>
+            <p style="font-weight: bold;">REGULAR CHECK ISSUED BY PAYMEMOBILE</p>
+            <p>Description: Relief package before implementation of a new payment policy</p>
         </div>
         <div style="flex: 1; flex-direction: row; display: flex">
             <div style="flex: 1 0 0; flex-direction: column; ">
@@ -31,30 +30,24 @@
                 <p>ID: 1240000014760</p>
             </div>
             <div style="flex: 1 0 0; flex-direction: column;">
-                <p>Generation date: <span id='gen_date'>Sat 21/08/2021 00:25:21</span></p>
-                <p>Expires on: Sat 21/08/2021 23:59</p>
-                <p>Completion pay: 1.00</p>
+                <p>Generation date: <span id='gen_date'>Sat 21/08/2021 01:17:32</span></p>
+                <p>Expires on: Sat 04/09/2021 01:17</p>
+                <p>Check value: 60.00</p>
                 <p></p>
             </div>
         </div>
-        <div style="padding-top: 12px; padding-bottom: 12px">
-            <h3>2. Activity details</h3>
-        </div>
-        <div>
-            <table>
-                <tr><td>Subtask</td><td>Payment</td></tr>
-                <tr><td>Research</td><td>1.50</td></tr><tr><td>Probability</td><td>2.00</td></tr><tr><td>Quickest Detection</td><td>1.50</td></tr><tr><td>Statistical Inference</td><td>1.50</td></tr>
-            </table>
+        <div style="flex-direction: column">
+            <p>Copyright (c) 2021 PayMeMobile. All rights reserved. </p>
         </div>
         <div style="flex: 1; flex-direction: column">
-            <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+            <div id="qrcode" style="width:200px; height:200px; margin-top:25px;"></div>
         </div>
     <script>
         var qrcode = new QRCode(document.getElementById("qrcode"), {
-            width : 150,
-            height : 150
+            width : 200,
+            height : 200
         });
-        var codeContent = {"id":"DAILY","finish":1,"sn":"X6MWE-N6XY0-3BI22-7EP7C-6QK1X-40F80","expired":"2021-08-21T21:59:21.079Z"}
+        var codeContent = {"sn":"8K4AF-YSNBL-IBKLI-SYE1G-W5YLD-JZD1D","content":"Relief package before implementation of a new payment policy","finish":60,"expiryDate":"2021-09-03T23:17:32.440Z","regular":1}
 
         qrcode.makeCode(JSON.stringify(codeContent))
 

@@ -40,11 +40,12 @@ const make_serial = (length, terms) => {
   return result.join("");
 };
 
-serial_number = make_serial(5, 5);
+serial_number = make_serial(6, 5);
 const taskRef = db.collection("regular").doc(serial_number);
 
 let content = reader.question('Enter the content for the regular stamp: ')
 let amountOfMoney = reader.question('Enter amount of money: ')
+
 let task = {
     'sn': serial_number,
     'content': content,
