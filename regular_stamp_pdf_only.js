@@ -36,12 +36,23 @@ const taskRef = db.collection("regular").doc(serial_number);
 
 let content = reader.question("Enter the content for the regular stamp: ");
 let amountOfMoney = reader.question("Enter amount of money: ");
+let daysUntilExpire = reader.question('Enter the amount of days until the stamp expires: ')
+
+let expireDays = 30
+
+if (typeof daysUntilExpire != 'undefined')
+{
+  if (daysUntilExpire != '')
+  {
+    expireDays = Number(daysUntilExpire)
+  }
+}
 
 let task = {
   sn: serial_number,
   content: content,
   finish: Number(amountOfMoney),
-  expiryDate: moment().add(14, "d").toDate(),
+  expiryDate: moment().add(expireDays, "d").toDate(),
 };
 taskRef.set(task);
 console.log("Serial added to the database. Printing stamp...");
@@ -64,7 +75,9 @@ fs.readFile("regulars.html", "utf8", function (err, data) {
     Number(amountOfMoney).toFixed(2).toString()
   );
   result = result.replace("$$DESCR$$", content);
-  result = result.replace("$$STAMP$$", JSON.stringify({...task, regular: 1}));
+  let taskObjectReduced = Object.assign({}, task)
+  delete taskObjectReduced.content
+  result = result.replace("$$STAMP$$", JSON.stringify({...taskObjectReduced, regular: 1}));
   // console.log(result);
   fs.writeFile("regularsd.html", result, "utf8", function (err) {
     if (err) return console.log(err);

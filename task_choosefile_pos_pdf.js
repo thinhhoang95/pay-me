@@ -77,9 +77,9 @@ const preprocess = async (tasks) => {
       });
 
       if (autoDateUpdate == "today") {
-        let newExpiryDate = moment().add(1, "d");
-        newExpiryDate.set("hour", 23);
-        newExpiryDate.set("minute", 59);
+        let newExpiryDate = moment().add(2, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
         task.description =
           "Daily time stamp for " +
@@ -92,8 +92,9 @@ const preprocess = async (tasks) => {
       }
       else if (autoDateUpdate == "todaytoday") {
         let newExpiryDate = moment();
-        newExpiryDate.set("hour", 23);
-        newExpiryDate.set("minute", 59);
+        newExpiryDate.add(1, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
         task.description =
           "Daily time stamp for " +
@@ -105,9 +106,9 @@ const preprocess = async (tasks) => {
         );
       }
       else if (autoDateUpdate == "tomorrow") {
-        let newExpiryDate = moment().add(2, "d");
-        newExpiryDate.set("hour", 23);
-        newExpiryDate.set("minute", 59);
+        let newExpiryDate = moment().add(3, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
         task.description =
           "Daily time stamp for " +
@@ -118,9 +119,9 @@ const preprocess = async (tasks) => {
             task.expired
         );
       } else if (autoDateUpdate == "nextweek") {
-        let newExpiryDate = moment().add(7, "d");
-        newExpiryDate.set("hour", 23);
-        newExpiryDate.set("minute", 59);
+        let newExpiryDate = moment().add(8, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
         console.log(
           "Description changed to today and expiry date changed to " +
@@ -128,7 +129,8 @@ const preprocess = async (tasks) => {
         );
       }
       task.expiredDate = moment(task.expired).toDate();
-      let sn = make_serial(5, 6);
+      let snPrefix = task.id.substring(0,5).padEnd(5, 'X').toUpperCase();
+      let sn = snPrefix + "-" + make_serial(5, 6);
       const taskRef = db.collection("subtasks").doc(sn);
       task.sn = sn;
       task.subs.forEach((stask) => {
