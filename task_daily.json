@@ -10,7 +10,7 @@
     "subs": [
       {
         "sname": "Research",
-        "time": 3,
+        "time": 4,
         "finish": 1.5,
         "unselected": 0
       },
@@ -30,13 +30,13 @@
         "sname": "Sparse Approximations",
         "time": 4,
         "finish": 1.2,
-        "unselected": 1
+        "unselected": 0
       },
       {
         "sname": "Statistical Inference",
         "time": 3,
         "finish": 1.2,
-        "unselected": 0
+        "unselected": 1
       }
     ]
 }]
