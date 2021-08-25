@@ -75,29 +75,37 @@ const preprocess = async (tasks) => {
         newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
         task.description =
-          "Daily time stamp for " +
-          moment().format("ddd DD/MM/YYYY")
+          "Daily time stamp for " + moment().format("ddd DD/MM/YYYY");
         console.log(
           "Description changed to today and expiry date changed to " +
             task.expired
         );
-      }
-      else if (autoDateUpdate == "todaytoday") {
+      } else if (autoDateUpdate == "todaytoday") {
         let newExpiryDate = moment();
         newExpiryDate.add(1, "d");
         newExpiryDate.set("hour", 2);
         newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
         task.description =
-          "Daily time stamp for " +
-          moment().format("ddd DD/MM/YYYY")
+          "Daily time stamp for " + moment().format("ddd DD/MM/YYYY");
         console.log(
           "Description changed to today and expiry date changed to " +
             task.expired
         );
-      }
-      else if (autoDateUpdate == "tomorrow") {
+      } else if (autoDateUpdate == "tomorrow") {
         let newExpiryDate = moment().add(3, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
+        task.expired = newExpiryDate.toISOString();
+        task.description =
+          "Daily time stamp for " +
+          moment().add(1, "d").format("ddd DD/MM/YYYY");
+        console.log(
+          "Description changed to today and expiry date changed to " +
+            task.expired
+        );
+      } else if (autoDateUpdate == "tomorrowtomorrow") {
+        let newExpiryDate = moment().add(2, "d");
         newExpiryDate.set("hour", 2);
         newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
@@ -119,7 +127,7 @@ const preprocess = async (tasks) => {
         );
       }
       task.expiredDate = moment(task.expired).toDate();
-      let snPrefix = task.id.substring(0,5).padEnd(5, 'X').toUpperCase();
+      let snPrefix = task.id.substring(0, 5).padEnd(5, "X").toUpperCase();
       let sn = snPrefix + "-" + make_serial(5, 6);
       const taskRef = db.collection("subtasks").doc(sn);
       task.sn = sn;
@@ -162,12 +170,12 @@ const print_task = (task_id, tasks) => {
 
   let sTaskStrPDF = "";
   task.subs.forEach((s) => {
-    sTaskStrPDF +=
-      "<tr><td>" +
-      s.sname +
-      "</td><td>" +
-      Number(s.finish).toFixed(2) +
-      "</td></tr>";
+    let subTaskTimeSuffix = "";
+    if (s.hasOwnProperty("time")) {
+      subTaskTimeSuffix = "[" + String(Math.round(s.time)) + "]";
+    }
+    sTaskStrPDF += "<tr><td>" + s.sname + " " + subTaskTimeSuffix;
+    "</td><td>" + Number(s.finish).toFixed(2) + "</td></tr>";
   });
 
   let today = moment().format("ddd DD/MM/YYYY HH:mm:ss");

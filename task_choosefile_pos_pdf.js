@@ -115,6 +115,18 @@ const preprocess = async (tasks) => {
           "Description changed to today and expiry date changed to " +
             task.expired
         );
+      } else if (autoDateUpdate == "tomorrowtomorrow") {
+        let newExpiryDate = moment().add(2, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
+        task.expired = newExpiryDate.toISOString();
+        task.description =
+          "Daily time stamp for " +
+          moment().add(1, "d").format("ddd DD/MM/YYYY")
+        console.log(
+          "Description changed to today and expiry date changed to " +
+            task.expired
+        );
       } else if (autoDateUpdate == "nextweek") {
         let newExpiryDate = moment().add(8, "d");
         newExpiryDate.set("hour", 2);
@@ -169,9 +181,13 @@ const print_task = (task_id, tasks) => {
 
   let sTaskStrPDF = "";
   task.subs.forEach((s) => {
+    let subTaskTimeSuffix = ''
+    if (s.hasOwnProperty("time")) {
+      subTaskTimeSuffix = '[' + String(Math.round(s.time)) + ']'
+    }
     sTaskStrPDF +=
       "<tr><td>" +
-      s.sname +
+      s.sname + ' ' + subTaskTimeSuffix
       "</td><td>" +
       Number(s.finish).toFixed(2) +
       "</td></tr>";
