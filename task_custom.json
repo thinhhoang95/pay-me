@@ -1,27 +1,47 @@
 [{
   "unselected": 0,
-  "id": "PROJE",
-  "tname": "RESEARCH PROJECT",
+  "id": "PROJECT",
+  "tname": "PROJECT OF RESEARCH",
   "date": "today",
-  "description": "Applying detection onto NGSIM",
+  "description": "Learn some C++",
   "finish": 1,
   "expired": "2021-09-01 23:59:59",
   "subs": [
     {
-      "sname": "Preprocess NGSIM dataset",
-      "finish": 3.00
+      "sname": "C++ Basics 1-8",
+      "finish": 2.00
     },
     {
-      "sname": "Learning",
-      "finish": 3.00
+      "sname": "C++ Basics 9-12",
+      "finish": 1.25
     },
     {
-      "sname": "Detection",
-      "finish": 3.00
+      "sname": "C++ Basics 13-17",
+      "finish": 2.25
     },
     {
-      "sname": "Estimation of data save",
-      "finish": 8.0
+      "sname": "C++ DataTypes 1",
+      "finish": 1.0
+    },
+    {
+      "sname": "C++ DataTypes 2",
+      "finish": 1.5
+    },
+    {
+      "sname": "C++ DataTypes 3",
+      "finish": 2.0
+    },
+    {
+      "sname": "C++ Variables",
+      "finish": 1.0
+    },
+    {
+      "sname": "C++ Loops",
+      "finish": 1.5
+    },
+    {
+      "sname": "C++ Decision Making",
+      "finish": 2.1
     }
   ]
 }]

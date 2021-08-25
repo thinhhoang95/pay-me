@@ -16,7 +16,7 @@
       },
       {
         "sname": "Probability",
-        "time": 5,
+        "time": 3,
         "finish": 1.2,
         "unselected": 0
       },
@@ -28,7 +28,7 @@
       },
       {
         "sname": "Sparse Approximations",
-        "time": 4,
+        "time": 3,
         "finish": 1.2,
         "unselected": 0
       },

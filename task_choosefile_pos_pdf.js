@@ -83,8 +83,7 @@ const preprocess = async (tasks) => {
         task.expired = newExpiryDate.toISOString();
         task.description =
           "Daily time stamp for " +
-          moment().format("ddd DD/MM/YYYY") +
-          ". Have a nice day!";
+          moment().format("ddd DD/MM/YYYY")
         console.log(
           "Description changed to today and expiry date changed to " +
             task.expired
@@ -98,8 +97,7 @@ const preprocess = async (tasks) => {
         task.expired = newExpiryDate.toISOString();
         task.description =
           "Daily time stamp for " +
-          moment().format("ddd DD/MM/YYYY") +
-          ". Have a nice day!";
+          moment().format("ddd DD/MM/YYYY")
         console.log(
           "Description changed to today and expiry date changed to " +
             task.expired
@@ -112,8 +110,7 @@ const preprocess = async (tasks) => {
         task.expired = newExpiryDate.toISOString();
         task.description =
           "Daily time stamp for " +
-          moment().add(1, "d").format("ddd DD/MM/YYYY") +
-          ". Have a nice day!";
+          moment().add(1, "d").format("ddd DD/MM/YYYY")
         console.log(
           "Description changed to today and expiry date changed to " +
             task.expired
