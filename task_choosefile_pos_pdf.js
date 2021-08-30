@@ -72,7 +72,17 @@ const preprocess = async (tasks) => {
       // Modify subtask parameters according to the program's arguments
       task.subs.forEach((s) => {
         if (autoTimePayUpdate == "auto") {
-          s.finish = s.time * 0.5;
+          if (s.hasOwnProperty('time'))
+          {
+            s.finish = s.time * 0.5;
+          }
+          if (s.hasOwnProperty('countUp'))
+          {
+            if (s.countUp == 1)
+            {
+              s.finish = 0.5
+            }
+          }
         }
       });
 
@@ -168,11 +178,17 @@ const print_task = (task_id, tasks) => {
 
   task.subs.forEach((s) => {
     if (s.hasOwnProperty("time")) {
+      // Print [ ]s for tasks with time goals
       sTaskStr += s.sname + " (" + s.time + ") ";
       for (let i = 0; i < s.time; i++) {
         sTaskStr += "[  ] ";
       }
       sTaskStr += "(" + Number(s.finish).toFixed(2) + "); ";
+    } else if (s.hasOwnProperty("countUp")) {
+      if (s.countUp == 1)
+      {
+        sTaskStr += s.sname + " (x" + s.finish + ")";
+      }
     } else {
       sTaskStr += s.sname + " (" + Number(s.finish).toFixed(2) + "); ";
     }
@@ -184,10 +200,15 @@ const print_task = (task_id, tasks) => {
     let subTaskTimeSuffix = ''
     if (s.hasOwnProperty("time")) {
       subTaskTimeSuffix = '[' + String(Math.round(s.time)) + ']'
+    } else if (s.hasOwnProperty("countUp")) {
+      if (s.countUp == 1)
+      {
+        subTaskTimeSuffix += " (x" + s.finish +")";
+      }
     }
     sTaskStrPDF +=
       "<tr><td>" +
-      s.sname + ' ' + subTaskTimeSuffix
+      s.sname + ' ' + subTaskTimeSuffix +
       "</td><td>" +
       Number(s.finish).toFixed(2) +
       "</td></tr>";
