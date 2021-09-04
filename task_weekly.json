@@ -1,10 +1,10 @@
 [
   {
-    "unselected": 1,
+    "unselected": 0,
     "id": "PROJE",
     "tname": "RESEARCH PROJECT",
     "date": "today",
-    "description": "Applying detection onto NGSIM",
+    "description": "Various research objectives",
     "finish": 1,
     "expired": "2021-09-01 23:59:59",
     "subs": [
@@ -17,12 +17,8 @@
         "finish": 3.00
       },
       {
-        "sname": "Detection",
+        "sname": "Learn OMNET++",
         "finish": 3.00
-      },
-      {
-        "sname": "Estimation of data save",
-        "finish": 8.0
       }
     ]
   },
@@ -36,28 +32,32 @@
     "expired": "2021-08-16 23:59:59",
     "subs": [
       {
-        "sname": "Write LN 2.9.2-3",
+        "sname": "2.11.2",
         "finish": 2
       },
       {
-        "sname": "2.10.1-2, 2.11.1-3",
-        "finish": 2.5
-      },
-      {
-        "sname": "2.10.3wp-4",
+        "sname": "2.11.3-4",
         "finish": 3
       },
       {
-        "sname": "2.11.1",
-        "finish": 3.5
+        "sname": "2.11.5-7",
+        "finish": 2.75
       },
       {
-        "sname": "2.11.2-3",
+        "sname": "2.12.1",
+        "finish": 2.0
+      },
+      {
+        "sname": "2.12.2-3",
         "finish": 2
       },
       {
-          "sname": "2.11.4",
-        "finish": 3.5
+          "sname": "Pg 92-93",
+          "finish": 3.5
+      },
+      {
+        "sname": "Pg 94-95",
+        "finish": 2.75
       }
     ]
   },
@@ -70,10 +70,6 @@
     "finish": 1,
     "expired": "2021-08-16 23:59:59",
     "subs": [
-      {
-        "sname": "LN Thm 3.1",
-        "finish": 1.5
-      },
       {
         "sname": "-> Ex 3.1",
         "finish": 1.5
@@ -112,7 +108,7 @@
     ]
   },
   {
-    "unselected": 0,
+    "unselected": 1,
     "id": "COMSEN",
     "tname": "COMPRESSED SENSING",
     "date": "today",
