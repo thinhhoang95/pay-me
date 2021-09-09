@@ -32,6 +32,9 @@ const fixHabits = (param) => {
     if (param == 'tomorrow')
     {
         now = moment().set('hour', 2).set('minute', 0).set('second', 0).set('millisecond', 0).add(1, 'day').toDate()
+    } else if (param == 'yesterday')
+    {
+        now = moment().set('hour', 2).set('minute', 0).set('second', 0).set('millisecond', 0).add(-1, 'day').toDate()
     }
     db.collection('habits').get().then((snapshot) => {
         snapshot.forEach((docSnapshot) => {
@@ -53,4 +56,4 @@ const fixHabits = (param) => {
 }
 
 removeExpiredTasks()
-fixHabits('tomorrow')
+fixHabits('today')

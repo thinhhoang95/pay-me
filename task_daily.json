@@ -10,7 +10,7 @@
     "subs": [
       {
         "sname": "Research",
-        "time": 5,
+        "time": 2,
         "finish": 1.5,
         "unselected": 0
       },
@@ -22,15 +22,15 @@
       },
       {
         "sname": "Quickest Detection",
-        "time": 2,
+        "time": 3,
         "finish": 2,
-        "unselected": 0
+        "unselected": 1
       },
       {
         "sname": "Sparse Approximations",
         "time": 3,
         "finish": 1.2,
-        "unselected": 1
+        "unselected": 0
       },
       {
         "sname": "Statistical Inference",

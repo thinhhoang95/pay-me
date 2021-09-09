@@ -146,6 +146,14 @@ const preprocess = async (tasks) => {
           "Description changed to today and expiry date changed to " +
             task.expired
         );
+      } else if (task.expired.includes('day'))
+      {
+        // There is a keyword "days" inside the expired field
+        let numOfDays = Number(task.expired.split(' ')[0])
+        let newExpiryDate = moment().add(numOfDays, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
+        task.expired = newExpiryDate.toISOString();
       }
       task.expiredDate = moment(task.expired).toDate();
       let snPrefix = task.id.substring(0,5).padEnd(5, 'X').toUpperCase();
