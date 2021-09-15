@@ -1,0 +1,33 @@
+[
+    {
+    "unselected": 0,
+    "id": "PROJE",
+    "tname": "RESEARCH PROJECT",
+    "date": "today",
+    "description": "Various research objectives",
+    "finish": 1,
+    "expired": "2021-09-01 23:59:59",
+    "subs": [
+      {
+        "sname": "CP Service",
+        "finish": 4.00
+      },
+      {
+        "sname": "Packet stats",
+        "finish": 3.00
+      },
+      {
+        "sname": "NGSIM learn distrib",
+        "finish": 2.50
+      },
+      {
+        "sname": "NGSIM RT",
+        "finish": 4.50
+      },
+      {
+        "sname": "NGSIM detection",
+        "finish": 3.50
+      }
+    ]
+  }
+]

@@ -1,0 +1,6 @@
+Sample syntaxs: 
+
+node .\task_choosefile_pos_pdf.js .\task_daily.json today auto
+node .\task_choosefile_pos_pdf.js .\task_daily.json tomorrow auto
+node .\task_choosefile_pos_pdf.js .\task_weekly.json nextweek
+node .\task_choosefile_pos_pdf.js .\task_custom.json

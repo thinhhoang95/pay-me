@@ -86,7 +86,7 @@ const preprocess = async (tasks) => {
         }
       });
 
-      if (autoDateUpdate == "today") {
+      if (autoDateUpdate == "todaytoday") {
         let newExpiryDate = moment().add(2, "d");
         newExpiryDate.set("hour", 2);
         newExpiryDate.set("minute", 0);
@@ -99,7 +99,7 @@ const preprocess = async (tasks) => {
             task.expired
         );
       }
-      else if (autoDateUpdate == "todaytoday") {
+      else if (autoDateUpdate == "today") {
         let newExpiryDate = moment();
         newExpiryDate.add(1, "d");
         newExpiryDate.set("hour", 2);
@@ -114,7 +114,7 @@ const preprocess = async (tasks) => {
         );
       }
       else if (autoDateUpdate == "tomorrow") {
-        let newExpiryDate = moment().add(3, "d");
+        let newExpiryDate = moment().add(2, "d");
         newExpiryDate.set("hour", 2);
         newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
@@ -126,7 +126,7 @@ const preprocess = async (tasks) => {
             task.expired
         );
       } else if (autoDateUpdate == "tomorrowtomorrow") {
-        let newExpiryDate = moment().add(2, "d");
+        let newExpiryDate = moment().add(3, "d");
         newExpiryDate.set("hour", 2);
         newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
@@ -195,7 +195,7 @@ const print_task = (task_id, tasks) => {
     } else if (s.hasOwnProperty("countUp")) {
       if (s.countUp == 1)
       {
-        sTaskStr += s.sname + " (x" + s.finish + ")";
+        sTaskStr += s.sname + " (x" + s.finish + "); ";
       }
     } else {
       sTaskStr += s.sname + " (" + Number(s.finish).toFixed(2) + "); ";

@@ -32,14 +32,6 @@
     "expired": "2021-08-16 23:59:59",
     "subs": [
       {
-        "sname": "2.11.2",
-        "finish": 2
-      },
-      {
-        "sname": "2.11.3-4",
-        "finish": 3
-      },
-      {
         "sname": "2.11.5-7",
         "finish": 2.75
       },
@@ -121,8 +113,8 @@
     "expired": "2021-08-16 23:59:59",
     "subs": [
       {
-        "sname": "Review 1",
-        "finish": 2
+        "sname": "1 LN",
+        "finish": 2.5
       },
       {
         "sname": "2.1.1",
