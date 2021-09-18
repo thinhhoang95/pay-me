@@ -158,8 +158,8 @@ const preprocess = async (tasks) => {
       task.expiredDate = moment(task.expired).toDate();
       let snPrefix = task.id.substring(0,5).padEnd(5, 'X').toUpperCase();
       let sn = snPrefix + "-" + make_serial(5, 6);
-      // TODO: enable DB when done
-      //const taskRef = db.collection("subtasks").doc(sn);
+      // enable DB when done
+      const taskRef = db.collection("subtasks").doc(sn);
       task.sn = sn;
       task.subs.forEach((stask) => {
         // Assign serial number for each subtask
@@ -172,7 +172,7 @@ const preprocess = async (tasks) => {
           })
         }
       });
-      //taskRef.set(task);
+      taskRef.set(task);
     });
     resolve(tasks);
   });
@@ -342,14 +342,14 @@ const print_task = (task_id, tasks) => {
 
           // console.log(mailOptions.attachments);
 
-          /* mail.sendMail(mailOptions, function (error, info) {
+          mail.sendMail(mailOptions, function (error, info) {
             if (error) {
               console.log(error);
             } else {
               console.log("Email sent: " + info.response);
             }
-          }); */
-          // TODO: enable sending email
+          });
+          // enable sending email
         }
         // Print the next task (this should be in the onComplete of sendMail)
         // print_task(task_id + 1, tasks);
