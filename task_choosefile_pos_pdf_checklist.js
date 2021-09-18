@@ -18,6 +18,15 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+const truncateString = (str, len) => {
+  if (str.length > len)
+  {
+    return str.substring(0, len)
+  } else {
+    return str
+  }
+}
+
 var fs = require("fs");
 let taskFileName = process.argv[2]; // file name for the day
 let autoDateUpdate = process.argv[3]; // print stamp for today or tomorrow
@@ -196,16 +205,16 @@ const print_task = (task_id, tasks) => {
   task.subs.forEach((s) => {
     if (s.hasOwnProperty("time")) {
       // Print [ ]s for tasks with time goals
-      sTaskStr += s.sname.toUpperCase() + " ";
+      sTaskStr += truncateString(s.sname.toUpperCase(), 24) + " ";
       for (let i = 0; i < s.time; i++) {
         sTaskStr += "[  ]";
       }
-      sTaskStr += " (" + s.finish + ")\n";
+      sTaskStr += " (" + s.finish.toFixed(2) + ")\n";
       if (s.hasOwnProperty('subsubs'))
       {
         s.subsubs.forEach((ss) => {
           // For each subsubtask, print the subsubtask
-          sTaskStr += "  [ ] " + ss.name + " (" + ss.finish + ")\n"
+          sTaskStr += "  [ ] " + truncateString(ss.name, 33) + " (" + ss.finish.toFixed(2) + ")\n"
         })
         //sTaskStr = sTaskStr.substring(0, sTaskStr.length - 1);
       }
@@ -213,24 +222,24 @@ const print_task = (task_id, tasks) => {
       // Print (x {finish}) for countUp stamps. {finish} is the reward for each timeunit completed
       if (s.countUp == 1)
       {
-        sTaskStr += s.sname.toUpperCase() + " (x" + s.finish + ")\n";
+        sTaskStr += truncateString(s.sname.toUpperCase(), 36) + " (x" + s.finish.toFixed(2) + ")\n";
         if (s.hasOwnProperty('subsubs'))
         {
           s.subsubs.forEach((ss) => {
             // For each subsubtask, print the subsubtask
-            sTaskStr += "  [ ] " + ss.name + " (" + ss.finish + ")\n"
+            sTaskStr += "  [ ] " + truncateString(ss.name, 33) + " (" + ss.finish.toFixed(2) + ")\n"
           })
           //sTaskStr = sTaskStr.substring(0, sTaskStr.length - 1);
         }
       }
     } else {
       // For other stamps (with no time goal or countUp goal)
-      sTaskStr += s.sname.toUpperCase() + " (" + Number(s.finish).toFixed(2) + ")\n";
+      sTaskStr += truncateString(s.sname.toUpperCase(), 36) + " (" + Number(s.finish).toFixed(2) + ")\n";
       if (s.hasOwnProperty('subsubs'))
       {
         s.subsubs.forEach((ss) => {
           // For each subsubtask, print the subsubtask
-          sTaskStr += "  [ ] " + ss.name + " (" + ss.finish + ")\n"
+          sTaskStr += "  [ ] " + truncateString(ss.name, 33) + " (" + ss.finish.toFixed(2) + ")\n"
         })
         //sTaskStr = sTaskStr.substring(0, sTaskStr.length - 1);
       }
@@ -250,7 +259,7 @@ const print_task = (task_id, tasks) => {
       // Count up stamp
       if (s.countUp == 1)
       {
-        subTaskTimeSuffix += " (x" + s.finish +")";
+        subTaskTimeSuffix += " (x" + s.finish.toFixed(2) +")";
       }
     }
     let subsubTaskSuffix = ''
