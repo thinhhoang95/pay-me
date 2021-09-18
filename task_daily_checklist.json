@@ -12,28 +12,48 @@
         "sname": "Research",
         "finish": 1.5,
         "unselected": 0,
-        "countUp": 1
+        "countUp": 1,
+        "subsubs": [
+            {
+                "name": "2.12.1",
+                "finish": 1.0
+            },
+            {
+                "name": "2.12.2",
+                "finish": 1.5
+            }
+        ]
       },
       {
         "sname": "Probability",
         "time": 4,
-        "finish": 1.2,
-        "unselected": 0
+        "finish": 2.0,
+        "unselected": 0,
+        "subsubs": [
+            {
+                "name": "2.12.1",
+                "finish": 1.0
+            },
+            {
+                "name": "2.12.2",
+                "finish": 1.5
+            }
+        ]
       },
       {
-        "sname": "Quickest Detection",
+        "sname": "Quick Det",
         "time": 3,
         "finish": 2,
         "unselected": 0
       },
       {
-        "sname": "Sparse Approximations",
+        "sname": "Sprse Approx",
         "time": 4,
         "finish": 1.2,
         "unselected": 0
       },
       {
-        "sname": "Statistical Inference",
+        "sname": "Stat Infr",
         "time": 3,
         "finish": 1.2,
         "unselected": 1
