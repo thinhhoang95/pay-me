@@ -1,0 +1,30 @@
+{
+  "expiredDate": { "_seconds": 1632182456, "_nanoseconds": 345000000 },
+  "date": "today",
+  "totalAmount": 5,
+  "sn": "DAILY-3Q29O-B86HO-UOE2Z-T4F74-V8LV6-WQWSX",
+  "finish": 1,
+  "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
+  "subs": [
+    {
+      "unselected": 0,
+      "sn": "J27IL-7MPCI-KJR9E-UEUEG-KOKY1-I1DWP",
+      "sname": "Probability",
+      "time": 4,
+      "finish": 2
+    },
+    {
+        "unselected": 0,
+        "sn": "",
+        "sname": "Research",
+        "countUp": 1,
+        "finish": 0.5
+    }
+  ],
+  "completedAmount": 0.5,
+  "expired": "2021-09-21T00:00:56.345Z",
+  "unselected": 0,
+  "description": "Daily time stamp for Mon 20/09/2021",
+  "tname": "DAILY TIME ALLOCATION",
+  "id": "DAILY"
+}
