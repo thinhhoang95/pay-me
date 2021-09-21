@@ -93,6 +93,8 @@ if (action == 'get')
             })
         }
         stamp.expiredDate = moment(stamp.expired).toDate()
+        delete stamp.totalAmount
+        delete stamp.completedAmount
         db.collection('subtasks').doc(stamp.sn).set(stamp).then(() => {
             console.log('Database updated successfully!')
         })

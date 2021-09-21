@@ -24,7 +24,7 @@
         "sname": "Quickest Detection",
         "time": 3,
         "finish": 2,
-        "unselected": 0
+        "unselected": 1
       },
       {
         "sname": "Sparse Approximations",

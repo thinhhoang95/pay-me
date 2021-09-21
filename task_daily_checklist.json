@@ -5,20 +5,14 @@
     "date": "today",
     "description": "Daily time allocation stamp for 11/08/2021. Have a nice Tuesday!",
     "finish": 1,
-    "expired": "2021-08-12 23:59:59",
+    "expired": "3 days",
     "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
     "subs": [
       {
         "sname": "Research",
         "finish": 1.5,
         "unselected": 0,
-        "countUp": 1,
-        "subsubs": [
-            {
-              "name": "Simulator dev",
-              "finish": 0
-            }
-        ]
+        "countUp": 1
       },
       {
         "sname": "Probability",
@@ -27,11 +21,11 @@
         "unselected": 0,
         "subsubs": [
             {
-                "name": "2.12.1",
+                "name": "Pg 84-85",
                 "finish": 1.0
             },
             {
-                "name": "2.12.2",
+                "name": "Thm 2.12.2",
                 "finish": 1.5
             }
         ]
@@ -40,7 +34,7 @@
         "sname": "Quick Det",
         "time": 3,
         "finish": 1,
-        "unselected": 0,
+        "unselected": 1,
         "subsubs": [
           {
             "name": "Ex 3.2",
@@ -59,12 +53,8 @@
         "unselected": 0,
         "subsubs": [
           {
-            "name": "Sprse Cdg 1.3",
-            "finish": 1.5
-          },
-          {
-            "name": "Sprse Cdg 1.4-*.2",
-            "finish": 1.5
+            "name": "Read Mairal 1.3",
+            "finish": 2.0
           }
         ]
       },
