@@ -64,6 +64,7 @@ if (action == 'get')
         let stamp = JSON.parse(data)
         if (stamp.hasOwnProperty('subs'))
         {
+            // Assign serial numbers for missing subtasks and subsubtasks
             stamp.subs.forEach((sub) => {
                 if (!sub.hasOwnProperty('sn'))
                 {

@@ -4,3 +4,11 @@ node .\task_choosefile_pos_pdf.js .\task_daily.json today auto
 node .\task_choosefile_pos_pdf.js .\task_daily.json tomorrow auto
 node .\task_choosefile_pos_pdf.js .\task_weekly.json nextweek
 node .\task_choosefile_pos_pdf.js .\task_custom.json
+node .\edit_stamp.js get SN
+node .\edit_stamp.js set (no need to specify SN since it is already in edit.json)
+node .\append_stamp.js DAILY task_daily_checklist.json
+node .\print_stamp_from_db.js DAILY
+
+Regular stamps?
+
+Salary stamps?
