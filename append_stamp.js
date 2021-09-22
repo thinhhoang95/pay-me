@@ -87,6 +87,14 @@ db.collection("subtasks")
                         console.log("Transfer sub " + fsub.sname);
                         subExisted = true;
                         dsub.finish = fsub.finish; // transfer the finish reward
+                        if (fsub.hasOwnProperty('time'))
+                        {
+                          dsub.time = fsub.time // transfer time goals
+                        }
+                        if (fsub.hasOwnProperty('countUp'))
+                        {
+                          dsub.countUp = fsub.countUp
+                        }
                         if (fsub.hasOwnProperty("subsubs")) {
                           // Transfer the subsubs
                           if (!dsub.hasOwnProperty("subsubs")) {

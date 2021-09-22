@@ -3,14 +3,14 @@
     "id": "DAILY",
     "tname": "DAILY TIME ALLOCATION",
     "date": "today",
-    "description": "Daily time allocation stamp for 11/08/2021. Have a nice Tuesday!",
+    "description": "Experimental continuous stamp",
     "finish": 1,
     "expired": "3 days",
     "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
     "subs": [
       {
         "sname": "Research",
-        "finish": 1.5,
+        "finish": 0.5,
         "unselected": 0,
         "countUp": 1
       },
@@ -21,12 +21,24 @@
         "unselected": 0,
         "subsubs": [
             {
-                "name": "Pg 84-85",
-                "finish": 1.0
-            },
-            {
                 "name": "Thm 2.12.2",
                 "finish": 1.5
+            },
+            {
+              "name": "Pg 87-89",
+              "finish": 0.5
+            },
+            {
+              "name": "Proposition 2.12.3-4",
+              "finish": 2.0
+            },
+            {
+              "name": "Proposition 2.12.5-6",
+              "finish": 1.75
+            },
+            {
+              "name": "Pg 94-95",
+              "finish": 1.5
             }
         ]
       },
@@ -62,7 +74,7 @@
         "sname": "Stat Infr",
         "time": 3,
         "finish": 1.2,
-        "unselected": 0
+        "unselected": 1
       }
     ]
 }]
