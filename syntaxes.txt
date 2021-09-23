@@ -1,9 +1,15 @@
 Sample syntaxs: 
 
+
+Favorites:
+node task_choosefile_pos_pdf_checklist.js task_daily_checklist.json _ auto
+
+All:
 node .\task_choosefile_pos_pdf.js .\task_daily.json today auto
 node .\task_choosefile_pos_pdf.js .\task_daily.json tomorrow auto
 node .\task_choosefile_pos_pdf.js .\task_weekly.json nextweek
 node .\task_choosefile_pos_pdf.js .\task_custom.json
+node task_choosefile_pos_pdf_checklist.js task_daily_checklist.json _ auto
 node .\edit_stamp.js get SN
 node .\edit_stamp.js set (no need to specify SN since it is already in edit.json)
 node .\append_stamp.js DAILY task_daily_checklist.json
