@@ -24,6 +24,8 @@ const make_serial = (length, terms) => {
 };
 
 let sn = process.argv[2];
+let autoTimePayUpdate = process.argv[4];
+
 db.collection("subtasks")
   .listDocuments()
   .then((ref) => {
@@ -146,6 +148,25 @@ db.collection("subtasks")
                 });
               }
               // console.log(docContent)
+              // Update finish reward if param auto is set:
+              docContent.subs.forEach((s) => 
+              {
+                if (autoTimePayUpdate == "auto") {
+                  console.log('Adjusting finish reward for sub ' + s.sname)
+                  if (s.hasOwnProperty('time'))
+                  {
+                    s.finish = s.time * 0.5;
+                  }
+                  if (s.hasOwnProperty('countUp'))
+                  {
+                    if (s.countUp == 1)
+                    {
+                      s.finish = 0.5
+                    }
+                  }
+                }
+              })
+              // Update the transferred stamp to DB
               db.collection("subtasks")
                 .doc(dbSn)
                 .set(docContent)

@@ -1,37 +1,73 @@
 {
-  "sn": "DAILY-Z9VPD-8BAK5-Y8ER2-TURG5-OP12D-NIXNE",
+  "description": "Experimental continuous stamp",
+  "expired": "2021-09-28T00:46:52.320Z",
   "unselected": 0,
-  "finish": 1,
-  "expired": "2021-09-25T00:00:21.383Z",
-  "date": "today",
-  "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
-  "expiredDate": { "_seconds": 1632528021, "_nanoseconds": 383000000 },
-  "id": "DAILY",
-  "totalAmount": 10,
-  "tname": "DAILY TIME ALLOCATION",
-  "description": "Daily time allocation stamp for 11/08/2021. Have a nice Tuesday!",
   "subs": [
     {
-      "countUp": 1,
-      "finish": 0.5,
-      "unselected": 0,
-      "sn": "VD8TT-V68C2-LHJHC-JL1S6-5TU9E-4THTW",
-      "sname": "Research"
-    },
-    {
-      "finish": -0.5,
       "time": 4,
       "subsubs": [
         {
-          "name": "Thm 2.12.2",
-          "sn": "3TXS7-BTWTR-S4MNH-PZUCG-7RD44-8ZSL3",
+          "sn": "YQBX1-LSI92-96PL0-QI3AG-2MS1O-5PO94",
+          "finish": 2,
+          "name": "Proposition 2.12.3-4"
+        },
+        {
+          "finish": 1.75,
+          "sn": "K98IW-3IGFY-60RRH-80MVY-IZ4X9-X3DL2",
+          "name": "Proposition 2.12.5-6"
+        },
+        {
+          "sn": "G4FF4-5PKQC-UHCWD-6622D-EZ4V5-AO36C",
+          "name": "Pg 94-95",
           "finish": 1.5
         }
       ],
       "unselected": 0,
-      "sn": "O3TA4-HFB5V-FIYLQ-92RM3-GSMY0-JYXPZ",
-      "sname": "Probability"
+      "sn": "STFHI-IN9QL-9K04M-4F40K-Z8BGJ-6J5DE",
+      "sname": "Probability",
+      "finish": 2
+    },
+    {
+      "finish": 2,
+      "sname": "Sprse Approx",
+      "unselected": 0,
+      "sn": "HV9E7-VX6X0-XA23J-R7C67-2U43Q-CFV6W",
+      "time": 4,
+      "subsubs": [
+        {
+          "sn": "0UCH4-XSVA2-P6XH8-5D09N-70W9D-7LBJK",
+          "finish": 2,
+          "name": "Read Mairal 1.3"
+        }
+      ]
+    },
+    {
+      "countUp": 1,
+      "sn": "IHKPH-83L63-6MR26-N9JPF-CY527-BY701",
+      "unselected": 0,
+      "finish": 0.5,
+      "sname": "Research"
+    },
+    {
+      "sname": "Quick Det",
+      "subsubs": [
+        {
+          "finish": 1,
+          "name": "Co 3.3",
+          "sn": "UQT0X-34138-RQZVQ-QMEV3-PKL62-425BM"
+        }
+      ],
+      "finish": -0.75,
+      "sn": "0B7XR-TFKJH-TB6LK-C060Q-2HYWZ-7O0MI",
+      "time": 3,
+      "unselected": 0
     }
   ],
-  "completedAmount": 0
+  "finish": 1,
+  "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
+  "sn": "DAILY-1U4ZW-NU4M9-LRKWY-XVDJM-PKMAH-VSRW0",
+  "date": "today",
+  "expiredDate": { "_seconds": 1632790012, "_nanoseconds": 320000000 },
+  "id": "DAILY",
+  "tname": "DAILY TIME ALLOCATION"
 }
