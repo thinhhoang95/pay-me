@@ -4,6 +4,13 @@ Sample syntaxs:
 Favorites:
 node task_choosefile_pos_pdf_checklist.js task_daily_checklist.json _ auto
 
+node sync_stamp.js DAILY 
+(Edit the file task_choosefile_pos_pdf_checklist.json)
+node .\append_stamp.js DAILY task_daily_checklist.json auto
+node .\print_stamp_from_db.js DAILY
+
+node .\fees.js
+
 All:
 node .\task_choosefile_pos_pdf.js .\task_daily.json today auto
 node .\task_choosefile_pos_pdf.js .\task_daily.json tomorrow auto
@@ -16,5 +23,7 @@ node .\append_stamp.js DAILY task_daily_checklist.json auto
 node .\print_stamp_from_db.js DAILY
 
 Regular stamps?
+node .\regular_stamp_print.js 
+node .\regular_stamp_pdf_only.js 
 
 Salary stamps?

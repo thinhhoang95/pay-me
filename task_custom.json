@@ -1,21 +1,12 @@
 [
   {
     "unselected": 0,
-    "id": "PROJE",
-    "tname": "RESEARCH PROJECT",
+    "id": "Stat Infr",
+    "tname": "Statistical Inference",
     "date": "today",
-    "description": "Information Theory and Data Compression",
-    "finish": 1,
-    "expired": "2 days",
-    "subs": [
-      {
-        "sname": "Page 13-15",
-        "finish": 2.0
-      },
-      {
-        "sname": "Page 16-18",
-        "finish": 2.0
-      }
-    ]
+    "description": "Chapter 8: Hypothesis Testing",
+    "finish": 7,
+    "expired": "4 days",
+    "subs": []
   }
 ]
