@@ -32,6 +32,13 @@ const preprocess = async () => {
     let timeunits = reader.question("Amount of money: ");
     let content = reader.question("Content: ");
     let paymentLastDate = reader.question("Pay in ? days: ");
+    let removableRequest = reader.question("Removable? 1 for Yes, 0 for No: ")
+    if (removableRequest == '1')
+    {
+      removableRequest = 1
+    } else {
+      removableRequest = 0
+    }
     let stampValue = Number(timeunits)
     console.log('The fee request is: ' + stampValue.toFixed(2))
     // Add this stamp to the database for claim from the app
@@ -42,7 +49,8 @@ const preprocess = async () => {
       'content': content + ". Generated at " + moment().toISOString() + '.',
       'claimed': false,
       'value': stampValue,
-      'expired': moment().add(Number(paymentLastDate), 'day').toISOString()
+      'expired': moment().add(Number(paymentLastDate), 'day').toISOString(),
+      'removable': removableRequest
     });
     resolve();
   });
