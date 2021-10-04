@@ -6,7 +6,7 @@
     "date": "today",
     "description": "Experimental continuous stamp",
     "finish": 1,
-    "expired": "3 days",
+    "expired": "2 day",
     "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
     "subs": [
       { "sname": "Research", "finish": 0.5, "unselected": 0, "countUp": 1 },

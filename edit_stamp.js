@@ -25,6 +25,15 @@ const make_serial = (length, terms) => {
     return result.join("");
 };
 
+const truncateString = (str, len) => {
+    if (str.length > len)
+    {
+      return str.substring(0, len)
+    } else {
+      return str
+    }
+  }
+
 if (action == 'get')
 {
     let sn = process.argv[3]
@@ -52,7 +61,7 @@ if (action == 'get')
         })
         console.log('Search completed.')
     })
-} else if (action == 'set')
+} else if (action == 'set' || action == 'new')
 {
     // TODO: Set stamp here
     // First, loop through all subs to ensure SN is filled in
@@ -96,6 +105,10 @@ if (action == 'get')
         stamp.expiredDate = moment(stamp.expired).toDate()
         delete stamp.totalAmount
         delete stamp.completedAmount
+        if (stamp.sn === '' || action == 'new')
+        {
+            stamp.sn = truncateString(stamp.id.toUpperCase(), 5) + "-" + make_serial(5,6)
+        }
         db.collection('subtasks').doc(stamp.sn).set(stamp).then(() => {
             console.log('Database updated successfully!')
         })

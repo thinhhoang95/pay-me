@@ -1,73 +1,88 @@
-{
-  "description": "Experimental continuous stamp",
-  "expired": "2021-09-28T00:46:52.320Z",
-  "unselected": 0,
-  "subs": [
-    {
-      "time": 4,
-      "subsubs": [
-        {
-          "sn": "YQBX1-LSI92-96PL0-QI3AG-2MS1O-5PO94",
-          "finish": 2,
-          "name": "Proposition 2.12.3-4"
-        },
-        {
-          "finish": 1.75,
-          "sn": "K98IW-3IGFY-60RRH-80MVY-IZ4X9-X3DL2",
-          "name": "Proposition 2.12.5-6"
-        },
-        {
-          "sn": "G4FF4-5PKQC-UHCWD-6622D-EZ4V5-AO36C",
-          "name": "Pg 94-95",
-          "finish": 1.5
-        }
-      ],
-      "unselected": 0,
-      "sn": "STFHI-IN9QL-9K04M-4F40K-Z8BGJ-6J5DE",
-      "sname": "Probability",
-      "finish": 2
-    },
-    {
-      "finish": 2,
-      "sname": "Sprse Approx",
-      "unselected": 0,
-      "sn": "HV9E7-VX6X0-XA23J-R7C67-2U43Q-CFV6W",
-      "time": 4,
-      "subsubs": [
-        {
-          "sn": "0UCH4-XSVA2-P6XH8-5D09N-70W9D-7LBJK",
-          "finish": 2,
-          "name": "Read Mairal 1.3"
-        }
-      ]
-    },
-    {
-      "countUp": 1,
-      "sn": "IHKPH-83L63-6MR26-N9JPF-CY527-BY701",
-      "unselected": 0,
-      "finish": 0.5,
-      "sname": "Research"
-    },
-    {
-      "sname": "Quick Det",
-      "subsubs": [
-        {
-          "finish": 1,
-          "name": "Co 3.3",
-          "sn": "UQT0X-34138-RQZVQ-QMEV3-PKL62-425BM"
-        }
-      ],
-      "finish": -0.75,
-      "sn": "0B7XR-TFKJH-TB6LK-C060Q-2HYWZ-7O0MI",
-      "time": 3,
-      "unselected": 0
-    }
-  ],
-  "finish": 1,
-  "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
-  "sn": "DAILY-1U4ZW-NU4M9-LRKWY-XVDJM-PKMAH-VSRW0",
-  "date": "today",
-  "expiredDate": { "_seconds": 1632790012, "_nanoseconds": 320000000 },
-  "id": "DAILY",
-  "tname": "DAILY TIME ALLOCATION"
-}
+[
+  {
+    "subs": [
+      {
+        "sn": "YB1BJ-W6NN7-AQIWT-M9I4N-4PUR0-XDJVB",
+        "sname": "Quick Det",
+        "finish": 1,
+        "subsubs": [
+          {
+            "finish": 3,
+            "sn": "TSOMQ-WDI8W-6I4OG-HEEYS-LQFF9-181PW",
+            "name": "MIT Lec 10"
+          },
+          {
+            "sn": "NM0FZ-NE3WK-78IF1-HE13O-VI2D6-VSD3T",
+            "finish": 1,
+            "name": "Co 3.3"
+          },
+          {
+            "name": "Sec 3.4.1",
+            "finish": 3.0
+          }
+        ],
+        "time": 6,
+        "unselected": 0
+      },
+      {
+        "unselected": 1,
+        "sn": "ZFJSN-PQE6W-AWOKH-GWKAK-R3J5B-NJQRK",
+        "countUp": 1,
+        "sname": "Teaching",
+        "subsubs": [
+          {
+            "sn": "1167G-73WN0-VH5K2-K4QZF-60C85-9APCE",
+            "name": "Prepare the slides for Session 2",
+            "finish": 2
+          }
+        ],
+        "finish": 0.5
+      },
+      {
+        "unselected": 0,
+        "sn": "ZFJSN-PQE6W-AWOKH-GWKAK-R3J5B-NJQRK",
+        "sname": "Probability",
+        "subsubs": [
+          {
+            "sn": "1167G-73WN0-VH5K2-K4QZF-60C85-9APCE",
+            "name": "Read 2.13",
+            "finish": 1
+          },
+          {
+            "name": "2.14.1-2",
+            "finish": 2.5
+          }
+        ],
+        "finish": 1,
+        "time": 4
+      },
+      {
+        "unselected": 0,
+        "sn": "ZFJSN-PQE6W-AWOKH-GWKAK-R3J5B-NJQRK",
+        "countUp": 1,
+        "sname": "Research",
+        "subsubs": [
+          {
+            "sn": "1167G-73WN0-VH5K2-K4QZF-60C85-9APCE",
+            "name": "Thresholding by line",
+            "finish": 4
+          },
+          {
+            "name": "Artery CP",
+            "finish": 5
+          }
+        ],
+        "finish": 0.5
+      }
+    ],
+    "finish": 1,
+    "unselected": 0,
+    "date": "today",
+    "expired": "2021-10-06T00:00:01.769Z",
+    "sn": "DAILY-CB8PC-H8SXL-EOCI2-FR4NC-6XEBQ-EGKNX",
+    "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
+    "id": "DAILY",
+    "description": "Daily time stamp for Tue 05/10/2021",
+    "tname": "DAILY TIME ALLOCATION"
+  }
+]
