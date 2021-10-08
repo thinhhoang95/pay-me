@@ -1,42 +1,61 @@
-[
-  {
-    "unselected": 0,
+[{
+    "description": "Daily time stamp for 08/10/2021",
+    "date": "today",
     "id": "DAILY",
     "tname": "DAILY TIME ALLOCATION",
-    "date": "today",
-    "description": "Experimental continuous stamp",
+    "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
     "finish": 1,
     "expired": "3 days",
-    "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
+    "unselected": 0,
     "subs": [
-      { "sname": "Research", "finish": 0.5, "unselected": 0, "countUp": 1 },
       {
-        "sname": "Probability",
-        "time": 4,
         "finish": 2,
         "unselected": 0,
-        "subsubs": [
-            { "name": "", "finish": 2.5 }
-        ]
-      },
-      {
-        "sname": "Quick Det",
-        "time": 3,
-        "finish": 1.5,
-        "unselected": 0,
-        "subsubs": [
-          { "name": "Co 3.3", "finish": 1 },
-          { "name": "MIT Lec 10", "finish": 3 }
-        ]
-      },
-      {
-        "sname": "Sprse Approx",
         "time": 4,
-        "finish": 1.2,
-        "unselected": 0,
-        "subsubs": [{ "name": "Read Mairal 1.3", "finish": 2 }]
+        "subsubs": [
+          {
+            "finish": 3,
+            "name": "MIT Lec 10"
+          },
+          {
+            "finish": 3,
+            "name": "Sec 3.4.1"
+          }
+        ],
+        "sname": "Quick Det"
       },
-      { "sname": "Stat Infr", "time": 3, "finish": 1.2, "unselected": 1 }
+      {
+        "finish": 2,
+        "unselected": 0,
+        "sname": "Probability",
+        "time": 4,
+        "subsubs": [
+          {
+            "name": "Read 2.13",
+            "finish": 1
+          },
+          {
+            "finish": 2.5,
+            "name": "2.14.1-2"
+          }
+        ]
+      },
+      {
+        "sname": "Research",
+        "countUp": 1,
+        "unselected": 0,
+        "finish": 0.5,
+        "subsubs": [
+          {
+            "finish": 4,
+            "name": "Thresholding by line"
+          },
+          {
+            "finish": 5,
+            "name": "Artery CP"
+          }
+        ]
+      }
     ]
   }
 ]

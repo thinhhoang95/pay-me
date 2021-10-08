@@ -1,16 +1,12 @@
-const escpos = require("escpos");
-// install escpos-usb adapter module manually
-escpos.USB = require("escpos-usb");
-// Select the adapter based on your printer type
-const device = new escpos.USB();
-const options = { encoding: "GB18030" /* default */ };
-const printer = new escpos.Printer(device, options);
+
 const moment = require("moment");
 const admin = require("firebase-admin");
 const serviceAccount = require("./payme-node-key.json");
 
 const puppeteer = require("puppeteer");
 const nodemailer = require("nodemailer");
+
+const path = require("path");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -186,7 +182,7 @@ const print_task = (task_id, tasks) => {
               mailOptions.attachments.push({
                 filename: "paycheck_" + tasks[i].id + ".pdf",
                 path:
-                  path.join(__dirname, 'paycheck_' + String(i) + '.pdf')
+                    path.join(__dirname, 'paycheck_' + String(i) + '.pdf')
               });
             }
   
@@ -207,7 +203,7 @@ const print_task = (task_id, tasks) => {
       });
     });
   
-    device.open(async (error) => {
+    /* device.open(async (error) => {
       printer
         .font("a")
         .size(0, 0)
@@ -242,7 +238,7 @@ const print_task = (task_id, tasks) => {
             }, 2000);
           }
         });
-    });
+    }); */
   };
   
 db.collection('subtasks').listDocuments().then((ref) => {
