@@ -1,88 +1,71 @@
-[
-  {
-    "subs": [
-      {
-        "sn": "YB1BJ-W6NN7-AQIWT-M9I4N-4PUR0-XDJVB",
-        "sname": "Quick Det",
-        "finish": 1,
-        "subsubs": [
-          {
-            "finish": 3,
-            "sn": "TSOMQ-WDI8W-6I4OG-HEEYS-LQFF9-181PW",
-            "name": "MIT Lec 10"
-          },
-          {
-            "sn": "NM0FZ-NE3WK-78IF1-HE13O-VI2D6-VSD3T",
-            "finish": 1,
-            "name": "Co 3.3"
-          },
-          {
-            "name": "Sec 3.4.1",
-            "finish": 3.0
-          }
-        ],
-        "time": 6,
-        "unselected": 0
-      },
-      {
-        "unselected": 1,
-        "sn": "ZFJSN-PQE6W-AWOKH-GWKAK-R3J5B-NJQRK",
-        "countUp": 1,
-        "sname": "Teaching",
-        "subsubs": [
-          {
-            "sn": "1167G-73WN0-VH5K2-K4QZF-60C85-9APCE",
-            "name": "Prepare the slides for Session 2",
-            "finish": 2
-          }
-        ],
-        "finish": 0.5
-      },
-      {
-        "unselected": 0,
-        "sn": "ZFJSN-PQE6W-AWOKH-GWKAK-R3J5B-NJQRK",
-        "sname": "Probability",
-        "subsubs": [
-          {
-            "sn": "1167G-73WN0-VH5K2-K4QZF-60C85-9APCE",
-            "name": "Read 2.13",
-            "finish": 1
-          },
-          {
-            "name": "2.14.1-2",
-            "finish": 2.5
-          }
-        ],
-        "finish": 1,
-        "time": 4
-      },
-      {
-        "unselected": 0,
-        "sn": "ZFJSN-PQE6W-AWOKH-GWKAK-R3J5B-NJQRK",
-        "countUp": 1,
-        "sname": "Research",
-        "subsubs": [
-          {
-            "sn": "1167G-73WN0-VH5K2-K4QZF-60C85-9APCE",
-            "name": "Thresholding by line",
-            "finish": 4
-          },
-          {
-            "name": "Artery CP",
-            "finish": 5
-          }
-        ],
-        "finish": 0.5
-      }
-    ],
-    "finish": 1,
-    "unselected": 0,
-    "date": "today",
-    "expired": "2021-10-06T00:00:01.769Z",
-    "sn": "DAILY-CB8PC-H8SXL-EOCI2-FR4NC-6XEBQ-EGKNX",
-    "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
-    "id": "DAILY",
-    "description": "Daily time stamp for Tue 05/10/2021",
-    "tname": "DAILY TIME ALLOCATION"
-  }
-]
+{
+  "expired": "2021-10-12T00:19:41.703Z",
+  "sn": "DAILY-1BOGX-7DEY0-TO6JM-RY0ZO-57SUX-PBEXD",
+  "unselected": 0,
+  "description": "Daily time stamp for 08/10/2021",
+  "date": "today",
+  "finish": 1,
+  "expiredDate": { "_seconds": 1633997981, "_nanoseconds": 703000000 },
+  "id": "DAILY",
+  "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
+  "tname": "DAILY TIME ALLOCATION",
+  "subs": [
+    {
+      "sname": "Quick Det",
+      "time": 4,
+      "sn": "7CESZ-GIB9N-BW419-CTLB4-ZYBD6-PCR52",
+      "subsubs": [
+        {
+          "finish": 3,
+          "name": "MIT Lec 10",
+          "sn": "DRS2Y-XUFBJ-WHREI-IM3NR-5UYPX-ABHH7"
+        },
+        {
+          "finish": 3.5,
+          "name": "Theorem 3.5",
+          "sn": "0RFPZ-VCG9U-92A6W-SNMOC-S5D3Y-16ADA"
+        }
+      ],
+      "finish": 2,
+      "unselected": 0
+    },
+    {
+      "sname": "Probability",
+      "time": 4,
+      "sn": "CTNWE-32WQI-UAR4F-XPHQI-QRMDC-0PKRP",
+      "unselected": 0,
+      "subsubs": [
+        {
+          "sn": "H6BY3-R5XPZ-RXUYY-4C6AD-04T3Q-MJDHN",
+          "finish": 1,
+          "name": "Read 2.13"
+        },
+        {
+          "name": "2.14.1-2",
+          "finish": 2.5,
+          "sn": "JBROI-KZZUR-G7HQW-6V0AZ-YXC5H-MLV63"
+        }
+      ],
+      "finish": 2
+    },
+    {
+      "finish": 0.5,
+      "subsubs": [
+        {
+          "name": "Thresholding by line",
+          "finish": 4,
+          "sn": "UB82C-N0TT6-64327-QK5TB-9R9XS-MS25R"
+        },
+        {
+          "finish": 5,
+          "sn": "UHKV3-NG0YR-HTVL2-4WBDE-ZSGV2-OVIBV",
+          "name": "Artery CP"
+        }
+      ],
+      "sn": "ZT36L-5NZQ6-V0FNQ-724AY-7VXMX-7SLFR",
+      "countUp": 1,
+      "sname": "Research",
+      "unselected": 0
+    }
+  ]
+}

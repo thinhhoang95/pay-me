@@ -19,6 +19,7 @@
     "nodemailer": "^6.6.1",
     "puppeteer": "^9.1.1",
     "read-excel-file": "^5.1.0",
-    "readline-sync": "^1.4.10"
+    "readline-sync": "^1.4.10",
+    "xlsx2json": "^1.0.0"
   }
 }
