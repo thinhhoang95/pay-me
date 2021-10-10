@@ -43,18 +43,24 @@ const afterParsingHandler = (key, data) => {
         allData.tasks.forEach((task) => {
             // Create a task 
             let jTask = Object.assign({}, task)
+            console.log(task)
+            jTask.finish = Number(task.finish)
+            jTask.unselected = Number(task.unselected)
             // Find all jTask's subs
             let jSubs = allData.subs.filter(s => s.id == jTask.id)
             if (jSubs.length > 0)
             {
                 jSubs.forEach((sub) => {
                     delete sub.id
+                    sub.finish = Number(sub.finish)
+                    sub.unselected = Number(sub.unselected)
                     // For each sub, find all subsubs
                     let jSubSubs = allData.subsubs.filter(ss => ss.sname == sub.sname)
                     if (jSubSubs.length > 0)
                     {
                         jSubSubs.forEach(jss => {
                             delete jss.sname
+                            jss.finish = Number(jss.finish)
                         })
                         sub.subsubs = jSubSubs
                     }
