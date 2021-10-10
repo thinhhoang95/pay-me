@@ -28,7 +28,7 @@ node .\append_stamp.js DAILY task_daily_checklist.json auto
 
 node .\print_stamp_from_db.js DAILY
 
-
+node .\easy_csv.js (edit task.xlsx first, run this file, then any task_choosefile_pos_pdf_checklist or append_stamp, your choice)
 
 Regular stamps?
 node .\regular_stamp_print.js 
