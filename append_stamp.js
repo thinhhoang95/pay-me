@@ -96,6 +96,11 @@ db.collection("subtasks")
                         if (fsub.hasOwnProperty('countUp'))
                         {
                           dsub.countUp = fsub.countUp
+                          // countUp task should not have field 'time'
+                          if (dsub.hasOwnProperty('time'))
+                          {
+                            delete dsub.time
+                          }
                         }
                         if (fsub.hasOwnProperty("subsubs")) {
                           // Transfer the subsubs

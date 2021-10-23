@@ -57,8 +57,16 @@ const afterParsingHandler = (key, data) => {
                     if (sub.countUp == '1')
                     {
                         sub.countUp = 1
+                        if (sub.hasOwnProperty('time'))
+                        {
+                            delete sub.time
+                        }
                     } else {
                         delete sub.countUp
+                    }
+                    if (sub.hasOwnProperty('time'))
+                    {
+                        sub.time = Number(sub.time)
                     }
                     // For each sub, find all subsubs
                     let jSubSubs = allData.subsubs.filter(ss => ss.sname == sub.sname)
