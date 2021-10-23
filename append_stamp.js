@@ -92,7 +92,13 @@ db.collection("subtasks")
                         if (fsub.hasOwnProperty('time'))
                         {
                           dsub.time = fsub.time // transfer time goals
+                        } else {
+                          if (dsub.hasOwnProperty('time'))
+                          {
+                            delete dsub.time
+                          }
                         }
+                        // Sync countUp
                         if (fsub.hasOwnProperty('countUp'))
                         {
                           dsub.countUp = fsub.countUp
@@ -100,6 +106,11 @@ db.collection("subtasks")
                           if (dsub.hasOwnProperty('time'))
                           {
                             delete dsub.time
+                          }
+                        } else {
+                          if (dsub.hasOwnProperty('countUp'))
+                          {
+                            delete dsub.countUp
                           }
                         }
                         if (fsub.hasOwnProperty("subsubs")) {
