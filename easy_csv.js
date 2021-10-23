@@ -54,6 +54,12 @@ const afterParsingHandler = (key, data) => {
                     delete sub.id
                     sub.finish = Number(sub.finish)
                     sub.unselected = Number(sub.unselected)
+                    if (sub.countUp == '1')
+                    {
+                        sub.countUp = 1
+                    } else {
+                        delete sub.countUp
+                    }
                     // For each sub, find all subsubs
                     let jSubSubs = allData.subsubs.filter(ss => ss.sname == sub.sname)
                     if (jSubSubs.length > 0)

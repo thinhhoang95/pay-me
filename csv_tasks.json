@@ -2,7 +2,7 @@
   {
     "id": "DAILY",
     "tname": "Daily Time Allocation",
-    "description": "Daily time stamp for 23/10/2021",
+    "description": "Daily time stamp for 20/10/2021",
     "unselected": 0,
     "finish": 1,
     "expired": "3 days",
@@ -16,7 +16,8 @@
       },
       {
         "sname": "Research",
-        "finish": 0.5,
+        "time": "4",
+        "finish": 1,
         "unselected": 0,
         "countUp": 1,
         "subsubs": [{ "name": "Mthd PCA-TD", "finish": 6 }]
