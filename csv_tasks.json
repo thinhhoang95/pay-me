@@ -2,22 +2,36 @@
   {
     "id": "DAILY",
     "tname": "Daily Time Allocation",
-    "description": "Daily time stamp for …",
+    "description": "Daily time stamp for 23/10/2021",
     "unselected": 0,
     "finish": 1,
     "expired": "3 days",
     "subs": [
       {
         "sname": "Proba Thry",
-        "time": "3",
+        "time": "4",
+        "finish": 1,
+        "unselected": 0,
+        "subsubs": [{ "name": "Pg 103-105", "finish": 1.5 }]
+      },
+      {
+        "sname": "Research",
+        "finish": 0.5,
+        "unselected": 0,
+        "countUp": 1,
+        "subsubs": [{ "name": "Mthd PCA-TD", "finish": 6 }]
+      },
+      {
+        "sname": "Quick Det",
+        "time": "4",
         "finish": 1,
         "unselected": 0,
         "subsubs": [
-          { "name": "Thm 2.13.1", "finish": 1 },
-          { "name": "Thm 2.13.2", "finish": 1.5 }
+          { "name": "LN Thm 3.5", "finish": 2 },
+          { "name": "Lm-Thm 3.7-8", "finish": 4 }
         ]
       },
-      { "sname": "Research", "time": "3", "finish": 1, "unselected": 0 }
+      { "sname": "Teaching", "time": "8", "finish": 1, "unselected": 1 }
     ]
   }
 ]
