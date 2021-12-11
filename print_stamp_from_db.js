@@ -31,6 +31,7 @@ const truncateString = (str, len) => {
 
 var fs = require("fs");
 let sn = process.argv[2]; // file name for the day
+var goals = JSON.parse(fs.readFileSync('goals.json', "utf8"));
 
 const print_task = (task_id, tasks) => {
     let task = tasks[task_id];
@@ -226,6 +227,7 @@ const print_task = (task_id, tasks) => {
         .text(sTaskStr)
         .text("================================================")
         .text("Completement pay: " + parseFloat(task.finish).toFixed(2))
+        .text("Goal: " + Number(goals.tu).toFixed(1) + " time units")
         .text("SN: " + task.sn)
         .newLine()
         .text(

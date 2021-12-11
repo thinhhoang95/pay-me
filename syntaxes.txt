@@ -37,3 +37,4 @@ node .\regular_stamp_pdf_only.js
 
 
 Salary stamps?
+node .\salary_app.js

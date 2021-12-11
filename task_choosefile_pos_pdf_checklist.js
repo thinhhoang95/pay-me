@@ -33,6 +33,7 @@ let autoDateUpdate = process.argv[3]; // print stamp for today or tomorrow
 let autoTimePayUpdate = process.argv[4]; // auto update the pay for each subtask in the daily paycheck
 console.log("Reading file ", taskFileName);
 var tasks = JSON.parse(fs.readFileSync(taskFileName, "utf8"));
+var goals = JSON.parse(fs.readFileSync('goals.json', "utf8"));
 
 tasks = tasks.filter((t) => {
   if (t.hasOwnProperty("unselected")) {
@@ -383,6 +384,7 @@ const print_task = (task_id, tasks) => {
       .text(sTaskStr)
       .text("================================================")
       .text("Completement pay: " + parseFloat(task.finish).toFixed(2))
+      .text("Goal: " + Number(goals.tu).toFixed(1) + " time units")
       .text("SN: " + task.sn)
       .newLine()
       .text(

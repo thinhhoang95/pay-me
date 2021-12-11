@@ -1,12 +1,12 @@
 [
   {
     "unselected": 0,
-    "id": "Stat Infr",
-    "tname": "Statistical Inference",
+    "id": "Bonus",
+    "tname": "Bonus",
     "date": "today",
-    "description": "Chapter 8: Hypothesis Testing",
-    "finish": 7,
-    "expired": "4 days",
+    "description": "Start working within 30 minutes since waking up",
+    "finish": 1,
+    "expired": "1 days",
     "subs": []
   }
 ]
