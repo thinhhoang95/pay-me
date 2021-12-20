@@ -15,7 +15,9 @@ db.collection("habits").get().then((querySnapshot) => {
         console.log('Now updating ' + doc.id)
         db.collection("habits").doc(doc.id).update(
             {
-                lastDone: newTime
+                lastDone: newTime,
+                count: 0,
+                current: 0
             }
         )
     })
