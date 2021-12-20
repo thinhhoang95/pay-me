@@ -227,12 +227,12 @@ const print_task = (task_id, tasks) => {
         .text(sTaskStr)
         .text("================================================")
         .text("Completement pay: " + parseFloat(task.finish).toFixed(2))
-        .text("Goal: " + Number(goals.tu).toFixed(1) + " time units")
+        .text("Printed on " + moment().format("ddd DD/MM/YYYY HH:mm:ss"))
         .text("SN: " + task.sn)
         .newLine()
         .text(
           "Task expires on: " +
-            moment(task.expired).format("ddd DD/MM/YYYY HH:mm")
+            moment(task.expired).format("ddd DD/MM/YYYY HH:mm:ss")
         )
         .qrimage(JSON.stringify(task_compact), async function (err) {
           await this.control("LF");
