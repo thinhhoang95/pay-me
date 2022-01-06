@@ -8,6 +8,7 @@ admin.initializeApp({
 const db = admin.firestore();
 const fs = require("fs");
 const moment = require("moment")
+const reader = require("readline-sync")
 
 const make_serial = (length, terms) => {
   var result = [];
@@ -26,6 +27,7 @@ const make_serial = (length, terms) => {
 
 let sn = process.argv[2];
 let autoTimePayUpdate = process.argv[4];
+let dayToWriteInDescription = Number(reader.question("What shall I write in description? 0 for today, 1 for tomorrow, etc..."))
 
 db.collection("subtasks")
   .listDocuments()
@@ -47,13 +49,9 @@ db.collection("subtasks")
           if (String(sn).toLowerCase() == 'daily')
           {
             // Daily stamp, auto update the description!
-            if (moment().get("hour") >=0 && moment().get("hour") <= 2)
-            {
-              // The time is now between 0AM and 2AM, description will be made for today
-              fileContent.description = "Plan for " + moment().add(0, 'day').format("DD/MM/YYYY")
-            } else {
-            fileContent.description = "Plan for " + moment().add(1, 'day').format("DD/MM/YYYY")
-            }
+            fileContent.description = "Plan for " + moment().add(dayToWriteInDescription, 'day').format("DD/MM/YYYY")
+            // Make the stamp valid from today
+            fileContent.validFrom = moment().add(dayToWriteInDescription, 'day').set('hour', 2).set('minute', 0).set('second', 0).toDate()
           }
           // Extend the expiry date if necessary
           if (fileContent.expired.indexOf("day") >= 0) {
@@ -88,6 +86,15 @@ db.collection("subtasks")
                   s.finish = 0.5
                 }
               }
+            }
+            // Add SN to subs
+            s.sn = make_serial(5,6)
+            // Add SN to subsubs
+            if (s.hasOwnProperty('subsubs'))
+            {
+              s.subsubs.forEach((ss) => {
+                ss.sn = make_serial(5,6)
+              })
             }
           })
           db.collection("subtasks").doc(dbSn).update(fileContent).then((writeResult) => {

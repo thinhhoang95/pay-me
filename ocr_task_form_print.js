@@ -1,3 +1,10 @@
+const escpos = require("escpos");
+// install escpos-usb adapter module manually
+escpos.USB = require("escpos-usb");
+// Select the adapter based on your printer type
+const device = new escpos.USB();
+const options = { encoding: "GB18030" /* default */ };
+const printer = new escpos.Printer(device, options);
 const moment = require("moment");
 const admin = require("firebase-admin");
 const serviceAccount = require("./payme-node-key.json");
@@ -11,12 +18,22 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+const truncateString = (str, len) => {
+  if (str.length > len)
+  {
+    return str.substring(0, len)
+  } else {
+    return str
+  }
+}
+
 var fs = require("fs");
 let taskFileName = process.argv[2]; // file name for the day
 let autoDateUpdate = process.argv[3]; // print stamp for today or tomorrow
 let autoTimePayUpdate = process.argv[4]; // auto update the pay for each subtask in the daily paycheck
 console.log("Reading file ", taskFileName);
 var tasks = JSON.parse(fs.readFileSync(taskFileName, "utf8"));
+var goals = JSON.parse(fs.readFileSync('goals.json', "utf8"));
 
 tasks = tasks.filter((t) => {
   if (t.hasOwnProperty("unselected")) {
@@ -33,6 +50,21 @@ tasks = tasks.filter((t) => {
 const make_serial = (length, terms) => {
   var result = [];
   var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  var charactersLength = characters.length;
+  for (let term = 0; term < terms; term++) {
+    for (var i = 0; i < length; i++) {
+      result.push(
+        characters.charAt(Math.floor(Math.random() * charactersLength))
+      );
+    }
+    if (term != terms - 1) result.push("-");
+  }
+  return result.join("");
+};
+
+const make_barcode = (length, terms) => {
+  var result = [];
+  var characters = "0123456789";
   var charactersLength = characters.length;
   for (let term = 0; term < terms; term++) {
     for (var i = 0; i < length; i++) {
@@ -62,8 +94,6 @@ const preprocess = async (tasks) => {
         }
       });
 
-      task.validFrom = moment().set('hour', 2).set('minute', 0).set('second', 0).toDate()
-
       // Modify subtask parameters according to the program's arguments
       task.subs.forEach((s) => {
         if (autoTimePayUpdate == "auto") {
@@ -81,43 +111,47 @@ const preprocess = async (tasks) => {
         }
       });
 
-      if (autoDateUpdate == "today") {
+      if (autoDateUpdate == "todaytoday") {
         let newExpiryDate = moment().add(2, "d");
         newExpiryDate.set("hour", 2);
         newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
         task.description =
-          "Daily time stamp for " + moment().format("ddd DD/MM/YYYY");
+          "Daily time stamp for " +
+          moment().format("ddd DD/MM/YYYY")
         console.log(
           "Description changed to today and expiry date changed to " +
             task.expired
         );
-      } else if (autoDateUpdate == "todaytoday") {
+      }
+      else if (autoDateUpdate == "today") {
         let newExpiryDate = moment();
         newExpiryDate.add(1, "d");
         newExpiryDate.set("hour", 2);
         newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
         task.description =
-          "Daily time stamp for " + moment().format("ddd DD/MM/YYYY");
+          "Daily time stamp for " +
+          moment().format("ddd DD/MM/YYYY")
         console.log(
           "Description changed to today and expiry date changed to " +
             task.expired
         );
-      } else if (autoDateUpdate == "tomorrow") {
-        let newExpiryDate = moment().add(3, "d");
+      }
+      else if (autoDateUpdate == "tomorrow") {
+        let newExpiryDate = moment().add(2, "d");
         newExpiryDate.set("hour", 2);
         newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
         task.description =
           "Daily time stamp for " +
-          moment().add(1, "d").format("ddd DD/MM/YYYY");
+          moment().add(1, "d").format("ddd DD/MM/YYYY")
         console.log(
           "Description changed to today and expiry date changed to " +
             task.expired
         );
       } else if (autoDateUpdate == "tomorrowtomorrow") {
-        let newExpiryDate = moment().add(2, "d");
+        let newExpiryDate = moment().add(3, "d");
         newExpiryDate.set("hour", 2);
         newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
@@ -146,14 +180,22 @@ const preprocess = async (tasks) => {
         newExpiryDate.set("minute", 0);
         task.expired = newExpiryDate.toISOString();
       }
-
       task.expiredDate = moment(task.expired).toDate();
-      let snPrefix = task.id.substring(0, 5).padEnd(5, "X").toUpperCase();
-      let sn = snPrefix + "-" + make_serial(5, 6);
+      let snPrefix = task.id.substring(0,5).padEnd(5, 'X').toUpperCase();
+      let sn = String(make_barcode(13,1))
+      // enable DB when done
       const taskRef = db.collection("subtasks").doc(sn);
       task.sn = sn;
       task.subs.forEach((stask) => {
+        // Assign serial number for each subtask
         stask.sn = make_serial(5, 6);
+        if (stask.hasOwnProperty('subsubs'))
+        {
+          // If there is a subsubtask (usually for daily checks), assign serial number for each one
+          stask.subsubs.forEach((sstask) => {
+            sstask.sn = make_serial(5,6);
+          })
+        }
       });
       taskRef.set(task);
     });
@@ -178,30 +220,77 @@ const print_task = (task_id, tasks) => {
 
   task.subs.forEach((s) => {
     if (s.hasOwnProperty("time")) {
-      sTaskStr += s.sname + " (" + s.time + ") ";
+      // Print [ ]s for tasks with time goals
+      sTaskStr += truncateString(s.sname.toUpperCase(), 24) + " ";
       for (let i = 0; i < s.time; i++) {
-        sTaskStr += "[  ] ";
+        sTaskStr += "[  ]";
       }
-      sTaskStr += "(" + Number(s.finish).toFixed(2) + "); ";
+      sTaskStr += " (" + s.finish.toFixed(2) + ")\n";
+      if (s.hasOwnProperty('subsubs'))
+      {
+        s.subsubs.forEach((ss) => {
+          // For each subsubtask, print the subsubtask
+          sTaskStr += "  [ ] " + truncateString(ss.name, 33) + " (" + ss.finish.toFixed(2) + ")\n"
+        })
+        //sTaskStr = sTaskStr.substring(0, sTaskStr.length - 1);
+      }
+    } else if (s.hasOwnProperty("countUp")) {
+      // Print (x {finish}) for countUp stamps. {finish} is the reward for each timeunit completed
+      if (s.countUp == 1)
+      {
+        sTaskStr += truncateString(s.sname.toUpperCase(), 36) + " (x" + s.finish.toFixed(2) + ")\n";
+        if (s.hasOwnProperty('subsubs'))
+        {
+          s.subsubs.forEach((ss) => {
+            // For each subsubtask, print the subsubtask
+            sTaskStr += "  [ ] " + truncateString(ss.name, 33) + " (" + ss.finish.toFixed(2) + ")\n"
+          })
+          //sTaskStr = sTaskStr.substring(0, sTaskStr.length - 1);
+        }
+      }
     } else {
-      sTaskStr += s.sname + " (" + Number(s.finish).toFixed(2) + "); ";
+      // For other stamps (with no time goal or countUp goal)
+      sTaskStr += truncateString(s.sname.toUpperCase(), 36) + " (" + Number(s.finish).toFixed(2) + ")\n";
+      if (s.hasOwnProperty('subsubs'))
+      {
+        s.subsubs.forEach((ss) => {
+          // For each subsubtask, print the subsubtask
+          sTaskStr += "  [ ] " + truncateString(ss.name, 33) + " (" + ss.finish.toFixed(2) + ")\n"
+        })
+        //sTaskStr = sTaskStr.substring(0, sTaskStr.length - 1);
+      }
     }
     // sTaskStr += s.sname + " (" + Number(s.finish).toFixed(2) + "); ";
   });
 
+  sTaskStr = sTaskStr.substring(0, sTaskStr.length - 1);
+
   let sTaskStrPDF = "";
   task.subs.forEach((s) => {
-    let subTaskTimeSuffix = "";
+    let subTaskTimeSuffix = ''
     if (s.hasOwnProperty("time")) {
-      subTaskTimeSuffix = "[" + String(Math.round(s.time)) + "]";
-    }
-    else if (s.hasOwnProperty("countUp")) {
+      // Time goals
+      subTaskTimeSuffix = '[' + String(Math.round(s.time)) + ']'
+    } else if (s.hasOwnProperty("countUp")) {
+      // Count up stamp
       if (s.countUp == 1)
       {
-        subTaskTimeSuffix += " (x" + s.finish +")";
+        subTaskTimeSuffix += " (x" + s.finish.toFixed(2) +")";
       }
     }
-    sTaskStrPDF += "<tr><td>" + s.sname + " " + subTaskTimeSuffix + "</td><td>" + Number(s.finish).toFixed(2) + "</td></tr>";
+    let subsubTaskSuffix = ''
+    if (s.hasOwnProperty('subsubs'))
+    {
+      s.subsubs.forEach((ss) => {
+        subsubTaskSuffix += '<br/> [ ] ' + ss.name + ' (' + ss.finish.toFixed(2) + ') '  
+      })
+    }
+    sTaskStrPDF +=
+      "<tr><td>" +
+      s.sname + ' ' + subTaskTimeSuffix + subsubTaskSuffix +
+      "</td><td>" +
+      Number(s.finish).toFixed(2) +
+      "</td></tr>";
   });
 
   let today = moment().format("ddd DD/MM/YYYY HH:mm:ss");
@@ -285,11 +374,41 @@ const print_task = (task_id, tasks) => {
               console.log("Email sent: " + info.response);
             }
           });
+          // enable sending email
         }
         // Print the next task (this should be in the onComplete of sendMail)
         // print_task(task_id + 1, tasks);
       });
     });
+  });
+
+  device.open(async (error) => {
+    printer
+      .font("a")
+      .size(0, 0)
+      .align("CT")
+      .text("RESEARCH PAY CHECK")
+      .align("LT")
+      .text("Name: Thinh Hoang Dinh")
+      .text("ID: 1240000014760")
+      .text("================================================")
+      .text("Task: " + task.id)
+      .text("Name: " + task.tname)
+      .text("Descr: " + task.description)
+      .text("================================================")
+      .text(sTaskStr)
+      .text("================================================")
+      .text("Completement pay: " + parseFloat(task.finish).toFixed(2))
+      .text("Printed on: " + moment().format("ddd DD/MM/YYYY HH:mm:ss"))
+      .text("SN: " + task.sn)
+      .text(
+        "Task expires on: " +
+          moment(task.expired).format("ddd DD/MM/YYYY HH:mm:ss")
+      )
+      .barcode(task.sn, 'CODE128', 'A', {height: 1})
+      .feed(2)
+      .cut()
+      .close()
   });
 };
 

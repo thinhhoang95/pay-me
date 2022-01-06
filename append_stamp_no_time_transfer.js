@@ -49,10 +49,6 @@ db.collection("subtasks")
               fileContent = fileContent[0];
 
               // Compare docContent and fileContent
-
-              // Valid from today
-              docContent.validFrom = moment().set('hour', 2).set('minute', 0).set('second', 0).toDate()
-
               // 1. Extend the expiry date if necessary
               if (fileContent.expired.indexOf("day") >= 0) {
                 let expiresInXDays = Number(fileContent.expired.split(" ")[0]);
@@ -69,7 +65,7 @@ db.collection("subtasks")
               // 2. Change the tname and description
               docContent.tname = fileContent.tname;
               docContent.description = fileContent.description;
-              docContent.finish = fileContent.finish;
+              // docContent.finish = fileContent.finish;
               // 3. Add the subs (if missing)
               if (fileContent.hasOwnProperty("subs")) {
                 if (!docContent.hasOwnProperty("subs")) {
@@ -92,7 +88,7 @@ db.collection("subtasks")
                         // There is a matching sub with the same name
                         console.log("Transfer sub " + fsub.sname);
                         subExisted = true;
-                        dsub.finish = fsub.finish; // transfer the finish reward
+                        // dsub.finish = fsub.finish; // NOT transferring the finish reward
                         if (fsub.hasOwnProperty('time'))
                         {
                           dsub.time = fsub.time // transfer time goals

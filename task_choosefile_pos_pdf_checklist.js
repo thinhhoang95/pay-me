@@ -79,6 +79,8 @@ const preprocess = async (tasks) => {
         }
       });
 
+      task.validFrom = moment().set('hour', 2).set('minute', 0).set('second', 0).toDate()
+
       // Modify subtask parameters according to the program's arguments
       task.subs.forEach((s) => {
         if (autoTimePayUpdate == "auto") {
