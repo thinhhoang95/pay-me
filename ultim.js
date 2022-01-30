@@ -70,7 +70,8 @@ const preprocess = async (tasks) => {
   return new Promise(async (resolve, reject) => {
     // Add EACH task to online database
     tasks.forEach((task) => {
-
+      let snPrefix = task.id.substring(0,5).padEnd(5, 'X').toUpperCase();
+      let sn = snPrefix + "-" + make_serial(5, 6);
       // Filter out unselected subtasks
       task.subs = task.subs.filter((t) => {
         if (t.hasOwnProperty("unselected")) {
@@ -106,7 +107,7 @@ const preprocess = async (tasks) => {
         {
           querySnapshot.forEach((document) => {
             let doc = document.data()
-            if (moment(task.validFrom).add(1, 'hour') >= moment(doc.validFrom.toDate()) && moment(task.validFrom).add(1, 'hour') <= moment(doc.expired)) // potentially conflicting stamps
+            if (moment(task.validFrom).add(1, 'hour') >= moment(doc.validFrom.toDate()) && moment(task.validFrom).add(1, 'hour') <= moment(doc.expired) && doc.sn != sn) // potentially conflicting stamps
             {
               console.log('Deleting document ' + doc.sn)
               db.collection('subtasks').doc(doc.sn).delete()
@@ -131,8 +132,6 @@ const preprocess = async (tasks) => {
         }
       });
       task.expiredDate = moment(task.expired).toDate();
-      let snPrefix = task.id.substring(0,5).padEnd(5, 'X').toUpperCase();
-      let sn = snPrefix + "-" + make_serial(5, 6);
       // enable DB when done
       const taskRef = db.collection("subtasks").doc(sn);
       task.sn = sn;

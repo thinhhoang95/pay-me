@@ -12,6 +12,8 @@ const serviceAccount = require("./payme-node-key.json");
 const puppeteer = require("puppeteer");
 const nodemailer = require("nodemailer");
 
+const reader = require('readline-sync')
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -19,9 +21,11 @@ admin.initializeApp({
 const db = admin.firestore();
 
 var fs = require("fs");
-let taskFileName = process.argv[2]; // file name for the day
-let autoDateUpdate = process.argv[3]; // print stamp for today or tomorrow
-let autoTimePayUpdate = process.argv[4]; // auto update the pay for each subtask in the daily paycheck
+let taskFileName = reader.question("Enter the task JSON file (leave empty for task_daily.json): ")
+if (taskFileName === '')
+{
+  taskFileName = 'task_daily.json'
+}
 console.log("Reading file ", taskFileName);
 var tasks = JSON.parse(fs.readFileSync(taskFileName, "utf8"));
 
@@ -69,8 +73,15 @@ const preprocess = async (tasks) => {
         }
       });
 
-      task.validFrom = moment().set('hour', 2).set('minute', 0).set('second', 0).toDate()
-
+      let validFrom = Number(reader.question("Valid from ? day(s) from today? Enter 0 for today: "))
+      task.validFrom = moment().set('hour', 2).set('minute', 0).set('second', 0).add(validFrom, 'day').toDate()
+      let validUntil = Number(reader.question("Valid in ? day(s) after valid from? "))
+      task.expired = moment().set('hour', 2).set('minute', 0).set('second', 0).add(validFrom + validUntil, 'day').toISOString()
+      let autoTimePayUpdate = Number(reader.question("Convert the time unit payment to 0.5? Enter 1 for yes: "))
+      if (autoTimePayUpdate == 1)
+      {
+        autoTimePayUpdate = "auto"
+      }
       // Modify subtask parameters according to the program's arguments
       task.subs.forEach((s) => {
         if (autoTimePayUpdate == "auto") {
@@ -88,75 +99,6 @@ const preprocess = async (tasks) => {
         }
       });
 
-      if (autoDateUpdate == "todaytoday") {
-        let newExpiryDate = moment().add(2, "d");
-        newExpiryDate.set("hour", 2);
-        newExpiryDate.set("minute", 0);
-        task.expired = newExpiryDate.toISOString();
-        task.description =
-          "Daily time stamp for " +
-          moment().format("ddd DD/MM/YYYY")
-        console.log(
-          "Description changed to today and expiry date changed to " +
-            task.expired
-        );
-      }
-      else if (autoDateUpdate == "today") {
-        let newExpiryDate = moment();
-        newExpiryDate.add(1, "d");
-        newExpiryDate.set("hour", 2);
-        newExpiryDate.set("minute", 0);
-        task.expired = newExpiryDate.toISOString();
-        task.description =
-          "Daily time stamp for " +
-          moment().format("ddd DD/MM/YYYY")
-        console.log(
-          "Description changed to today and expiry date changed to " +
-            task.expired
-        );
-      }
-      else if (autoDateUpdate == "tomorrow") {
-        let newExpiryDate = moment().add(2, "d");
-        newExpiryDate.set("hour", 2);
-        newExpiryDate.set("minute", 0);
-        task.expired = newExpiryDate.toISOString();
-        task.description =
-          "Daily time stamp for " +
-          moment().add(1, "d").format("ddd DD/MM/YYYY")
-        console.log(
-          "Description changed to today and expiry date changed to " +
-            task.expired
-        );
-      } else if (autoDateUpdate == "tomorrowtomorrow") {
-        let newExpiryDate = moment().add(3, "d");
-        newExpiryDate.set("hour", 2);
-        newExpiryDate.set("minute", 0);
-        task.expired = newExpiryDate.toISOString();
-        task.description =
-          "Daily time stamp for " +
-          moment().add(1, "d").format("ddd DD/MM/YYYY")
-        console.log(
-          "Description changed to today and expiry date changed to " +
-            task.expired
-        );
-      } else if (autoDateUpdate == "nextweek") {
-        let newExpiryDate = moment().add(8, "d");
-        newExpiryDate.set("hour", 2);
-        newExpiryDate.set("minute", 0);
-        task.expired = newExpiryDate.toISOString();
-        console.log(
-          "Description changed to today and expiry date changed to " +
-            task.expired
-        );
-      } else if (task.expired.includes('day'))
-      {
-        // There is a keyword "days" inside the expired field
-        let numOfDays = Number(task.expired.split(' ')[0])
-        let newExpiryDate = moment().add(numOfDays, "d");
-        newExpiryDate.set("hour", 2);
-        newExpiryDate.set("minute", 0);
-        task.expired = newExpiryDate.toISOString();
-      }
       task.expiredDate = moment(task.expired).toDate();
       let snPrefix = task.id.substring(0,5).padEnd(5, 'X').toUpperCase();
       let sn = snPrefix + "-" + make_serial(5, 6);
@@ -317,10 +259,11 @@ const print_task = (task_id, tasks) => {
       .font("a")
       .size(0, 0)
       .align("CT")
-      .text("RESEARCH PAY CHECK")
+      .text("PAY CHECK")
       .align("LT")
       .text("Name: Thinh Hoang Dinh")
       .text("ID: 1240000014760")
+      .text("SN: " + task.sn)
       .text("================================================")
       .text("Task: " + task.id)
       .text("Name: " + task.tname)
@@ -329,10 +272,9 @@ const print_task = (task_id, tasks) => {
       .text(sTaskStr)
       .text("================================================")
       .text("Completement pay: " + parseFloat(task.finish).toFixed(2))
-      .text("SN: " + task.sn)
       .newLine()
       .text(
-        "Task expires on: " +
+        "Expires on: " +
           moment(task.expired).format("ddd DD/MM/YYYY HH:mm")
       )
       .qrimage(JSON.stringify(task_compact), async function (err) {

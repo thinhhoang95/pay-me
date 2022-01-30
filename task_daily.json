@@ -1,36 +1,31 @@
 [{
     "unselected": 0,
-    "id": "DAKEP",
-    "tname": "DAILY KEEPING",
+    "id": "SELF",
+    "tname": "SELF REFLECT",
     "date": "today",
-    "description": "Some daily housekeeping tasks",
+    "description": "To help mentally",
     "finish": 1,
     "expired": "2021-12-30 23:59:59",
     "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
     "subs": [
       {
-        "sname": "Take a shower",
-        "finish": 0.5,
+        "sname": "5 pg book",
+        "finish": 1,
         "unselected": 0
       },
       {
-        "sname": "Cook dinner",
-        "finish": 0.5,
+        "sname": "Journalling",
+        "finish": 1,
         "unselected": 0
       },
       {
-        "sname": "Wash the dishes",
-        "finish": 0.5,
+        "sname": "Val aware 3TAD",
+        "finish": 1,
         "unselected": 0
       },
       {
-        "sname": "Wash clothes",
-        "finish": 0.5,
-        "unselected": 0
-      },
-      {
-        "sname": "Brush teeth",
-        "finish": 0.5,
+        "sname": "Br walk",
+        "finish": 1,
         "unselected": 0
       }
     ]
