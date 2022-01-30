@@ -20,31 +20,32 @@ const checkListTask = [
                 "content": "Laptop, Power adapter, HDMI adapter"
             },
             {
-                "order": 1,
-                "content": "iPhone XR, Pixel 4a, 2 respective chargers and headphone"
+                "order": 6,
+                "content": "iPhone XR, Pixel 4a, chargers and headphone"
             },
             {
                 "order": 2,
-                "content": "Galaxy Watch 4 and charger"
+                "content": "Salary stamp"
             },
             {
                 "order": 3,
-                "content": "Wallet: banking card, Tisseo card"
+                "content": "Galaxy Watch 4 and charger"
             },
             {
                 "order": 4,
-                "content": "Hat, glasses, sunglasses, masks, umbrella and alcoholic gel"
+                "content": "Wallet: banking card, Tisseo card"
             },
             {
                 "order": 5,
+                "content": "Hat, glasses, sunglasses, masks, umbrella and alcoholic gel"
+            },
+            {
+                "order": 1,
                 "content": "Wear socks, change clothes, jacket up"
             },
             {
-                "order": 6,
+                "order": 7,
                 "content": "Shopping bag"
-            },
-            {
-                
             }
         ]
     }
@@ -56,7 +57,7 @@ const checkListSubTask = [
         "checklist": [
             {
                 "order": 0,
-                "content": "Info Thry book chapters and notes (blue file)"
+                "content": "Viterbi's book, notes (blue file)"
             },
             {
                 "order": 1,
