@@ -1,10 +1,3 @@
-const escpos = require("escpos");
-// install escpos-usb adapter module manually
-escpos.USB = require("escpos-usb");
-// Select the adapter based on your printer type
-const device = new escpos.USB();
-const options = { encoding: "GB18030" /* default */ };
-const printer = new escpos.Printer(device, options);
 const moment = require("moment");
 const admin = require("firebase-admin");
 const serviceAccount = require("./payme-node-key.json");
@@ -12,7 +5,7 @@ const serviceAccount = require("./payme-node-key.json");
 const puppeteer = require("puppeteer");
 const nodemailer = require("nodemailer");
 
-const reader = require("readline-sync")
+const path = require("path");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -30,14 +23,11 @@ const truncateString = (str, len) => {
 }
 
 var fs = require("fs");
-let taskFileName = reader.question("Enter the task JSON file (leave empty for csv_tasks.json): ")
-if (taskFileName === '')
-{
-  taskFileName = 'csv_tasks.json'
-}
+let taskFileName = process.argv[2]; // file name for the day
+let autoDateUpdate = process.argv[3]; // print stamp for today or tomorrow
+let autoTimePayUpdate = process.argv[4]; // auto update the pay for each subtask in the daily paycheck
 console.log("Reading file ", taskFileName);
 var tasks = JSON.parse(fs.readFileSync(taskFileName, "utf8"));
-var goals = JSON.parse(fs.readFileSync('goals.json', "utf8"));
 
 tasks = tasks.filter((t) => {
   if (t.hasOwnProperty("unselected")) {
@@ -70,8 +60,6 @@ const preprocess = async (tasks) => {
   return new Promise(async (resolve, reject) => {
     // Add EACH task to online database
     tasks.forEach((task) => {
-      let snPrefix = task.id.substring(0,5).padEnd(5, 'X').toUpperCase();
-      let sn = snPrefix + "-" + make_serial(5, 6);
       // Filter out unselected subtasks
       task.subs = task.subs.filter((t) => {
         if (t.hasOwnProperty("unselected")) {
@@ -85,49 +73,6 @@ const preprocess = async (tasks) => {
         }
       });
 
-      let validFrom = Number(reader.question("Valid from ? day(s) from today? Enter 0 for today: "))
-      if (task.expired.indexOf('day') >= 0)
-      {
-        // There is the word "day" in the expired field of the Excel file, we ask the person if they want to correct it or use the value in the Excel file
-        let validUntil = Number(reader.question("Valid in ? day(s) after valid from? Leave empty for " + task.expired + ": "))
-        if (validUntil === '')
-        {
-          // The user leave empty
-          let numOfDays = Number(task.expired.split(' ')[0])
-          task.expired = moment().set('hour', 2).set('minute', 0).set('second', 0).add(validFrom + numOfDays, 'day').toISOString()
-        }
-        else
-        {
-          task.expired = moment().set('hour', 2).set('minute', 0).set('second', 0).add(validFrom + validUntil, 'day').toISOString()
-        }
-      }
-      task.validFrom = moment().set('hour', 2).set('minute', 0).set('second', 0).add(validFrom, 'day').toDate()
-      let autoTimePayUpdate = Number(reader.question("Convert the time unit payment to 0.5? Enter 1 for yes: "))
-      if (autoTimePayUpdate == 1)
-      {
-        autoTimePayUpdate = "auto"
-      }
-      let changeDescriptionToday = Number(reader.question("Change the stamp description to Plan for xx/xx/xxxx? 1 for Yes: "))
-      if (changeDescriptionToday==1)
-      {
-        task.description = "Task plan for " + moment(task.validFrom).format("DD/MM/YYYY")
-      }
-      // Ask if we want to delete the stamp with matching ID and VALID_FROM
-      let deleteActiveStampsWithSameId = Number(reader.question("Remove conflicting stamps? 1 for yes: "))
-      if (deleteActiveStampsWithSameId == 1)
-      {
-        db.collection('subtasks').where('id', '==', task.id).get().then((querySnapshot) => 
-        {
-          querySnapshot.forEach((document) => {
-            let doc = document.data()
-            if (moment(task.validFrom).add(1, 'hour') >= moment(doc.validFrom.toDate()) && moment(task.validFrom).add(1, 'hour') <= moment(doc.expired) && doc.sn != sn) // potentially conflicting stamps
-            {
-              console.log('Deleting document ' + doc.sn)
-              db.collection('subtasks').doc(doc.sn).delete()
-            }
-          })
-        })
-      }
       // Modify subtask parameters according to the program's arguments
       task.subs.forEach((s) => {
         if (autoTimePayUpdate == "auto") {
@@ -144,7 +89,79 @@ const preprocess = async (tasks) => {
           }
         }
       });
+
+      if (autoDateUpdate == "todaytoday") {
+        let newExpiryDate = moment().add(2, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
+        task.expired = newExpiryDate.toISOString();
+        task.description =
+          "Daily time stamp for " +
+          moment().format("ddd DD/MM/YYYY")
+        console.log(
+          "Description changed to today and expiry date changed to " +
+            task.expired
+        );
+      }
+      else if (autoDateUpdate == "today") {
+        let newExpiryDate = moment();
+        newExpiryDate.add(1, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
+        task.expired = newExpiryDate.toISOString();
+        task.description =
+          "Daily time stamp for " +
+          moment().format("ddd DD/MM/YYYY")
+        console.log(
+          "Description changed to today and expiry date changed to " +
+            task.expired
+        );
+      }
+      else if (autoDateUpdate == "tomorrow") {
+        let newExpiryDate = moment().add(2, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
+        task.expired = newExpiryDate.toISOString();
+        task.description =
+          "Daily time stamp for " +
+          moment().add(1, "d").format("ddd DD/MM/YYYY")
+        console.log(
+          "Description changed to today and expiry date changed to " +
+            task.expired
+        );
+      } else if (autoDateUpdate == "tomorrowtomorrow") {
+        let newExpiryDate = moment().add(3, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
+        task.expired = newExpiryDate.toISOString();
+        task.description =
+          "Daily time stamp for " +
+          moment().add(1, "d").format("ddd DD/MM/YYYY")
+        console.log(
+          "Description changed to today and expiry date changed to " +
+            task.expired
+        );
+      } else if (autoDateUpdate == "nextweek") {
+        let newExpiryDate = moment().add(8, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
+        task.expired = newExpiryDate.toISOString();
+        console.log(
+          "Description changed to today and expiry date changed to " +
+            task.expired
+        );
+      } else if (task.expired.includes('day'))
+      {
+        // There is a keyword "days" inside the expired field
+        let numOfDays = Number(task.expired.split(' ')[0])
+        let newExpiryDate = moment().add(numOfDays, "d");
+        newExpiryDate.set("hour", 2);
+        newExpiryDate.set("minute", 0);
+        task.expired = newExpiryDate.toISOString();
+      }
       task.expiredDate = moment(task.expired).toDate();
+      let snPrefix = task.id.substring(0,5).padEnd(5, 'X').toUpperCase();
+      let sn = snPrefix + "-" + make_serial(5, 6);
       // enable DB when done
       const taskRef = db.collection("subtasks").doc(sn);
       task.sn = sn;
@@ -318,7 +335,7 @@ const print_task = (task_id, tasks) => {
           for (let i = 0; i < tasks.length; i++) {
             mailOptions.attachments.push({
               filename: "paycheck_" + tasks[i].id + ".pdf",
-              path: `${path.join(__dirname, 'paycheck_' + String(i) + '.pdf',)}`
+              path: path.join(__dirname, 'paycheck_' + String(i) + ".pdf")
             });
           }
 
@@ -337,43 +354,6 @@ const print_task = (task_id, tasks) => {
         // print_task(task_id + 1, tasks);
       });
     });
-  });
-
-  device.open(async (error) => {
-    printer
-      .font("a")
-      .size(0, 0)
-      .align("CT")
-      .text("RESEARCH PAY CHECK")
-      .align("LT")
-      .text("Name: Thinh Hoang Dinh")
-      .text("ID: 1240000014760")
-      .text("SN: " + task.sn)
-      .text("================================================")
-      .text("Task: " + task.id)
-      .text("Name: " + task.tname)
-      .text("Descr: " + task.description)
-      .text("================================================")
-      .text(sTaskStr)
-      .text("================================================")
-      .text("Completement pay: " + parseFloat(task.finish).toFixed(2))
-      .text("Valid from: " + moment(task.validFrom).format("ddd DD/MM/YYYY HH:mm"))
-      .text(
-        "Expires on: " +
-          moment(task.expired).format("ddd DD/MM/YYYY HH:mm")
-      )
-      .qrimage(JSON.stringify(task_compact), async function (err) {
-        await this.control("LF");
-        await this.cut();
-        await this.close();
-        if (task_id + 1 < tasks.length) {
-          // console.log(tasks)
-          setTimeout(() => {
-            console.log("Print task_id " + task_id + 1);
-            print_task(task_id + 1, tasks);
-          }, 2000);
-        }
-      });
   });
 };
 
