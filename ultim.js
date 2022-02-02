@@ -89,8 +89,8 @@ const preprocess = async (tasks) => {
       if (task.expired.indexOf('day') >= 0)
       {
         // There is the word "day" in the expired field of the Excel file, we ask the person if they want to correct it or use the value in the Excel file
-        let validUntil = Number(reader.question("Valid in ? day(s) after valid from? Leave empty for " + task.expired + ": "))
-        if (validUntil === '')
+        let validUntil = Number(reader.question("Valid in ? day(s) after valid from? Leave 0 for " + task.expired + ": "))
+        if (validUntil == 0)
         {
           // The user leave empty
           let numOfDays = Number(task.expired.split(' ')[0])
