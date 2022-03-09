@@ -1,11 +1,10 @@
+
 const moment = require("moment");
 const admin = require("firebase-admin");
 const serviceAccount = require("./payme-node-key.json");
 
 const puppeteer = require("puppeteer");
 const nodemailer = require("nodemailer");
-
-const path = require("path");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -28,6 +27,7 @@ let autoDateUpdate = process.argv[3]; // print stamp for today or tomorrow
 let autoTimePayUpdate = process.argv[4]; // auto update the pay for each subtask in the daily paycheck
 console.log("Reading file ", taskFileName);
 var tasks = JSON.parse(fs.readFileSync(taskFileName, "utf8"));
+var goals = JSON.parse(fs.readFileSync('goals.json', "utf8"));
 
 tasks = tasks.filter((t) => {
   if (t.hasOwnProperty("unselected")) {
@@ -72,6 +72,8 @@ const preprocess = async (tasks) => {
           return true;
         }
       });
+
+      task.validFrom = moment().set('hour', 2).set('minute', 0).set('second', 0).toDate()
 
       // Modify subtask parameters according to the program's arguments
       task.subs.forEach((s) => {
@@ -301,7 +303,9 @@ const print_task = (task_id, tasks) => {
       (async () => {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
-        await page.goto(`file:${path.join(__dirname, 'paycheckd.html')}`);
+        await page.goto(
+          "file://C:/Users/nxf67027/Documents/PayMe/paycheckd.html"
+        );
         await page.pdf({
           path: "paycheck_" + String(task_id) + ".pdf",
           format: "A4",
@@ -335,7 +339,10 @@ const print_task = (task_id, tasks) => {
           for (let i = 0; i < tasks.length; i++) {
             mailOptions.attachments.push({
               filename: "paycheck_" + tasks[i].id + ".pdf",
-              path: path.join(__dirname, 'paycheck_' + String(i) + ".pdf")
+              path:
+                "C:/Users/nxf67027/Documents/PayMe/paycheck_" +
+                String(i) +
+                ".pdf",
             });
           }
 

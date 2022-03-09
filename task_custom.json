@@ -1,12 +1,12 @@
 [
   {
     "unselected": 0,
-    "id": "Bonus",
-    "tname": "Bonus",
+    "id": "HKPG82",
+    "tname": "Housekeeping",
     "date": "today",
-    "description": "Start working within 30 minutes since waking up",
-    "finish": 1,
-    "expired": "1 days",
+    "description": "Sweep floor",
+    "finish": 1.5,
+    "expired": "2 days",
     "subs": []
   }
 ]
