@@ -13,6 +13,7 @@ const puppeteer = require("puppeteer");
 const nodemailer = require("nodemailer");
 
 const reader = require("readline-sync")
+const path = require("path")
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -28,6 +29,8 @@ const truncateString = (str, len) => {
     return str
   }
 }
+
+const payrate = require("payrate")
 
 var fs = require("fs");
 let taskFileName = reader.question("Enter the task JSON file (leave empty for csv_tasks.json): ")
@@ -133,13 +136,13 @@ const preprocess = async (tasks) => {
         if (autoTimePayUpdate == "auto") {
           if (s.hasOwnProperty('time'))
           {
-            s.finish = s.time * 0.5;
+            s.finish = s.time * payrate;
           }
           if (s.hasOwnProperty('countUp'))
           {
             if (s.countUp == 1)
             {
-              s.finish = 0.5
+              s.finish = payrate
             }
           }
         }

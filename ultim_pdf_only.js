@@ -3,10 +3,11 @@ const admin = require("firebase-admin");
 const serviceAccount = require("./payme-node-key.json");
 
 const puppeteer = require("puppeteer");
-const nodemailer = require("nodemailer");
 
 const reader = require("readline-sync")
 const path = require('path')
+
+const payrate = require("./payrate")
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -127,13 +128,13 @@ const preprocess = async (tasks) => {
         if (autoTimePayUpdate == "auto") {
           if (s.hasOwnProperty('time'))
           {
-            s.finish = s.time * 0.5;
+            s.finish = s.time * payrate;
           }
           if (s.hasOwnProperty('countUp'))
           {
             if (s.countUp == 1)
             {
-              s.finish = 0.5
+              s.finish = payrate
             }
           }
         }
@@ -291,7 +292,7 @@ const print_task = (task_id, tasks) => {
         });
         await browser.close();
       })().then(() => {
-        // Send the PDF file via email to myself
+        /* // Send the PDF file via email to myself
         if (task_id + 1 == tasks.length) {
           var mail = nodemailer.createTransport({
             service: "gmail",
@@ -328,7 +329,7 @@ const print_task = (task_id, tasks) => {
           // enable sending email
         }
         // Print the next task (this should be in the onComplete of sendMail)
-        // print_task(task_id + 1, tasks);
+        // print_task(task_id + 1, tasks); */
       });
     });
   });

@@ -1,30 +1,30 @@
 [{
     "unselected": 0,
-    "id": "SELF",
-    "tname": "SELF REFLECT",
+    "id": "HLTDY",
+    "tname": "HEALTHY DAY",
     "date": "today",
-    "description": "To help mentally",
+    "description": "Objectives of a healthy day",
     "finish": 1,
-    "expired": "2021-12-30 23:59:59",
+    "expired": "2022-02-10 23:59:59",
     "note": "!!!!! Expiry date is today + 1 !!!!! Each TU rewards 0.3",
     "subs": [
       {
-        "sname": "5 pg book",
+        "sname": "Walk aller-retour",
         "finish": 1,
         "unselected": 0
       },
       {
-        "sname": "Journalling",
+        "sname": "No confectioneries",
         "finish": 1,
         "unselected": 0
       },
       {
-        "sname": "Val aware 3TAD",
+        "sname": "Fast breakfast",
         "finish": 1,
         "unselected": 0
       },
       {
-        "sname": "Br walk",
+        "sname": "Meditate",
         "finish": 1,
         "unselected": 0
       }
