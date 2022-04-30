@@ -151,8 +151,11 @@ const preprocess = async (tasks) => {
       // enable DB when done
       const taskRef = db.collection("subtasks").doc(sn);
       task.sn = sn;
+      let totalReward = 0; // calculate total reward corresponding to the time dedicated to all subtasks
       task.subs.forEach((stask) => {
         // Assign serial number for each subtask
+        // and calculate total reward corresponding to the time dedicated to all subtasks
+        totalReward += stask.finish;
         stask.sn = make_serial(5, 6);
         if (stask.hasOwnProperty('subsubs'))
         {
@@ -162,6 +165,7 @@ const preprocess = async (tasks) => {
           })
         }
       });
+      task.totalReward = totalReward;
       taskRef.set(task);
     });
     resolve(tasks);
