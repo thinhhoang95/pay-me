@@ -1,7 +1,7 @@
 const xlsx = require('xlsx2json')
 const path = require('path');
 
-const csv_path = path.join(__dirname, 'task.xlsx')
+const csv_path = path.join("/Users/thinhhoang/Library/CloudStorage/OneDrive-Personal/", 'task.xlsx')
 const fs = require('fs')
 
 xlsx(csv_path, {
@@ -45,6 +45,7 @@ const afterParsingHandler = (key, data) => {
             let jTask = Object.assign({}, task)
             console.log(task)
             jTask.finish = Number(task.finish)
+            jTask.bonusCoeff = Number(task.bonusCoeff)
             jTask.unselected = Number(task.unselected)
             // Find all jTask's subs
             let jSubs = allData.subs.filter(s => s.id == jTask.id)

@@ -30,7 +30,7 @@ const truncateString = (str, len) => {
   }
 }
 
-const payrate = require("payrate")
+const payrate = require("./payrate")
 
 var fs = require("fs");
 let taskFileName = reader.question("Enter the task JSON file (leave empty for csv_tasks.json): ")
@@ -133,6 +133,7 @@ const preprocess = async (tasks) => {
       }
       // Modify subtask parameters according to the program's arguments
       task.subs.forEach((s) => {
+        s.bonusCoeff = Number(s.bonusCoeff)
         if (autoTimePayUpdate == "auto") {
           if (s.hasOwnProperty('time'))
           {
