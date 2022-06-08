@@ -46,6 +46,7 @@ const afterParsingHandler = (key, data) => {
             let jTask = Object.assign({}, task)
             console.log(task)
             jTask.finish = Number(task.finish)
+            jTask.bonusCoeff = Number(task.bonusCoeff)
             jTask.unselected = Number(task.unselected)
             // Find all jTask's subs
             let jSubs = allData.subs.filter(s => s.id == jTask.id)

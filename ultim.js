@@ -133,6 +133,7 @@ const preprocess = async (tasks) => {
       }
       // Modify subtask parameters according to the program's arguments
       task.subs.forEach((s) => {
+        s.bonusCoeff = Number(s.bonusCoeff)
         if (autoTimePayUpdate == "auto") {
           if (s.hasOwnProperty('time'))
           {
