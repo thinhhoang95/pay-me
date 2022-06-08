@@ -129,6 +129,8 @@ const preprocess = async (tasks) => {
           if (s.hasOwnProperty('time'))
           {
             s.finish = s.time * payrate;
+            s.originalTime = s.time
+            s.originalFinish = s.finish
           }
           if (s.hasOwnProperty('countUp'))
           {

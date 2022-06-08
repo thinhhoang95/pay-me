@@ -1,7 +1,8 @@
 const xlsx = require('xlsx2json')
 const path = require('path');
 
-const csv_path = path.join(__dirname, 'task.xlsx')
+// const csv_path = path.join(__dirname, 'task.xlsx')
+const csv_path = path.join("/Users/thinhhoang/Library/CloudStorage/OneDrive-Personal/", "task.xlsx")
 const fs = require('fs')
 
 xlsx(csv_path, {
