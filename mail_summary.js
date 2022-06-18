@@ -18,7 +18,7 @@ const composeSummary = () => {
     let timeSummary = []
     let timeSummaryTaskIds = []
     let taskSummary = []
-    let datestamp = moment().add(-2, 'hour').add(5, 'day').format("YYYY-MM-DD")
+    let datestamp = moment().add(-2, 'hour').format("YYYY-MM-DD")
     db.collection('timerHistory').doc(datestamp).get().then((snapshot) => {
         let timerDoc = {}
         if (snapshot.exists)
