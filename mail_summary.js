@@ -72,12 +72,12 @@ const composeSummary = () => {
                 taskJoint += "\nTask: " + x.sname + ". Completed at: " + x.time + "."
               })
 
-              let message = "Dear Thinh,\n\nThis is the summary for your work performance for the day of " + moment().format("DD/MM/YYYY") + ". \n" + timeJoint + "\n" + taskJoint + "\n\nYours sincerely,\nThe PayMeMobile Team."
+              let message = "Dear Thinh,\n\nThis is the summary for your work performance for the day of " + moment().add(-2, 'hour').format("DD/MM/YYYY") + ". \n" + timeJoint + "\n" + taskJoint + "\n\nYours sincerely,\nThe PayMeMobile Team."
     
               var mailOptions = {
                 from: "thinhhoang.vaccine@gmail.com",
                 to: "hdinhthinh@gmail.com",
-                subject: "Performance Summary for " + moment().format("ddd DD/MM/YYYY"),
+                subject: "Performance Summary for " + moment().add(-2, 'hour').format("ddd DD/MM/YYYY"),
                 text: message,
                 attachments: [],
               };
