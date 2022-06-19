@@ -47,7 +47,7 @@ const composeSummary = () => {
                 if (subDoc.subsubs)
                 {
                     subDoc.subsubs.forEach((s) => {
-                        s.time = moment(s.time.toDate()).format("DD/MM/YYYY HH:mm:ss")
+                        s.time = moment(s.time.toDate()).format("HH:mm:ss")
                     })
                 }
                 taskSummary = [...subDoc.subsubs]
@@ -64,7 +64,7 @@ const composeSummary = () => {
 
               let timeJoint = ""
               timeSummary.forEach((x) => {
-                timeJoint += "\nTask: " + x.subsub + ". Duration: " + x.duration/(60*1000) + " minutes."
+                timeJoint += "\nTask: " + x.subsub + ". Duration: " + Math.round(x.duration/(60*1000)) + " minutes."
               })
 
               let taskJoint = ""
@@ -72,7 +72,7 @@ const composeSummary = () => {
                 taskJoint += "\nTask: " + x.sname + ". Completed at: " + x.time + "."
               })
 
-              let message = "Dear Thinh,\n\nThis is the summary for your work performance for the day of " + moment().add(-2, 'hour').format("DD/MM/YYYY") + ". \n" + timeJoint + "\n" + taskJoint + "\n\nYours sincerely,\nThe PayMeMobile Team."
+              let message = "Dear Thinh,\n\nThis is the summary for your work performance for the day of " + moment().add(-2, 'hour').format("ddd DD/MM/YYYY") + ". \n" + timeJoint + "\n" + taskJoint + "\n\nYou are punching it! Keep up the good work!\n\nYours sincerely,\nThe PayMeMobile Team."
     
               var mailOptions = {
                 from: "thinhhoang.vaccine@gmail.com",
