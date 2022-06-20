@@ -36,7 +36,7 @@ const composeSummary = () => {
     let timeSummary = []
     let timeSummaryTaskIds = []
     let taskSummary = []
-    let datestamp = moment().add(-2, 'hour').add(-1, 'day').format("YYYY-MM-DD")
+    let datestamp = moment().add(-2, 'hour').format("YYYY-MM-DD")
     db.collection('timerHistory').doc(datestamp).get().then((snapshot) => {
         let timerDoc = {}
         if (snapshot.exists)
@@ -104,7 +104,13 @@ const composeSummary = () => {
               console.log(message)
 
               // Mail away!
-
+              mail.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log("Email sent: " + info.response);
+                }
+              });
               
         })
     })
