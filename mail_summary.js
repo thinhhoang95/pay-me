@@ -14,6 +14,24 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+const prefixZeroInTimeRep = (x) => {
+  if (x<10)
+  {
+    return "0" + String(x)
+  } else {
+    return String(x)
+  }
+}
+
+const convertMinutesToHHMM = (minutes) => {
+  let hour = Math.floor(minutes/60)
+  let rMinute = Math.floor(minutes - hour * 60)
+  console.log(hour)
+  console.log(rMinute)
+  console.log(minutes)
+  return prefixZeroInTimeRep(hour) + ":" + prefixZeroInTimeRep(rMinute)
+}
+
 const composeSummary = () => {
     let timeSummary = []
     let timeSummaryTaskIds = []
@@ -32,6 +50,7 @@ const composeSummary = () => {
                         timeSummary[timeSummary.findIndex((x) => x.subsub == r.subsub)].duration += r.duration
                     } else {
                         timeSummary.push({subsub: r.subsub, duration: r.duration})
+                        timeSummaryTaskIds.push(r.subsub)
                     }
                 })
             } else {
@@ -64,7 +83,7 @@ const composeSummary = () => {
 
               let timeJoint = ""
               timeSummary.forEach((x) => {
-                timeJoint += "\nTask: " + x.subsub + ". Duration: " + Math.round(x.duration/(60*1000)) + " minutes."
+                timeJoint += "\nTask: " + x.subsub + ". Duration: " + convertMinutesToHHMM(Number(x.duration/(60*1000))) + "."
               })
 
               let taskJoint = ""
@@ -85,14 +104,14 @@ const composeSummary = () => {
               console.log(message)
 
               // Mail away!
-
               mail.sendMail(mailOptions, function (error, info) {
                 if (error) {
                   console.log(error);
                 } else {
                   console.log("Email sent: " + info.response);
                 }
-                });
+              });
+              
         })
     })
 }
