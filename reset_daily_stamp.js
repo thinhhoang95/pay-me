@@ -42,23 +42,26 @@ const truncateString = (str, len) => {
                 // sn = snsFound[0]
                 db.collection('subtasks').doc(dbSn).get().then((snapshot) => {
                     let docContent = snapshot.data()
+                    let totalReward = 0
                     if (docContent.subs)
                     {
                         docContent.subs.forEach((s) => {
-                            if (s.originalFinish)
+                            if (s.hasOwnProperty('originalFinish'))
                             {
                                 s.finish = s.originalFinish
                             } else {
                                 console.log('Did not update stamp reward for sub ' + s.sname + ' because the originalFinish field was not found')
                             }
-                            if (s.originalTime)
+                            if (s.hasOwnProperty('originalTime'))
                             {
                                 s.time = s.originalTime
                             } else {
                                 console.log('Did not update stamp reward for sub ' + s.sname + ' because the originalTime field was not found')
                             }
+                            totalReward += s.finish
                         })
                         console.log(docContent.expired)
+                        docContent.totalReward = totalReward
                         docContent.expiredDate = moment().add(3, 'day').toDate()
                         docContent.expired = moment().add(3, 'day').toISOString()
                         console.log('Extend expiredDate to 3 days from today')

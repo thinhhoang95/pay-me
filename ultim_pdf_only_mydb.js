@@ -1,19 +1,13 @@
-const escpos = require("escpos");
-// install escpos-usb adapter module manually
-escpos.USB = require("escpos-usb");
-// Select the adapter based on your printer type
-const device = new escpos.USB();
-const options = { encoding: "GB18030" /* default */ };
-const printer = new escpos.Printer(device, options);
 const moment = require("moment");
 const admin = require("firebase-admin");
 const serviceAccount = require("./payme-node-key.json");
 
 const puppeteer = require("puppeteer");
-const nodemailer = require("nodemailer");
 
 const reader = require("readline-sync")
-const path = require("path")
+const path = require('path')
+
+const payrate = require("./payrate")
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -29,8 +23,6 @@ const truncateString = (str, len) => {
     return str
   }
 }
-
-const payrate = require("./payrate")
 
 var fs = require("fs");
 let taskFileName = reader.question("Enter the task JSON file (leave empty for csv_tasks.json): ")
@@ -138,7 +130,6 @@ const preprocess = async (tasks) => {
           if (s.hasOwnProperty('time'))
           {
             s.finish = s.time * payrate;
-            s.initialFinish = s.finish
             s.originalTime = s.time
             s.originalFinish = s.finish
           }
@@ -147,7 +138,6 @@ const preprocess = async (tasks) => {
             if (s.countUp == 1)
             {
               s.finish = payrate
-              s.initialFinish = s.finish
             }
           }
         }
@@ -309,7 +299,7 @@ const print_task = (task_id, tasks) => {
         });
         await browser.close();
       })().then(() => {
-        // Send the PDF file via email to myself
+        /* // Send the PDF file via email to myself
         if (task_id + 1 == tasks.length) {
           var mail = nodemailer.createTransport({
             service: "gmail",
@@ -346,46 +336,9 @@ const print_task = (task_id, tasks) => {
           // enable sending email
         }
         // Print the next task (this should be in the onComplete of sendMail)
-        // print_task(task_id + 1, tasks);
+        // print_task(task_id + 1, tasks); */
       });
     });
-  });
-
-  device.open(async (error) => {
-    printer
-      .font("a")
-      .size(0, 0)
-      .align("CT")
-      .text("RESEARCH PAY CHECK")
-      .align("LT")
-      .text("Name: Thinh Hoang Dinh")
-      .text("ID: 1240000014760")
-      .text("SN: " + task.sn)
-      .text("================================================")
-      .text("Task: " + task.id)
-      .text("Name: " + task.tname)
-      .text("Descr: " + task.description)
-      .text("================================================")
-      .text(sTaskStr)
-      .text("================================================")
-      .text("Completement pay: " + parseFloat(task.finish).toFixed(2))
-      .text("Valid from: " + moment(task.validFrom).format("ddd DD/MM/YYYY HH:mm"))
-      .text(
-        "Expires on: " +
-          moment(task.expired).format("ddd DD/MM/YYYY HH:mm")
-      )
-      .qrimage(JSON.stringify(task_compact), async function (err) {
-        await this.control("LF");
-        await this.cut();
-        await this.close();
-        if (task_id + 1 < tasks.length) {
-          // console.log(tasks)
-          setTimeout(() => {
-            console.log("Print task_id " + task_id + 1);
-            print_task(task_id + 1, tasks);
-          }, 2000);
-        }
-      });
   });
 };
 
