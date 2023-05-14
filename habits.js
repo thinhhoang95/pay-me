@@ -9,7 +9,7 @@ admin.initializeApp({
 const db = admin.firestore();
 
 // Habits to be rewarded
-const habits = [
+/* const habits = [
   {
     id: "TRIMN",
     order: 21,
@@ -181,7 +181,35 @@ const habits = [
     lastDone: new Date(),
     autoReset: 30,
   },
-];
+]; */
+
+const habits = [
+  {
+    id: "WALKDAY",
+    order: 1,
+    name: "Walk of the Day",
+    descr: "Walk of the Day",
+    start: 0,
+    increment: 0.25,
+    current: 0,
+    max: 1.0,
+    created: new Date(),
+    lastDone: new Date(),
+    autoReset: 1,
+  }, {
+    id: "VEGETERIAN",
+    order: 5,
+    name: "Have a Vegetarian Meal",
+    descr: "Have a Vegetarian Meal",
+    start: 0,
+    increment: 0.5,
+    current: 0,
+    max: 1.0,
+    created: new Date(),
+    lastDone: new Date(),
+    autoReset: 3,
+  }
+]
 
 // Delete all habits
 db.collection("habits")
