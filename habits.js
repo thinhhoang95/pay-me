@@ -8,6 +8,10 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+// ========================================
+// Always set the created and lastDone to 2AM
+// ========================================
+
 // Habits to be rewarded
 /* const habits = [
   {
@@ -19,8 +23,8 @@ const db = admin.firestore();
     increment: 0.1,
     current: 0,
     max: 1.0,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 21
   },
   {
@@ -32,8 +36,8 @@ const db = admin.firestore();
     increment: 0.1,
     current: 0,
     max: 1.0,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 2
   },
   {
@@ -45,8 +49,8 @@ const db = admin.firestore();
     increment: 0.1,
     current: 0,
     max: 1.5,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 1,
   },
   {
@@ -58,8 +62,8 @@ const db = admin.firestore();
     increment: 0.1,
     current: 0,
     max: 0.7,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 1
   },
   {
@@ -71,8 +75,8 @@ const db = admin.firestore();
     increment: 0.1,
     current: 0,
     max: 0.7,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 1
   },
   {
@@ -84,8 +88,8 @@ const db = admin.firestore();
     increment: 0.1,
     current: 0,
     max: 0.5,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 1
   },
   {
@@ -97,8 +101,8 @@ const db = admin.firestore();
     increment: 0.1,
     current: 0,
     max: 0.5,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 1
   },
   {
@@ -110,8 +114,8 @@ const db = admin.firestore();
     increment: 0.1,
     current: 0,
     max: 0.5,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 3,
   },
   {
@@ -123,8 +127,8 @@ const db = admin.firestore();
     increment: 0.1,
     current: 0,
     max: 0.5,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 1,
     count: 0,
     maxCount: 3,
@@ -138,8 +142,8 @@ const db = admin.firestore();
     increment: 0.5,
     current: 0,
     max: 2.5,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 7,
   },
   {
@@ -151,8 +155,8 @@ const db = admin.firestore();
     increment: 0.1,
     current: 0,
     max: 1.5,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 1,
   },
   {
@@ -164,8 +168,8 @@ const db = admin.firestore();
     increment: 0.5,
     current: 0,
     max: 1.5,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 7,
   },
   {
@@ -177,8 +181,8 @@ const db = admin.firestore();
     increment: 0.5,
     current: 0,
     max: 1.5,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 30,
   },
 ]; */
@@ -193,8 +197,8 @@ const habits = [
     increment: 0.25,
     current: 0,
     max: 1.0,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 1,
   }, {
     id: "VEGETERIAN",
@@ -205,8 +209,8 @@ const habits = [
     increment: 0.5,
     current: 0,
     max: 1.0,
-    created: new Date(),
-    lastDone: new Date(),
+    created: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
+    lastDone: moment().set({ hour: 2, minute: 0, second: 0, millisecond: 0 }).toDate(),
     autoReset: 3,
   }
 ]
