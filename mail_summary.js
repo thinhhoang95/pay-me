@@ -295,7 +295,7 @@ const composeSummary = () => {
               var mailOptions = {
                 from: "thinhhoang.vaccine@gmail.com",
                 to: "hdinhthinh@gmail.com",
-                subject: "Performance Summary for " + moment().add(-2, 'hour').format("ddd DD/MM/YYYY"),
+                subject: "Daily Briefing for " + moment().add(-2, 'hour').format("ddd DD/MM/YYYY"),
                 text: message,
                 attachments: [],
               };
