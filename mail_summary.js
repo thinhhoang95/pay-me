@@ -25,6 +25,29 @@ const prefixZeroInTimeRep = (x) => {
   }
 }
 
+const dayhourminuteremaining = (dtx) => {
+  let dt = moment(dtx)
+  let now = moment()
+  let remaining = moment.duration(dt.diff(now))
+  let days = remaining.days()
+  let hours = remaining.hours()
+  let minutes = remaining.minutes()
+  let seconds = remaining.seconds()
+  let message = ""
+  if (days > 0)
+  {
+    message += String(days) + " days "
+  }
+  
+  message += String(hours) + " hours "
+
+  message += String(minutes) + " minutes "
+
+  message += String(seconds) + " seconds "
+  
+  return message
+}
+
 const convertMinutesToHHMM = (minutes) => {
   let hour = Math.floor(minutes/60)
   let rMinute = Math.floor(minutes - hour * 60)
@@ -110,13 +133,67 @@ const getTodayCalendar = () => {
         calendarMessage = todayCalendar.map((x) => {
           if (x.start.hasOwnProperty('dateTime'))
           {
-            return x.summary + " at " + moment(x.start.dateTime).format("DD/MM/YYYY HH:mm")
+            return x.summary + " at " + moment(x.start.dateTime).format("ddd DD/MM/YYYY HH:mm") + " ( " + dayhourminuteremaining(moment(x.start.dateTime)) + ")"
           } else {
-            return x.summary + " at " + moment(x.start.date).format("DD/MM/YYYY")
+            return x.summary + " at " + moment(x.start.date).format("ddd DD/MM/YYYY") + " ( " + dayhourminuteremaining(moment(x.start.date)) + ")"
           }
         }).join("\n")
       }
       resolve(calendarMessage)
+    }).catch((err) => {
+      reject(err)
+    })
+  })
+}
+
+const getAlmostExpireSubTasks = () => {
+  return new Promise((resolve, reject) => {
+    db.collection("subtasks").get().then((snapshot) => {
+      let subtasks = []
+      snapshot.forEach((doc) => {
+        subtasks.push(doc.data())
+      })
+      return subtasks
+    }).then((subtasks) => {
+      // expires in 7 days tasks
+      let almostExpireSubtasks = subtasks.filter((x) => {
+        const taskExpiryDate = moment(x.expired)
+        const todayMax = moment().add(-2, 'hour').add(7, 'day').startOf('day')
+        return taskExpiryDate.isBefore(todayMax)
+      })
+      
+      let message = ""
+      almostExpireSubtasks.forEach((x) => {
+        message += x.id + " expires on " + moment(x.expired).format("ddd DD/MM/YYYY") + " ( " + dayhourminuteremaining(moment(x.expired)) + ")" + ".\n"
+      })
+  
+      // scourge the subtasks 
+      subtasks.forEach((x) => {
+        let almostExpireSubSubTasks = []
+        if (x.hasOwnProperty('subs'))
+        {
+          x.subs.forEach((y) => {
+            if (y.hasOwnProperty('expiryDate'))
+            {
+              const subtaskExpiryDate = moment(y.expiryDate)
+              const todayMax = moment().add(-2, 'hour').add(7, 'day').startOf('day')
+              if (subtaskExpiryDate.isBefore(todayMax))
+              {
+                almostExpireSubSubTasks.push({...y, parent: x.id})
+              }
+            }
+          })
+        }
+    
+        almostExpireSubSubTasks.forEach((x) => {
+          message += x.parent + " / " + x.sname + " expires on " + moment(x.expiryDate.toDate()).format("ddd DD/MM/YYYY") + " ( " + dayhourminuteremaining(moment(x.expiryDate.toDate())) + ")" + ".\n"
+        })
+      })
+      
+
+      resolve(message)
+  
+  
     }).catch((err) => {
       reject(err)
     })
@@ -181,6 +258,15 @@ const composeSummary = () => {
             })
           })
         }).then((xx) => {
+          // Get soon to expire tasks
+          return new Promise((resolve, reject) => {
+            getAlmostExpireSubTasks().then((y) => {
+              resolve({...xx, soonExpire: y})
+            }).catch((err) => {
+              reject(err)
+            })
+          })
+        }).then((xx) => {
             // Start to compose an email
             var mail = nodemailer.createTransport({
                 service: "gmail",
@@ -200,7 +286,11 @@ const composeSummary = () => {
                 taskJoint += "\nTask: " + x.sname + ". Completed at: " + x.time + "."
               })
 
-              let message = "Dear Thinh,\n\nThis is the summary of your work day of " + moment().add(-2, 'hour').format("ddd DD/MM/YYYY") + ". \n" + timeJoint + "\n" + taskJoint + "\n\n"+ "Todo(s): " + xx.todo + "\n\n" + "Calendar events:\n\n" + xx.calendar + "\n\n" + "Your work speaks volumes of the kind of person you are - efficient, organized, and result-oriented. Your devotion is deeply appreciated.\n\nYours sincerely,\nThe PayMeMobile Team."
+              let message = "Dear Thinh,\n\nThis is the summary of your work day of " + moment().add(-2, 'hour').format("ddd DD/MM/YYYY") + ". \n" + timeJoint + "\n" + taskJoint + "\n\n" +
+              "Todo(s): " + xx.todo +
+              "\n\n" + "Calendar events:\n\n"+ xx.calendar +
+              "\n\n" + "Soon to expire tasks:\n\n" + xx.soonExpire +
+              "\n\n" + "Your work speaks volumes of the kind of person you are - efficient, organized, and result-oriented. Your devotion is deeply appreciated.\n\nYours sincerely,\nThe OrdoWallet Team."
     
               var mailOptions = {
                 from: "thinhhoang.vaccine@gmail.com",
