@@ -69,7 +69,7 @@ const getTodoToday = () => {
         // Filter keep only today's todo
         todos = todos.filter((x) => {
           const todoDeferUntil = moment(x.deferUntil.toDate())
-          const todayMax = moment().add(-2, 'hour').add(1, 'day').startOf('day')
+          const todayMax = moment().add(3, 'hour').add(1, 'day').startOf('day')
           return todoDeferUntil.isBefore(todayMax)
         })
         let todoMessage = ""
@@ -101,14 +101,14 @@ const getTodayCalendar = () => {
 
       // Filter keep only today's calendar
       calenda.forEach((x) => {
-        const calendaMax = moment().add(-2, 'hour').add(7, 'day').startOf('day')
+        const calendaMax = moment().add(3, 'hour').add(7, 'day').startOf('day')
         // There are two kinds of time representation: start and startDate. The latter does not include time!
         // We do not include the all day event in this event
         if (x.hasOwnProperty('start'))
         {
           if (x.start.hasOwnProperty('dateTime'))
           {
-            eventStart = moment(x.start.dateTime)
+            eventStart = moment(x.start.dateTime).set({hour: 1, minute: 59, second: 59, millisecond: 0})
             if (eventStart.isBefore(calendaMax))
             {
               todayCalendar.push(x)
@@ -158,13 +158,16 @@ const getAlmostExpireSubTasks = () => {
       // expires in 7 days tasks
       let almostExpireSubtasks = subtasks.filter((x) => {
         const taskExpiryDate = moment(x.expired)
-        const todayMax = moment().add(-2, 'hour').add(7, 'day').startOf('day')
+        const todayMax = moment().add(3, 'hour').add(7, 'day').startOf('day')
         return taskExpiryDate.isBefore(todayMax)
       })
       
       let message = ""
       almostExpireSubtasks.forEach((x) => {
-        message += x.id + " expires on " + moment(x.expired).format("ddd DD/MM/YYYY") + " ( " + dayhourminuteremaining(moment(x.expired)) + ")" + ".\n"
+        if (x.id !== "DAILY") // Exclude the DAILY subtask from the summary
+        {
+          message += x.id + " expires on " + moment(x.expired).format("ddd DD/MM/YYYY") + " ( " + dayhourminuteremaining(moment(x.expired)) + ")" + ".\n"
+        }
       })
   
       // scourge the subtasks 
@@ -176,7 +179,7 @@ const getAlmostExpireSubTasks = () => {
             if (y.hasOwnProperty('expiryDate'))
             {
               const subtaskExpiryDate = moment(y.expiryDate)
-              const todayMax = moment().add(-2, 'hour').add(7, 'day').startOf('day')
+              const todayMax = moment().add(3, 'hour').add(7, 'day').startOf('day')
               if (subtaskExpiryDate.isBefore(todayMax))
               {
                 almostExpireSubSubTasks.push({...y, parent: x.id})
@@ -204,7 +207,7 @@ const composeSummary = () => {
     let timeSummary = []
     let timeSummaryTaskIds = []
     let taskSummary = []
-    let datestamp = moment().add(-2, 'hour').format("YYYY-MM-DD")
+    let datestamp = moment().add(-3, 'hour').format("YYYY-MM-DD")
     db.collection('timerHistory').doc(datestamp).get().then((snapshot) => {
         let timerDoc = {}
         if (snapshot.exists)
@@ -286,7 +289,7 @@ const composeSummary = () => {
                 taskJoint += "\nTask: " + x.sname + ". Completed at: " + x.time + "."
               })
 
-              let message = "Dear Thinh,\n\nThis is the summary of your work day of " + moment().add(-2, 'hour').format("ddd DD/MM/YYYY") + ". \n" + timeJoint + "\n" + taskJoint + "\n\n" +
+              let message = "Dear Thinh,\n\nThis is the summary for your work day of " + moment().add(3, 'hour').format("ddd DD/MM/YYYY") + ". \n" + timeJoint + "\n" + taskJoint + "\n\n" +
               "Todo(s): " + xx.todo +
               "\n\n" + "Calendar events:\n\n"+ xx.calendar +
               "\n\n" + "Soon to expire tasks:\n\n" + xx.soonExpire +
@@ -295,7 +298,7 @@ const composeSummary = () => {
               var mailOptions = {
                 from: "thinhhoang.vaccine@gmail.com",
                 to: "hdinhthinh@gmail.com",
-                subject: "Daily Briefing for " + moment().add(-2, 'hour').format("ddd DD/MM/YYYY"),
+                subject: "Daily Briefing for " + moment().add(3, 'hour').format("ddd DD/MM/YYYY"),
                 text: message,
                 attachments: [],
               };
