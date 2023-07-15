@@ -69,7 +69,7 @@ const getTodoToday = () => {
         // Filter keep only today's todo
         todos = todos.filter((x) => {
           const todoDeferUntil = moment(x.deferUntil.toDate())
-          const todayMax = moment().add(-2, 'hour').add(1, 'day').startOf('day')
+          const todayMax = moment().add(3, 'hour').add(1, 'day').startOf('day')
           return todoDeferUntil.isBefore(todayMax)
         })
         let todoMessage = ""
@@ -101,7 +101,7 @@ const getTodayCalendar = () => {
 
       // Filter keep only today's calendar
       calenda.forEach((x) => {
-        const calendaMax = moment().add(-2, 'hour').add(7, 'day').startOf('day')
+        const calendaMax = moment().add(3, 'hour').add(7, 'day').startOf('day')
         // There are two kinds of time representation: start and startDate. The latter does not include time!
         // We do not include the all day event in this event
         if (x.hasOwnProperty('start'))
@@ -295,7 +295,7 @@ const composeSummary = () => {
               var mailOptions = {
                 from: "thinhhoang.vaccine@gmail.com",
                 to: "hdinhthinh@gmail.com",
-                subject: "Daily Briefing for " + moment().add(-2, 'hour').format("ddd DD/MM/YYYY"),
+                subject: "Daily Briefing for " + moment().add(3, 'hour').format("ddd DD/MM/YYYY"),
                 text: message,
                 attachments: [],
               };
