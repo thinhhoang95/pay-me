@@ -1,6 +1,6 @@
 const admin = require("firebase-admin");
 const serviceAccount = require("./payme-node-key.json");
-const moment = require("moment")
+const moment = require("moment-timezone")
 
 const puppeteer = require("puppeteer");
 const nodemailer = require("nodemailer");
@@ -39,11 +39,11 @@ const dayhourminuteremaining = (dtx) => {
     message += String(days) + " days "
   }
   
-  message += String(hours) + " hours "
+  message += String(hours) + ":"
 
-  message += String(minutes) + " minutes "
+  message += prefixZeroInTimeRep(minutes)
 
-  message += String(seconds) + " seconds "
+  // message += String(seconds) + " seconds "
   
   return message
 }
@@ -108,14 +108,14 @@ const getTodayCalendar = () => {
         {
           if (x.start.hasOwnProperty('dateTime'))
           {
-            eventStart = moment(x.start.dateTime)
+            eventStart = moment.tz(x.start.dateTime, 'Europe/Paris').tz('UTC') // Convert to UTC
             if (eventStart.isBefore(calendaMax))
             {
               todayCalendar.push(x)
             }
           } else if (x.start.hasOwnProperty('date'))
           {
-            eventStart = moment(x.start.date)
+            eventStart = moment.tz(x.start.date, 'Europe/Paris').tz('UTC') // Convert to UTC
             if (eventStart.isBefore(calendaMax))
             {
               todayCalendar.push(x)
@@ -133,9 +133,9 @@ const getTodayCalendar = () => {
         calendarMessage = todayCalendar.map((x) => {
           if (x.start.hasOwnProperty('dateTime'))
           {
-            return x.summary + " at " + moment(x.start.dateTime).format("ddd DD/MM/YYYY HH:mm") + " ( " + dayhourminuteremaining(moment(x.start.dateTime)) + ")"
+            return "- " + x.summary + " at " + moment.tz(x.start.dateTime, 'Europe/Paris').format("ddd DD/MM/YYYY HH:mm") + " (" + dayhourminuteremaining(moment(x.start.dateTime)) + ")"
           } else {
-            return x.summary + " at " + moment(x.start.date).format("ddd DD/MM/YYYY") + " ( " + dayhourminuteremaining(moment(x.start.date)) + ")"
+            return "- " + x.summary + " at " + moment.tz(x.start.date, 'Europe/Paris').format("ddd DD/MM/YYYY") + " (" + dayhourminuteremaining(moment(x.start.date)) + ")"
           }
         }).join("\n")
       }
@@ -157,14 +157,14 @@ const getAlmostExpireSubTasks = () => {
     }).then((subtasks) => {
       // expires in 7 days tasks
       let almostExpireSubtasks = subtasks.filter((x) => {
-        const taskExpiryDate = moment(x.expired)
+        const taskExpiryDate = moment.tz(x.expired, 'Europe/Paris').tz('UTC') // Convert to UTC
         const todayMax = moment().add(-2, 'hour').add(7, 'day').startOf('day')
         return taskExpiryDate.isBefore(todayMax)
       })
       
       let message = ""
       almostExpireSubtasks.forEach((x) => {
-        message += x.id + " expires on " + moment(x.expired).format("ddd DD/MM/YYYY") + " ( " + dayhourminuteremaining(moment(x.expired)) + ")" + ".\n"
+        message += "- " + x.id + " expires on " + moment.tz(x.expired, 'Europe/Paris').format("ddd DD/MM/YYYY") + " (" + dayhourminuteremaining(moment(x.expired)) + ")" + ".\n"
       })
   
       // scourge the subtasks 
@@ -175,7 +175,7 @@ const getAlmostExpireSubTasks = () => {
           x.subs.forEach((y) => {
             if (y.hasOwnProperty('expiryDate'))
             {
-              const subtaskExpiryDate = moment(y.expiryDate)
+              const subtaskExpiryDate = moment.tz(y.expiryDate, 'Europe/Paris').tz('UTC')
               const todayMax = moment().add(-2, 'hour').add(7, 'day').startOf('day')
               if (subtaskExpiryDate.isBefore(todayMax))
               {
@@ -186,7 +186,7 @@ const getAlmostExpireSubTasks = () => {
         }
     
         almostExpireSubSubTasks.forEach((x) => {
-          message += x.parent + " / " + x.sname + " expires on " + moment(x.expiryDate.toDate()).format("ddd DD/MM/YYYY") + " ( " + dayhourminuteremaining(moment(x.expiryDate.toDate())) + ")" + ".\n"
+          message += "- " + x.parent + " / " + x.sname + " expires on " +  moment.tz(x.expiryDate.toDate(), 'Europe/Paris').format("ddd DD/MM/YYYY") + " (" + dayhourminuteremaining(moment(x.expiryDate.toDate())) + ")" + ".\n"
         })
       })
       
@@ -204,7 +204,7 @@ const composeSummary = () => {
     let timeSummary = []
     let timeSummaryTaskIds = []
     let taskSummary = []
-    let datestamp = moment().add(-2, 'hour').format("YYYY-MM-DD")
+    let datestamp = moment().tz('Europe/Paris').add(-2, 'hour').add(-1, 'day').add(2, 'hour').format("YYYY-MM-DD")
     db.collection('timerHistory').doc(datestamp).get().then((snapshot) => {
         let timerDoc = {}
         if (snapshot.exists)
@@ -278,19 +278,19 @@ const composeSummary = () => {
 
               let timeJoint = ""
               timeSummary.forEach((x) => {
-                timeJoint += "\nTask: " + x.subsub + ". Duration: " + convertMinutesToHHMM(Number(x.duration/(60*1000))) + "."
+                timeJoint += "\n- Task: " + x.subsub + ". Duration: " + convertMinutesToHHMM(Number(x.duration/(60*1000))) + "."
               })
 
               let taskJoint = ""
               taskSummary.forEach((x) => {
-                taskJoint += "\nTask: " + x.sname + ". Completed at: " + x.time + "."
+                taskJoint += "\n- Task: " + x.sname + ". Completed at: " + x.time + "."
               })
 
-              let message = "Dear Thinh,\n\nThis is the summary of your work day of " + moment().add(-2, 'hour').format("ddd DD/MM/YYYY") + ". \n" + timeJoint + "\n" + taskJoint + "\n\n" +
+              let message = "Dear Thinh,\n\nThis is the summary of your work day of " + moment().add(-2, 'hour').format("ddd DD/MM/YYYY") + ". \n\n" + "Work of the day before: \n\n" + timeJoint + "\n" + taskJoint + "\n\n" +
               "Todo(s): " + xx.todo +
               "\n\n" + "Calendar events:\n\n"+ xx.calendar +
               "\n\n" + "Soon to expire tasks:\n\n" + xx.soonExpire +
-              "\n\n" + "Your work speaks volumes of the kind of person you are - efficient, organized, and result-oriented. Your devotion is deeply appreciated.\n\nYours sincerely,\nThe OrdoWallet Team."
+              "\n\n" + "Thanks for your efforts.\n\nYours sincerely,\nThe OrdoWallet Team."
     
               var mailOptions = {
                 from: "thinhhoang.vaccine@gmail.com",
