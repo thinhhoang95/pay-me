@@ -68,7 +68,7 @@ const getTodoToday = () => {
       }).then(() => {
         // Filter keep only today's todo
         todos = todos.filter((x) => {
-          const todoDeferUntil = moment(x.deferUntil.toDate())
+          const todoDeferUntil = moment.tz(x.deferUntil.toDate(), 'Europe/Paris').set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
           const todayMax = moment().add(3, 'hour').add(1, 'day').startOf('day')
           return todoDeferUntil.isBefore(todayMax)
         })
@@ -303,13 +303,13 @@ const composeSummary = () => {
               console.log(message)
 
               // Mail away!
-              mail.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                  console.log(error);
-                } else {
-                  console.log("Email sent: " + info.response);
-                }
-              });
+              // mail.sendMail(mailOptions, function (error, info) {
+              //   if (error) {
+              //     console.log(error);
+              //   } else {
+              //     console.log("Email sent: " + info.response);
+              //   }
+              // });
               
         })
     })
