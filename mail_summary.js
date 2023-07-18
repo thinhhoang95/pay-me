@@ -68,8 +68,8 @@ const getTodoToday = () => {
       }).then(() => {
         // Filter keep only today's todo
         todos = todos.filter((x) => {
-          const todoDeferUntil = moment.tz(x.deferUntil.toDate(), 'Europe/Paris').set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
-          const todayMax = moment().add(3, 'hour').add(1, 'day').startOf('day')
+          const todoDeferUntil = moment.tz(x.deferUntil.toDate(), 'Europe/Paris')
+          const todayMax = moment().tz('Europe/Paris').startOf('day').add(2, 'hour').add(1, 'day') // 2am tomorrow
           return todoDeferUntil.isBefore(todayMax)
         })
         let todoMessage = ""
@@ -286,7 +286,7 @@ const composeSummary = () => {
                 taskJoint += "\n- Task: " + x.sname + ". Completed at: " + x.time + "."
               })
 
-              let message = "Dear Thinh,\n\nThis is the summary of your work day of " + moment().add(-2, 'hour').format("ddd DD/MM/YYYY") + ". \n\n" + "Work of the day before: \n\n" + timeJoint + "\n" + taskJoint + "\n\n" +
+              let message = "Dear Thinh,\n\nThis is the summary of your work day of " + moment().tz('Europe/Paris').startOf('day').format("ddd DD/MM/YYYY") + ". \n\n" + "Work of the day before: \n\n" + timeJoint + "\n" + taskJoint + "\n\n" +
               "Todo(s): " + xx.todo +
               "\n\n" + "Calendar events:\n\n"+ xx.calendar +
               "\n\n" + "Soon to expire tasks:\n\n" + xx.soonExpire +
@@ -303,13 +303,13 @@ const composeSummary = () => {
               console.log(message)
 
               // Mail away!
-              // mail.sendMail(mailOptions, function (error, info) {
-              //   if (error) {
-              //     console.log(error);
-              //   } else {
-              //     console.log("Email sent: " + info.response);
-              //   }
-              // });
+              mail.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log("Email sent: " + info.response);
+                }
+              });
               
         })
     })
