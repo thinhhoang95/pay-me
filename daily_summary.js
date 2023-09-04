@@ -52,7 +52,7 @@ const fetch_daily_task = (task_id, tasks) => {
         // Print [ ]s for tasks with time goals
         sTaskStr += truncateString(s.sname.toUpperCase(), 24) + " ";
         for (let i = 0; i < s.time; i++) {
-          sTaskStr += "[  ]";
+          //sTaskStr += "[  ]";
         }
         sTaskStr += " (" + s.finish.toFixed(2) + ")\n";
         if (s.hasOwnProperty('subsubs'))
