@@ -207,7 +207,7 @@ const changeTo2am = (dt) => {
 
 const compareDates = (dt1, dt2) => {
     return moment(dt1).isSame(moment(dt2).add(1, 'day'), 'day') // for tomorrow print
-    return moment(dt1).isSame(moment(dt2), 'day') // for today print
+    return moment(dt1).startOf('day').isSame(moment(dt2).startOf('day'), 'day') // for today print
 }
 
 const getTodoToday = () => {
@@ -474,7 +474,7 @@ const composeSummary = () => {
                   .font("a")
                   .size(0, 0)
                   .align("CT") // Center text
-                  .text("Summary for " + changeTo2am(moment()).format("ddd DD MMM YYYY"))
+                  .text("Summary for " + moment().add(1, 'day').startOf('day').format("ddd DD MMM YYYY"))
                   .align("LT")
                   .text("Name: Thinh Hoang Dinh")
                   .text("================================================")
