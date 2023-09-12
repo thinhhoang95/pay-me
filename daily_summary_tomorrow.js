@@ -299,9 +299,9 @@ const getTodayCalendar = () => {
             {
               asterisk = '*'
             } */
-            return "- " + ellipsizeString(x.summary, 12) + " at " + moment.tz(x.start.dateTime, 'Europe/Paris').format("ddd D, HH[h]") + asterisk
+            return "- " + ellipsizeString(x.summary, 12) + " on " + moment.tz(x.start.dateTime, 'Europe/Paris').format("ddd D, HH[h]mm") + asterisk
           } else {
-            return "- " + ellipsizeString(x.summary, 12) + " at " + moment.tz(x.start.date, 'Europe/Paris').format("ddd D, HH[h]") + asterisk
+            return "- " + ellipsizeString(x.summary, 12) + " on " + moment.tz(x.start.date, 'Europe/Paris').format("ddd D, HH[h]mm") + asterisk
           }
         }).join("\n")
       }
