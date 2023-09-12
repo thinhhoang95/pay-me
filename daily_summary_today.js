@@ -189,6 +189,27 @@ const convertMinutesToHHMM = (minutes) => {
   return prefixZeroInTimeRep(hour) + ":" + prefixZeroInTimeRep(rMinute)
 }
 
+const getTheNext2am = () => {
+    let now = moment().tz('Europe/Paris')
+    let next2am = moment().tz('Europe/Paris').startOf('day').add(2, 'hour')
+    if (now.isAfter(next2am))
+    {
+        next2am = next2am.add(1, 'day')
+    }
+    // return next2am.add(1, 'day') // for tomorrow print
+    return next2am // for today print
+}
+
+const changeTo2am = (dt) => {
+    let next2am = moment(dt).tz('Europe/Paris').startOf('day').add(2, 'hour')
+    return next2am
+}
+
+const compareDates = (dt1, dt2) => {
+    //return moment(dt1).isSame(moment(dt2).add(1, 'day'), 'day') // for tomorrow print
+    return moment(dt1).isSame(moment(dt2), 'day') // for today print
+}
+
 const getTodoToday = () => {
   return new Promise((resolve, reject) => {
     let todos = [] 
@@ -200,8 +221,8 @@ const getTodoToday = () => {
       }).then(() => {
         // Filter keep only today's todo
         todos = todos.filter((x) => {
-          const todoDeferUntil = moment.tz(x.deferUntil.toDate(), 'Europe/Paris')
-          const todayMax = moment().tz('Europe/Paris').startOf('day').add(2, 'hour').add(1, 'day') // 2am tomorrow
+          const todoDeferUntil = changeTo2am(moment.tz(x.deferUntil.toDate(), 'Europe/Paris'))
+          const todayMax = getTheNext2am()
           return todoDeferUntil.isBefore(todayMax)
         })
         let todoMessage = ""
@@ -270,10 +291,14 @@ const getTodayCalendar = () => {
             let asterisk = ''
             //console.log(moment.tz(x.start.dateTime, 'Europe/Paris').tz('UTC'))
             //console.log(moment().tz('Europe/Paris').startOf('day').tz('UTC'))
-            if (moment.tz(x.start.dateTime, 'Europe/Paris').startOf('day').tz('UTC').isSame(moment().tz('Europe/Paris').startOf('day').tz('UTC')))
+            if (compareDates(moment.tz(x.start.dateTime, 'Europe/Paris'), moment().tz('Europe/Paris')))
+            {
+                asterisk = '*'
+            }
+            /* if (moment.tz(x.start.dateTime, 'Europe/Paris').startOf('day').tz('UTC').isSame(moment().tz('Europe/Paris').startOf('day').tz('UTC')))
             {
               asterisk = '*'
-            }
+            } */
             return "- " + ellipsizeString(x.summary, 12) + " at " + moment.tz(x.start.dateTime, 'Europe/Paris').format("ddd D, HH[h]") + asterisk
           } else {
             return "- " + ellipsizeString(x.summary, 12) + " at " + moment.tz(x.start.date, 'Europe/Paris').format("ddd D, HH[h]") + asterisk
@@ -306,10 +331,14 @@ const getAlmostExpireSubTasks = () => {
       let message = ""
       almostExpireSubtasks.forEach((x) => {
         let asterisk = ''
-        if (moment.tz(x.expired, 'Europe/Paris').startOf('day').tz('UTC').isSame(moment().tz('Europe/Paris').startOf('day').tz('UTC')))
+        if (compareDates(moment.tz(x.expired, 'Europe/Paris'), moment().tz('Europe/Paris')))
+        {
+            asterisk = '*'
+        }
+        /* if (moment.tz(x.expired, 'Europe/Paris').startOf('day').tz('UTC').isSame(moment().tz('Europe/Paris').startOf('day').tz('UTC')))
         {
           asterisk = '*'
-        }
+        } */
         message += "- " + x.id + " exp. " + moment.tz(x.expired, 'Europe/Paris').format("ddd DD") + asterisk + "\n"
       })
   
@@ -321,8 +350,8 @@ const getAlmostExpireSubTasks = () => {
           x.subs.forEach((y) => {
             if (y.hasOwnProperty('expiryDate'))
             {
-              const subtaskExpiryDate = moment.tz(y.expiryDate, 'Europe/Paris').tz('UTC')
-              const todayMax = moment().add(-2, 'hour').add(7, 'day').startOf('day')
+              const subtaskExpiryDate = changeTo2am(moment.tz(y.expiryDate, 'Europe/Paris'))
+              const todayMax = changeTo2am(moment().tz('Europe/Paris').add(7, 'day'))
               if (subtaskExpiryDate.isBefore(todayMax))
               {
                 almostExpireSubSubTasks.push({...y, parent: x.id})
@@ -333,10 +362,14 @@ const getAlmostExpireSubTasks = () => {
     
         almostExpireSubSubTasks.forEach((x) => {
           let asterisk = ''
-          if (moment.tz(x.expiryDate.toDate(), 'Europe/Paris').startOf('day').tz('UTC').isSame(moment().tz('Europe/Paris').startOf('day').tz('UTC')))
+          if (compareDates(moment.tz(x.expiryDate.toDate(), 'Europe/Paris'), moment().tz('Europe/Paris')))
           {
             asterisk = '*'
           }
+          /* if (moment.tz(x.expiryDate.toDate(), 'Europe/Paris').startOf('day').tz('UTC').isSame(moment().tz('Europe/Paris').startOf('day').tz('UTC')))
+          {
+            asterisk = '*'
+          } */
           message += "- " + x.parent + " / " + x.sname + " exp. " +  moment.tz(x.expiryDate.toDate(), 'Europe/Paris').format("ddd DD") + asterisk + "\n"
         })
       })
@@ -441,12 +474,13 @@ const composeSummary = () => {
                   .font("a")
                   .size(0, 0)
                   .align("CT") // Center text
-                  .text("Summary for " + moment().add(3, 'hour').format("ddd DD/MM/YYYY"))
+                  .text("Summary for " + changeTo2am(moment()).format("ddd DD MMM YYYY"))
                   .align("LT")
                   .text("Name: Thinh Hoang Dinh")
                   .text("================================================")
                   .text(xx.dailyTaskStr)
                   .text("================================================")
+                  .text(xx.todo)
                   .text(xx.calendar)
                   .text(xx.soonExpire)
                   .text("================================================")
