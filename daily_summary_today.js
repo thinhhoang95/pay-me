@@ -254,7 +254,7 @@ const getTodayCalendar = () => {
 
       // Filter keep only today's calendar
       calenda.forEach((x) => {
-        const calendaMax = moment().add(3, 'hour').add(7, 'day').startOf('day')
+        const calendaMax = getTheNext2am() // for today print
         // There are two kinds of time representation: start and startDate. The latter does not include time!
         // We do not include the all day event in this event
         if (x.hasOwnProperty('start'))
