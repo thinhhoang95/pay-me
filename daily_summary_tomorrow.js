@@ -101,7 +101,7 @@ const print_daily_task = () => {
     console.log('Querying subtasks')
     db.collection('subtasks').listDocuments().then((ref) => {
       const snsFound = ref.map(x => x.id)
-      console.log(snsFound)
+      // console.log(snsFound)
       snsFound.forEach((dbSn) => {
           if (dbSn.indexOf('DAILY') != -1)
           {
@@ -344,13 +344,16 @@ const getAlmostExpireSubTasks = () => {
   
       // scourge the subtasks 
       subtasks.forEach((x) => {
+        // console.log(x)
         let almostExpireSubSubTasks = []
         if (x.hasOwnProperty('subs'))
         {
           x.subs.forEach((y) => {
+            // console.log(y)
             if (y.hasOwnProperty('expiryDate'))
             {
-              const subtaskExpiryDate = changeTo2am(moment.tz(y.expiryDate, 'Europe/Paris'))
+              
+              const subtaskExpiryDate = changeTo2am(moment.tz(y.expiryDate.toDate(), 'Europe/Paris'))
               const todayMax = changeTo2am(moment().tz('Europe/Paris').add(7, 'day'))
               if (subtaskExpiryDate.isBefore(todayMax))
               {

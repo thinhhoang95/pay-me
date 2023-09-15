@@ -350,7 +350,7 @@ const getAlmostExpireSubTasks = () => {
           x.subs.forEach((y) => {
             if (y.hasOwnProperty('expiryDate'))
             {
-              const subtaskExpiryDate = changeTo2am(moment.tz(y.expiryDate, 'Europe/Paris'))
+              const subtaskExpiryDate = changeTo2am(moment.tz(y.expiryDate.toDate(), 'Europe/Paris'))
               const todayMax = changeTo2am(moment().tz('Europe/Paris').add(7, 'day'))
               if (subtaskExpiryDate.isBefore(todayMax))
               {
