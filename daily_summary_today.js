@@ -483,7 +483,7 @@ const composeSummary = () => {
                   .text(xx.todo)
                   .text(xx.calendar)
                   .text(xx.soonExpire)
-                  .text("================================================")
+                  .text("Printed on " + moment().tz('Europe/Paris').format("DD MMM YYYY HH:mm:ss"))
                   .text("")
                   .text("")
                   .text("")
