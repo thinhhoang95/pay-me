@@ -256,8 +256,8 @@ const getTodayCalendar = () => {
       calenda.forEach((x) => {
         const calendaMax = getTheNext2am() // for tomorrow print
         const calendaMin = getTheNext2am().add(-1, 'day')
-        console.log(calendaMax)
-        console.log(calendaMin)
+        // console.log(calendaMax)
+        // console.log(calendaMin)
         // There are two kinds of time representation: start and startDate. The latter does not include time!
         // We do not include the all day event in this event
         if (x.hasOwnProperty('start'))
@@ -475,9 +475,9 @@ const composeSummary = () => {
                 taskJoint += "\n- Task: " + x.sname + ". Completed at: " + x.time + "."
               })
 
-              console.log(xx.calendar)
+              // console.log(xx.calendar)
 
-              return 
+              
 
               device.open(async (error) => {
                 printer
