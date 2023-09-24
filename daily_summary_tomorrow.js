@@ -254,7 +254,10 @@ const getTodayCalendar = () => {
 
       // Filter keep only today's calendar
       calenda.forEach((x) => {
-        const calendaMax = getTheNext2am().add(1, 'day') // for tomorrow print
+        const calendaMax = getTheNext2am() // for tomorrow print
+        const calendaMin = getTheNext2am().add(-1, 'day')
+        console.log(calendaMax)
+        console.log(calendaMin)
         // There are two kinds of time representation: start and startDate. The latter does not include time!
         // We do not include the all day event in this event
         if (x.hasOwnProperty('start'))
@@ -262,14 +265,14 @@ const getTodayCalendar = () => {
           if (x.start.hasOwnProperty('dateTime'))
           {
             eventStart = moment.tz(x.start.dateTime, 'Europe/Paris').tz('UTC') // Convert to UTC
-            if (eventStart.isBefore(calendaMax))
+            if (eventStart.isBefore(calendaMax) && eventStart.isAfter(calendaMin))
             {
               todayCalendar.push(x)
             }
           } else if (x.start.hasOwnProperty('date'))
           {
             eventStart = moment.tz(x.start.date, 'Europe/Paris').tz('UTC') // Convert to UTC
-            if (eventStart.isBefore(calendaMax))
+            if (eventStart.isBefore(calendaMax) && eventStart.isAfter(calendaMin))
             {
               todayCalendar.push(x)
             }
@@ -471,6 +474,10 @@ const composeSummary = () => {
               taskSummary.forEach((x) => {
                 taskJoint += "\n- Task: " + x.sname + ". Completed at: " + x.time + "."
               })
+
+              console.log(xx.calendar)
+
+              return 
 
               device.open(async (error) => {
                 printer
