@@ -474,7 +474,7 @@ const composeSummary = () => {
                   .font("a")
                   .size(0, 0)
                   .align("CT") // Center text
-                  .text("Summary for " + moment().startOf('day').format("ddd DD MMM YYYY"))
+                  .text("Summary for " + getTheNext2am().add(-1, 'day').format("ddd DD MMM YYYY"))
                   .align("LT")
                   .text("Name: Thinh Hoang Dinh")
                   .text("================================================")

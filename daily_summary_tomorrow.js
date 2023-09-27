@@ -206,7 +206,7 @@ const changeTo2am = (dt) => {
 }
 
 const compareDates = (dt1, dt2) => {
-    return moment(dt1).isSame(moment(dt2).add(1, 'day'), 'day') // for tomorrow print
+    return moment(dt1).isSame(moment(dt2).add(-1, 'day'), 'day') // for tomorrow print
     return moment(dt1).startOf('day').isSame(moment(dt2).startOf('day'), 'day') // for today print
 }
 
@@ -256,8 +256,8 @@ const getTodayCalendar = () => {
       calenda.forEach((x) => {
         const calendaMax = getTheNext2am() // for tomorrow print
         const calendaMin = getTheNext2am().add(-1, 'day')
-        // console.log(calendaMax)
-        // console.log(calendaMin)
+        //console.log(calendaMax)
+        //console.log(calendaMin)
         // There are two kinds of time representation: start and startDate. The latter does not include time!
         // We do not include the all day event in this event
         if (x.hasOwnProperty('start'))
@@ -294,7 +294,7 @@ const getTodayCalendar = () => {
             let asterisk = ''
             //console.log(moment.tz(x.start.dateTime, 'Europe/Paris').tz('UTC'))
             //console.log(moment().tz('Europe/Paris').startOf('day').tz('UTC'))
-            if (compareDates(moment.tz(x.start.dateTime, 'Europe/Paris'), moment().tz('Europe/Paris')))
+            if (compareDates(moment.tz(x.start.dateTime, 'Europe/Paris'), getTheNext2am().tz('Europe/Paris')))
             {
                 asterisk = '*'
             }
@@ -334,7 +334,7 @@ const getAlmostExpireSubTasks = () => {
       let message = ""
       almostExpireSubtasks.forEach((x) => {
         let asterisk = ''
-        if (compareDates(moment.tz(x.expired, 'Europe/Paris'), moment().tz('Europe/Paris')))
+        if (compareDates(moment.tz(x.expired, 'Europe/Paris'), getTheNext2am().tz('Europe/Paris')))
         {
             asterisk = '*'
         }
@@ -475,16 +475,16 @@ const composeSummary = () => {
                 taskJoint += "\n- Task: " + x.sname + ". Completed at: " + x.time + "."
               })
 
-              // console.log(xx.calendar)
+              //console.log(xx.calendar)
 
-              
+              //return
 
               device.open(async (error) => {
                 printer
                   .font("a")
                   .size(0, 0)
                   .align("CT") // Center text
-                  .text("Summary for " + moment().add(1, 'day').startOf('day').format("ddd DD MMM YYYY"))
+                  .text("Summary for " + getTheNext2am().add(-1, 'day').format("ddd DD MMM YYYY"))
                   .align("LT")
                   .text("Name: Thinh Hoang Dinh")
                   .text("================================================")
