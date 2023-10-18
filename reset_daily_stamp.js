@@ -48,7 +48,7 @@ const advanceTodos = async () => {
         }
       })
 
-      db.collection("todo").doc("default").set({todos: newTodos}).then(() => {
+      db.collection("todo").doc("default").set({todo: newTodos}).then(() => {
         console.log('Todo list updated')
       })
     } else {
@@ -67,7 +67,7 @@ const truncateString = (str, len) => {
 }
 
     // advance Todos: DO NOT AUTOMATICALLY ADVANCE TODOS
-    // advanceTodos()
+    advanceTodos()
 
     let sn = process.argv[2]
     db.collection('subtasks').listDocuments().then((ref) => {
