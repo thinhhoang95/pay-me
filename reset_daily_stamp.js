@@ -23,6 +23,40 @@ const make_serial = (length, terms) => {
     return result.join("");
 };
 
+const advanceTodos = async () => {
+  db.collection("todo").doc("default").get().then((snapshot) => {
+    if (snapshot.exists)
+    {
+      let docContent = snapshot.data()
+      // console.log(docContent)
+      let todos = docContent.todo
+      let newTodos = []
+      todos.forEach((t) => {
+        if (t.hasOwnProperty('deferUntil'))
+        {
+          // Set deferUntil to 1:59AM of the same day
+          let deferUntil = moment(t.deferUntil.toDate()).hour(1).minute(59).second(0).millisecond(0)
+          if (deferUntil.isBefore(moment())) // because this thing is run at 2AM
+          {
+            // deferUntil is in the past
+            newTodos.push({...t, deferUntil: moment().hour(2).minute(0).second(0).millisecond(0).toDate()})
+          } else {
+            newTodos.push(t)
+          }
+        } else {
+          newTodos.push(t)
+        }
+      })
+
+      db.collection("todo").doc("default").set({todos: newTodos}).then(() => {
+        console.log('Todo list updated')
+      })
+    } else {
+      console.log('Todo list not found')
+    }
+})
+}
+
 const truncateString = (str, len) => {
     if (str.length > len)
     {
@@ -30,7 +64,10 @@ const truncateString = (str, len) => {
     } else {
       return str
     }
-  }
+}
+
+    // advance Todos
+    advanceTodos()
 
     let sn = process.argv[2]
     db.collection('subtasks').listDocuments().then((ref) => {
