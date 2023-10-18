@@ -27,6 +27,7 @@ const prefixZeroInTimeRep = (x) => {
 
 const dayhourminuteremaining = (dtx) => {
   let dt = moment(dtx)
+  return dt.fromNow()
   let now = moment()
   let remaining = moment.duration(dt.diff(now))
   let days = remaining.days()
@@ -78,9 +79,9 @@ const getTodoToday = () => {
           todoMessage = "No todo today."
         } else {
           todoMessage = todos.map((x) => {
-            return x.content
+            return "- " + x.content
           }
-          ).join(", ")
+          ).join("\n")
         }
         resolve(todoMessage)
       }).catch((err) => {
@@ -133,9 +134,9 @@ const getTodayCalendar = () => {
         calendarMessage = todayCalendar.map((x) => {
           if (x.start.hasOwnProperty('dateTime'))
           {
-            return "- " + x.summary + " at " + moment.tz(x.start.dateTime, 'Europe/Paris').format("ddd DD/MM/YYYY HH:mm") + " (" + dayhourminuteremaining(moment(x.start.dateTime)) + ")"
+            return "- " + x.summary + " on " + moment.tz(x.start.dateTime, 'Europe/Paris').format("ddd DD/MM/YYYY HH:mm") + " (" + dayhourminuteremaining(moment(x.start.dateTime)) + ")"
           } else {
-            return "- " + x.summary + " at " + moment.tz(x.start.date, 'Europe/Paris').format("ddd DD/MM/YYYY") + " (" + dayhourminuteremaining(moment(x.start.date)) + ")"
+            return "- " + x.summary + " on " + moment.tz(x.start.date, 'Europe/Paris').format("ddd DD/MM/YYYY") + " (" + dayhourminuteremaining(moment(x.start.date)) + ")"
           }
         }).join("\n")
       }
@@ -287,7 +288,7 @@ const composeSummary = () => {
               })
 
               let message = "Dear Thinh,\n\nThis is the summary of your work day of " + moment().tz('Europe/Paris').startOf('day').format("ddd DD/MM/YYYY") + ". \n\n" + "Work of the day before: \n\n" + timeJoint + "\n" + taskJoint + "\n\n" +
-              "Todo(s): " + xx.todo +
+              "Todo(s): \n\n" + xx.todo +
               "\n\n" + "Calendar events:\n\n"+ xx.calendar +
               "\n\n" + "Soon to expire tasks:\n\n" + xx.soonExpire +
               "\n\n" + "Thanks for your efforts.\n\nYours sincerely,\nThe OrdoWallet Team."
@@ -303,13 +304,13 @@ const composeSummary = () => {
               console.log(message)
 
               // Mail away!
-              mail.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                  console.log(error);
-                } else {
-                  console.log("Email sent: " + info.response);
-                }
-              });
+              // mail.sendMail(mailOptions, function (error, info) {
+              //   if (error) {
+              //     console.log(error);
+              //   } else {
+              //     console.log("Email sent: " + info.response);
+              //   }
+              // });
               
         })
     })
