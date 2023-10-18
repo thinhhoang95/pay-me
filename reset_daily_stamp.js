@@ -66,8 +66,8 @@ const truncateString = (str, len) => {
     }
 }
 
-    // advance Todos
-    advanceTodos()
+    // advance Todos: DO NOT AUTOMATICALLY ADVANCE TODOS
+    // advanceTodos()
 
     let sn = process.argv[2]
     db.collection('subtasks').listDocuments().then((ref) => {
