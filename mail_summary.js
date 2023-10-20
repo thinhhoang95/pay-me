@@ -304,13 +304,13 @@ const composeSummary = () => {
               console.log(message)
 
               // Mail away!
-              // mail.sendMail(mailOptions, function (error, info) {
-              //   if (error) {
-              //     console.log(error);
-              //   } else {
-              //     console.log("Email sent: " + info.response);
-              //   }
-              // });
+              mail.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log("Email sent: " + info.response);
+                }
+              });
               
         })
     })
