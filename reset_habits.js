@@ -7,7 +7,7 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
-const newTime = moment().set('hour', 2).set('minute', 0).set('second', 0).set('millisecond', 0).toDate()
+const newTime = moment().add(1, 'day').set('hour', 2).set('minute', 0).set('second', 0).set('millisecond', 0).toDate()
 
 db.collection("habits").get().then((querySnapshot) => {
     querySnapshot.forEach((snapshot) => {
