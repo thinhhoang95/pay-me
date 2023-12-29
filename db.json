@@ -1,0 +1,108 @@
+{
+  "expired": "2023-03-17T00:00:16.914Z",
+  "id": "DAILY",
+  "sn": "DAILY-B6SQ1-RSMRW-DPBL9-ASIKP-HPGNN-GKU1A",
+  "expiredDate": { "seconds": 1679011216, "nanoseconds": 912000000 },
+  "totalReward": 4.08,
+  "subs": [
+    {
+      "sname": "Martingales",
+      "validFromDate": { "seconds": 1684890000, "nanoseconds": 65000000 },
+      "subsubs": [
+        {
+          "name": "Grimmett 12.1",
+          "sn": "RT0VB-0ENYG-WI6RQ-4QF9N-9A8ZL",
+          "finish": 3
+        },
+        {
+          "finish": 3,
+          "sn": "H0DB3-Q4S59-3YZJK-WKNWZ-Z81UO",
+          "name": "Grimmett 7.9"
+        }
+      ],
+      "sn": "HYE8X7-W1N4RA-ROP77Z-ZGHAON-D7OAXO-3KQN6V",
+      "finish": 0,
+      "originalFinish": 0,
+      "bonusCoeff": 1,
+      "initialFinish": 0,
+      "time": 0,
+      "originalTime": 0,
+      "type": "subtask"
+    },
+    {
+      "sname": "Res ENAC",
+      "initialFinish": 2.04,
+      "sn": "6B2QO-64DRQ-2JCQM-ZU3Q4-439JF-BWPGA",
+      "originalFinish": 2.04,
+      "bonusCoeff": 1,
+      "originalTime": 3,
+      "subsubs": [
+        {
+          "finish": 3,
+          "name": "BayesDet Intro",
+          "sn": "ECK95K-U321WQ-W8YLUH-QNQJ5T-R1J7AB-FBPZ20"
+        }
+      ],
+      "type": "subtask",
+      "finish": 2.04,
+      "time": 3
+    },
+    {
+      "subsubs": [
+        {
+          "name": "Write patent",
+          "finish": 10,
+          "sn": "D8GZFR-KSBE9C-5VR7RR-2Q30TH-V6VSKZ-FI4MWW"
+        },
+        {
+          "name": "Moller paper",
+          "sn": "1XIGY-71HQ2-BHEGJ-YJ50J-2MOHQ",
+          "finish": 4
+        },
+        {
+          "sn": "NYB8J-FJV8G-RVZ4W-003M0-V16BF",
+          "finish": 20,
+          "name": "***Traffic density"
+        }
+      ],
+      "originalTime": 3,
+      "sname": "Res NXP",
+      "type": "subtask",
+      "sn": "41M4B-N0MDY-X0OGB-XJU06-BQ36Q-TDEZW",
+      "time": 3,
+      "finish": 0,
+      "originalFinish": 2.04,
+      "bonusCoeff": 1,
+      "initialFinish": 2.04
+    },
+    {
+      "finish": 0,
+      "type": "subtask",
+      "time": 1,
+      "sname": "Review",
+      "originalFinish": 0,
+      "subsubs": [
+        {
+          "sn": "CO8EW-RC0ER-NF3XQ-T6L6X-PXUOB",
+          "name": "IJAS paper",
+          "finish": 3
+        }
+      ],
+      "bonusCoeff": 1,
+      "originalTime": 1,
+      "initialFinish": 0,
+      "expiryDate": { "seconds": 1680224400, "nanoseconds": 767000000 },
+      "sn": "ENUSS-8ZLEX-3U0S3-42MAG-KKPS3-G5TIV"
+    }
+  ],
+  "tname": "Daily plan for 02/01/2022",
+  "validFrom": { "seconds": 1673030662, "nanoseconds": 876000000 },
+  "finish": 1,
+  "description": "Task plan for 14/03/2023"
+}
+
+{"subsubs":[{"sname":"Revise KLT paper","time":{"seconds":1678137921,"nanoseconds":450000000}}]}
+
+{"report":[{"done":{"seconds":1678788994,"nanoseconds":431000000},"duration":1500000,"subsub":"Res NXP","id":241906873},{"id":614369745,"duration":1500000,"subsub":"Res NXP","done":{"seconds":1678792494,"nanoseconds":646000000}},{"id":877523476,"done":{"seconds":1678802811,"nanoseconds":448000000},"subsub":"Res NXP","duration":1500000}]}
+
+{"todo":[{"content":"Thăm thân","deferUntil":{"seconds":1680379633,"nanoseconds":927000000},"order":3},{"deferUntil":{"seconds":1679306667,"nanoseconds":452000000},"order":5,"content":"Lấy CCCD"},{"order":2,"content":"*Submit Manuscript","deferUntil":{"seconds":1684913016,"nanoseconds":484000000}},{"content":"Backup Firebase","deferUntil":{"seconds":1678785557,"nanoseconds":77000000},"order":3},{"content":"Upload VTC paper","order":4,"deferUntil":{"seconds":1679308009,"nanoseconds":681000000}},{"order":5,"deferUntil":{"seconds":1680329042,"nanoseconds":929000000},"content":"Recharge Tisseo"},{"order":6,"content":"Send Laura","deferUntil":{"seconds":1680502703,"nanoseconds":404000000}},{"order":7,"deferUntil":{"seconds":1678871957,"nanoseconds":77000000},"content":"Ask Visa"}]}

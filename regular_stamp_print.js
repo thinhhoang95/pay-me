@@ -43,8 +43,8 @@ const make_serial = (length, terms) => {
 serial_number = make_serial(5, 6);
 const taskRef = db.collection("regular").doc(serial_number);
 
-let content = reader.question('Enter the content for the regular stamp: ')
-let amountOfMoney = reader.question('Enter amount of money: ')
+let content = reader.question('Enter the content for the regular stamp. For bill, use DEBIT: as prefix. ')
+let amountOfMoney = reader.question('Enter amount of money. For bill, use negative value. ')
 let daysUntilExpire = reader.question('Enter the amount of days until the stamp expires: ')
 
 let expireDays = 30

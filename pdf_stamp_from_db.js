@@ -166,7 +166,7 @@ const print_task = (task_id, tasks) => {
               service: "gmail",
               auth: {
                 user: "thinhhoang.vaccine@gmail.com",
-                pass: "Thinh24051995#",
+                pass: "srwuwuvndsrphelg",
               },
             });
   
@@ -252,6 +252,25 @@ db.collection('subtasks').listDocuments().then((ref) => {
               db.collection('subtasks').doc(dbSn).get().then((snapshot) => {
                   let docContent = snapshot.data()
                   let tasks = [docContent]
+                  // Filtering out subs with validFromDate > now
+                  if (tasks[0].hasOwnProperty('subs'))
+                  {
+                    tasks[0].subs = tasks[0].subs.filter((t) => {
+                      if (!t.hasOwnProperty('validFromDate'))
+                      {
+                          return true
+                      }
+                      // if t.validFromDate is a string, convert it to a moment object
+                      if (typeof t.validFromDate === 'string')
+                      {
+                          t.validFromDate = moment(t.validFromDate, 'YYYY-MM-DD HH:mm:ss').toDate()
+                          return moment(t.validFromDate).isBefore(moment())
+                      } else {
+                        return moment(t.validFromDate.toDate()).isBefore(moment())
+                      }
+                    })
+                  }
+
                   print_task(0, tasks)
               })
         }
