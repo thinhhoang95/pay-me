@@ -4,6 +4,8 @@ const serviceAccount = require("./payme-node-key.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
+
+const dbx = require("./SubtasksNewServer.js")
   
 const db = admin.firestore();
 const fs = require('fs')
@@ -70,14 +72,14 @@ const truncateString = (str, len) => {
     advanceTodos()
 
     let sn = process.argv[2]
-    db.collection('subtasks').listDocuments().then((ref) => {
+    dbx().collection('subtasks').get().then((ref) => {
         const snsFound = ref.map(x => x.id)
         snsFound.forEach((dbSn) => {
             if (dbSn.indexOf(sn) != -1)
             {
                 console.log('Found SN ' + dbSn)
                 // sn = snsFound[0]
-                db.collection('subtasks').doc(dbSn).get().then((snapshot) => {
+                dbx().collection('subtasks').doc(dbSn).get().then((snapshot) => {
                     let docContent = snapshot.data()
                     let totalReward = 0
                     if (docContent.subs)
@@ -104,7 +106,7 @@ const truncateString = (str, len) => {
                         docContent.expired = moment().add(3, 'day').toISOString()
                         console.log('Extend expiredDate to 3 days from today')
                         docContent.description = "Task plan for " + moment().format("DD/MM/YYYY")
-                        db.collection('subtasks').doc(dbSn).set(docContent).then(() => console.log('Database updated for ' + dbSn))
+                        dbx().collection('subtasks').doc(dbSn).set(docContent).then(() => console.log('Database updated for ' + dbSn))
                     } else {
                         console.log('This stamp does not contain any subsubtasks')
                     }

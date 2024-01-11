@@ -16,7 +16,7 @@
     "moment-duration-format": "^2.3.2",
     "moment-timezone": "^0.5.43",
     "mqtt": "^4.3.7",
-    "node-fetch": "^3.3.1",
+    "node-fetch": "^2.7.0",
     "nodemailer": "^6.6.1",
     "puppeteer": "^9.1.1",
     "read-excel-file": "^5.1.0",
