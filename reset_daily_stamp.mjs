@@ -1,14 +1,16 @@
-const moment = require("moment");
-const admin = require("firebase-admin");
-const serviceAccount = require("./payme-node-key.json");
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
+import moment from "moment";
+// const admin = require("firebase-admin");
+// const serviceAccount = require("./payme-node-key.json");
+// admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+//   });
 
-const dbx = require("./SubtasksNewServer.js")
+import dbx from './SubtaskNewServer.js'
+
+// const dbx = require("./SubtaskNewServer.js")
   
-const db = admin.firestore();
-const fs = require('fs')
+// const db = admin.firestore();
+// const fs = require('fs')
 
 const make_serial = (length, terms) => {
     var result = [];
@@ -25,39 +27,39 @@ const make_serial = (length, terms) => {
     return result.join("");
 };
 
-const advanceTodos = async () => {
-  db.collection("todo").doc("default").get().then((snapshot) => {
-    if (snapshot.exists)
-    {
-      let docContent = snapshot.data()
-      // console.log(docContent)
-      let todos = docContent.todo
-      let newTodos = []
-      todos.forEach((t) => {
-        if (t.hasOwnProperty('deferUntil'))
-        {
-          // Set deferUntil to 1:59AM of the same day
-          let deferUntil = moment(t.deferUntil.toDate()).hour(1).minute(59).second(0).millisecond(0)
-          if (deferUntil.isBefore(moment())) // because this thing is run at 2AM
-          {
-            // deferUntil is in the past
-            newTodos.push({...t, deferUntil: moment().hour(2).minute(0).second(0).millisecond(0).toDate()})
-          } else {
-            newTodos.push(t)
-          }
-        } else {
-          newTodos.push(t)
-        }
-      })
+// const advanceTodos = async () => {
+//   db.collection("todo").doc("default").get().then((snapshot) => {
+//     if (snapshot.exists)
+//     {
+//       let docContent = snapshot.data()
+//       // console.log(docContent)
+//       let todos = docContent.todo
+//       let newTodos = []
+//       todos.forEach((t) => {
+//         if (t.hasOwnProperty('deferUntil'))
+//         {
+//           // Set deferUntil to 1:59AM of the same day
+//           let deferUntil = moment(t.deferUntil.toDate()).hour(1).minute(59).second(0).millisecond(0)
+//           if (deferUntil.isBefore(moment())) // because this thing is run at 2AM
+//           {
+//             // deferUntil is in the past
+//             newTodos.push({...t, deferUntil: moment().hour(2).minute(0).second(0).millisecond(0).toDate()})
+//           } else {
+//             newTodos.push(t)
+//           }
+//         } else {
+//           newTodos.push(t)
+//         }
+//       })
 
-      db.collection("todo").doc("default").set({todo: newTodos}).then(() => {
-        console.log('Todo list updated')
-      })
-    } else {
-      console.log('Todo list not found')
-    }
-})
-}
+//       db.collection("todo").doc("default").set({todo: newTodos}).then(() => {
+//         console.log('Todo list updated')
+//       })
+//     } else {
+//       console.log('Todo list not found')
+//     }
+// })
+// }
 
 const truncateString = (str, len) => {
     if (str.length > len)
@@ -69,10 +71,12 @@ const truncateString = (str, len) => {
 }
 
     // advance Todos: DO NOT AUTOMATICALLY ADVANCE TODOS
-    advanceTodos()
+    // advanceTodos()
 
     let sn = process.argv[2]
+    console.log("Searching for SN " + sn)
     dbx().collection('subtasks').get().then((ref) => {
+      console.log(ref)
         const snsFound = ref.map(x => x.id)
         snsFound.forEach((dbSn) => {
             if (dbSn.indexOf(sn) != -1)
